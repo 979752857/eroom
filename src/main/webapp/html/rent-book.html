@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>预约看房</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <script src="../js/base/rem.js"></script> 
+    <script src="../js/base/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../style/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/page.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/all.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/loaders.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="../js/slick/slick.css"/>
+	<script type="text/javascript" src="../js/common/util.js"></script>
+	<script type="text/javascript" src="../js/rent-book.js" ></script>
+</head>
+	<body>
+		<div class="headertwo clearfloat" id="header">
+			<a href="javascript:history.go(-1)" class="fl box-s"><i class="iconfont icon-arrow-l fl"></i></a>
+			<p class="fl bt">我的预约</p>
+		</div>
+		
+		<div class="clearfloat" id="main">
+			<div class="schedule clearfloat">
+				<div class="notice">
+					<div class="tab-hd clearfloat">
+						<ul class="tab-nav clearfloat">
+						  <li class="tab-three"><a href="javascript:getDatasList(1);">进行中的约看</a></li>
+						  <li class="tab-three"><a href="javascript:getDatasList(2);">已完成的约看</a></li>
+						  <li class="tab-three"><a href="javascript:getDatasList(3);">所有的约看</a></li>
+						</ul>
+					</div>
+					<div class="tab-bd clearfloat">
+						<div id="book-apply" class="tab-pal">
+							<div class="content clearfloat box-s">
+								<div class="topsche-top box-s clearfloat">
+									<p class="fl add">
+										<i class="iconfont icon-map"></i>
+										北京·出租房
+									</p>
+									<p class="fl time">
+										<i class="iconfont icon-time"></i>
+										2016-04-30
+									</p>
+									<p class="tit fr">
+										申请预约
+									</p>
+								</div>
+					    		<div class="list clearfloat fl box-s">
+					    			<a href="house-details.html">
+						    			<div class="tu clearfloat">
+						    				<span></span>
+						    				<img src="../upload/list-tu.jpg"/>
+						    			</div>
+						    			<div class="right clearfloat">
+						    				<div class="tit clearfloat">
+						    					<p class="fl">华府骏苑</p>
+						    					<span class="fr">2500<samp>元/月</samp></span>
+						    				</div>
+						    				<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
+						    				<div class="recom-bottom clearfloat">
+						    					<span><i class="iconfont icon-duihao"></i>随时住</span>
+						    					<span><i class="iconfont icon-duihao"></i>家电齐全</span>
+						    				</div>
+						    			</div>
+					    			</a>
+					    			<div class="topsche-top entrust box-s clearfloat">
+				    					<a href="#" class="tit fr entrust-btn">租住此房</a>
+				    					<a href="#" class="tit fr entrust-btn">取消预约</a>
+				    				</div>
+					    		</div>					    		
+					    	</div>
+					    	
+					    	<div class="content clearfloat box-s">
+								<div class="topsche-top box-s clearfloat">
+									<p class="fl add">
+										<i class="iconfont icon-map"></i>
+										北京·出租房
+									</p>
+									<p class="fl time">
+										<i class="iconfont icon-time"></i>
+										2016-04-30
+									</p>
+									<p class="tit titwo fr">
+										查看密码
+									</p>
+								</div>
+					    		<div class="list clearfloat fl box-s">
+					    			<a href="house-details.html">
+						    			<div class="tu clearfloat">
+						    				<span></span>
+						    				<img src="../upload/list-tu.jpg"/>
+						    			</div>
+						    			<div class="right clearfloat">
+						    				<div class="tit clearfloat">
+						    					<p class="fl">华府骏苑</p>
+						    					<span class="fr">2500<samp>元/月</samp></span>
+						    				</div>
+						    				<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
+						    				<div class="recom-bottom clearfloat">
+						    					<span><i class="iconfont icon-duihao"></i>随时住</span>
+						    					<span><i class="iconfont icon-duihao"></i>家电齐全</span>
+						    				</div>
+						    			</div>
+					    			</a>
+					    		</div>
+				    			<div class="topsche-top entrust box-s clearfloat">
+			    					<a href="#" class="tit fr entrust-btn">租住此房</a>
+			    					<a href="#" class="tit fr entrust-btn">取消看房</a>
+			    				</div>
+					    	</div>
+						</div>
+						
+						<div id="book-finish" class="tab-pal">
+							<div class="content clearfloat box-s">
+								<div class="topsche-top box-s clearfloat">
+									<p class="fl add">
+										<i class="iconfont icon-map"></i>
+										北京·出租房
+									</p>
+									<p class="fl time">
+										<i class="iconfont icon-time"></i>
+										2016-04-30
+									</p>
+									<p class="tit tithree fr">
+										已看房
+									</p>
+								</div>
+					    		<div class="list clearfloat fl box-s">
+					    			<a href="house-details.html">
+						    			<div class="tu clearfloat">
+						    				<span></span>
+						    				<img src="../upload/list-tu.jpg"/>
+						    			</div>
+						    			<div class="right clearfloat">
+						    				<div class="tit clearfloat">
+						    					<p class="fl">华府骏苑</p>
+						    					<span class="fr">2500<samp>元/月</samp></span>
+						    				</div>
+						    				<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
+						    				<div class="recom-bottom clearfloat">
+						    					<span><i class="iconfont icon-duihao"></i>随时住</span>
+						    					<span><i class="iconfont icon-duihao"></i>家电齐全</span>
+						    				</div>
+						    			</div>
+					    			</a>
+					    		</div>
+				    			<div class="topsche-top entrust box-s clearfloat">
+			    					<a href="#" class="tit fr entrust-btn">租住此房</a>
+			    				</div>
+					    	</div>
+						</div>
+						
+						<div id="book-all" class="tab-pal">
+							
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="../js/base/jquery.SuperSlide.2.1.js" ></script>
+	<script type="text/javascript" src="../js/slick/slick.min.js" ></script>
+	<script type="text/javascript" src="../js/base/jquery.leanModal.min.js"></script>
+	<script type="text/javascript" src="../js/base/tchuang.js" ></script>
+	<script type="text/javascript" src="../js/base/hmt.js" ></script>
+	<script type="text/javascript">
+		jQuery(".notice").slide({ titCell:".tab-hd li", mainCell:".tab-bd",trigger: "click",delayTime:0 });
+	</script>
+</html>

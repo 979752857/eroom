@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>房源详情</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <script src="../js/base/rem.js"></script> 
+    <script src="../js/base/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../style/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/page.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/all.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/loaders.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="../js/slick/slick.css"/>
+	<script type="text/javascript" src="../js/common/util.js"></script>
+	<script type="text/javascript" src="../js/owner-rent-date.js" ></script>
+</head>
+	<body>
+		<div class="headertwo clearfloat" id="header">
+			<a href="javascript:history.go(-1)" class="fl box-s"><i class="iconfont icon-arrow-l fl"></i></a>
+			<p class="fl bt">房源详情</p>
+		</div>
+		
+		<div class="clearfloat" id="main">
+			<div class="schedule clearfloat">
+				<div class="notice">
+					<div class="tab-hd clearfloat">
+						<ul class="tab-nav clearfloat">
+						  <li class="tab-three"><a href="javascript:getDatasList(1);">出租中</a></li>
+						  <li class="tab-three"><a href="javascript:getDatasList(2);">租住中</a></li>
+						  <li class="tab-three"><a href="javascript:getDatasList(3);">全部</a></li>
+						</ul>
+					</div>
+					<div class="tab-bd clearfloat">
+						<div id="book-apply" class="tab-pal">
+							
+						</div>
+						
+						<div id="book-finish" class="tab-pal">
+							
+						</div>
+						
+						<div id="book-all" class="tab-pal">
+							
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="../js/base/jquery.SuperSlide.2.1.js" ></script>
+	<script type="text/javascript" src="../js/slick/slick.min.js" ></script>
+	<script type="text/javascript" src="../js/base/jquery.leanModal.min.js"></script>
+	<script type="text/javascript" src="../js/base/tchuang.js" ></script>
+	<script type="text/javascript" src="../js/base/hmt.js" ></script>
+	<script type="text/javascript">
+		jQuery(".notice").slide({ titCell:".tab-hd li", mainCell:".tab-bd",trigger: "click",delayTime:0 });
+	</script>
+</html>
