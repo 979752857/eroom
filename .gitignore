@@ -3,3 +3,11 @@
 .settings
 .classpath
 .project
+.svn
+*.iml
+.DS_Store
+/bin/
+/build/
+/out/
+/src/main/resources
+/src/main/java/com/eroom/web/utils/datasource
