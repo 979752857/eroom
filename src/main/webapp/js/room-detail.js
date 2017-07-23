@@ -45,7 +45,7 @@ function getCollectDatas(){
  * 申请预约看房
  */
 function applyBook(){
-	var url = myUtil.BASE + "/room/applyBook";
+	var url = myUtil.BASE + "/roombook/applyBook";
 	var time = new Date();
 	var dateStr = $("#book-time").val();
 	if(dateStr == "明天"){
