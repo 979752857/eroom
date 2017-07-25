@@ -47,11 +47,12 @@ function getCollectDatas(){
 function applyBook(){
 	var url = myUtil.BASE + "/roombook/applyBook";
 	var time = new Date();
-	var dateStr = $("#book-time").val();
+	var dateStr = $("#book-date").val();
+	var day = time.getDate();
 	if(dateStr == "明天"){
-		time.setDate(time.getDate()+1);
+		time.setDate(day+1);
 	}else if(dateStr == "后天"){
-		time.setDate(time.getDate()+2);
+		time.setDate(day+2);
 	}
 	time = myUtil.dateFormat(time, "yyyy-MM-dd")
 	var timeStr = $("#book-time").val();
