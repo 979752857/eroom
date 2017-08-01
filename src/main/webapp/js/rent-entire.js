@@ -3,6 +3,7 @@
  */
 $(function() {
 	myUtil.menu(1);
+    init();
 	getDatasList();
 	$("#oe_overlay").hide();
 });
@@ -40,3 +41,25 @@ function getListSuccess(result){
 	}
 	$("#room").append(html);
 }
+
+function init(){
+	//添加区域筛选事件
+    $('#condition-area').on('click','li',function (e){
+        var content = $(this).children().html();
+        $("#condition-area-href").html(content+"<i></i>");
+        $("#condition-area-href").click();
+    });
+	//添加价格筛选事件
+    $('#condition-price').on('click','li',function (e){
+        var content = $(this).children().html();
+        $("#condition-price-href").html(content+"<i></i>");
+        $("#condition-price-href").click();
+    });
+	//添加排序筛选事件
+    $('#condition-sort').on('click','li',function (e){
+        var content = $(this).children().html();
+        $("#condition-sort-href").html(content+"<i></i>");
+        $("#condition-sort-href").click();
+    });
+}
+
