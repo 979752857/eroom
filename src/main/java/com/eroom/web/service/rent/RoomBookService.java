@@ -155,6 +155,10 @@ public class RoomBookService {
         if (!RoomConstants.RoomRent.RentState.RENTING.equals(tRoomRent.getRentState())) {
             throw new BusinessException("此房间暂未出租");
         }
+        // 判断时间是否早于当前时间
+        if (DateUtil.getCurrentDate().after(time)){
+            throw new BusinessException("预约时间不能早于当前时间");
+        }
         // 判断是否已经预约过
         String limitStr = systemCfgService.getCfgValue(SystemConstants.SystemCfg.CfgType.ROOM_BOOK,
                 SystemConstants.SystemCfg.CfgCode.BOOK_LIMIT);
