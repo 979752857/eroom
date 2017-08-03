@@ -1,0 +1,20 @@
+{
+   "eroom-db" : {
+      "autoCommit" : "true",
+      "connectionTimeout" : "30000",
+      "driverClassName" : "com.mysql.jdbc.Driver",
+      "idleTimeout" : "600000",
+      "jdbcUrl" : "jdbc:mysql://139.129.228.49:3306/eroom?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false",
+      "username" : "root",
+      "password" : "yinjiashiji2016",
+      /*"jdbcUrl" : "jdbc:mysql://localhost:3306/eroom?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false",
+      "username" : "root",
+      "password" : "123456",*/
+      "maxLifetime" : "1800000",
+      "maximumPoolSize" : "25",
+      "maxTotal":"10",
+	  "maxIdle":"5",
+      "maxWaitMillis":"1000",
+	  "defaultAutoCommit":"true"
+   }
+}

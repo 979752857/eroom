@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.eroom.web.entity.bo.RoomRentBo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
@@ -62,12 +63,36 @@ public class RoomRentDao extends BaseDao {
      * @throws Exception
      * @author tendy
      */
-    public List<RoomRentVo> getTRoomRentVo() throws Exception {
-        String hql = "select new com.eroom.web.entity.vo.rent.RoomRentVo(trr.rentId, trr.roomId, trr.custOwnerId, trr.bedroomId, "
-                + "trr.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, trr.price, "
-                + "tri.roomType, tbi.space, tbi.decorate) from TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri "
-                + "where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId order by trr.sortId desc";
-        List<RoomRentVo> list = this.getList(hql);
+    public List<RoomRentVo> getTRoomRentVo(RoomRentBo roomRentBo) throws Exception {
+		StringBuilder hql = new StringBuilder();
+		Map<String, Object> params = new HashMap<String, Object>();
+		hql.append(" select new com.eroom.web.entity.vo.rent.RoomRentVo(trr.rentId, trr.roomId, trr.custOwnerId, trr.bedroomId, ");
+		hql.append(" trr.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, trr.price, ");
+		hql.append(" tri.roomType, tbi.space, tbi.decorate) from TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
+		hql.append(" where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId ");
+		//数据有效性
+		hql.append(" and trr.state = :state ");
+		params.put("state", SystemConstants.State.ACTIVE);
+		//价格最小值
+		if(roomRentBo.getPriceMin() != null){
+			hql.append(" and trr.price >= :priceMin ");
+			params.put("priceMin", roomRentBo.getPriceMin());
+		}
+		//价格最大值
+		if(roomRentBo.getPriceMax() != null){
+			hql.append(" and trr.price <= :priceMax ");
+			params.put("priceMax", roomRentBo.getPriceMax());
+		}
+		//租住类型
+		if(roomRentBo.getRentType() != null){
+			hql.append(" and trr.rentType = :rentType ");
+			params.put("rentType", roomRentBo.getRentType());
+		}
+		//出租状态
+		hql.append(" and trr.rentState = :rentState ");
+		params.put("rentState", RoomConstants.RoomRent.RentState.RENTING);
+		hql.append(" order by trr.sortId desc ");
+        List<RoomRentVo> list = this.getList(hql.toString(), params);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
         }
@@ -82,14 +107,19 @@ public class RoomRentDao extends BaseDao {
      * @author tendy
      */
     public List<RoomRentVo> getTRoomRentVo(Long custRenterId) throws Exception {
-        String hql = "select new com.eroom.web.entity.vo.rent.RoomRentVo(trr.rentId, trr.roomId, trr.custOwnerId, trr.bedroomId, "
-                + "trr.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, trr.price, "
-                + "tri.roomType, tbi.space, tbi.decorate, trr.endTime ) from TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri "
-                + "where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId and trr.custRenterId = :custRenterId and trr.rentState = :rentState order by trr.endTime desc";
+		StringBuilder hql = new StringBuilder();
+		hql.append(" select new com.eroom.web.entity.vo.rent.RoomRentVo(trr.rentId, trr.roomId, trr.custOwnerId, trr.bedroomId, ");
+        hql.append(" trr.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, trr.price, ");
+        hql.append(" tri.roomType, tbi.space, tbi.decorate, trr.endTime ) from TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
+        hql.append(" where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId and trr.custRenterId = :custRenterId and trr.rentState = :rentState ");
+		//数据有效性
+		hql.append(" and trr.state = :state ");
+        hql.append(" order by trr.endTime desc ");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("custRenterId", custRenterId);
         params.put("rentState", RoomConstants.RoomRent.RentState.RENTED);
-        List<RoomRentVo> list = this.getList(hql, params);
+		params.put("state", SystemConstants.State.ACTIVE);
+        List<RoomRentVo> list = this.getList(hql.toString(), params);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
         }

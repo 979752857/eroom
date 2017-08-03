@@ -21,7 +21,7 @@ public class RoomController extends BaseController {
     private RoomRentService roomRentService;
 
     /**
-     * 获取热门房源信息
+     * 获取房源信息
      * 
      * @return
      * @throws Exception
@@ -30,7 +30,7 @@ public class RoomController extends BaseController {
     @ResponseBody
     public ResultVo getRoom() throws Exception {
         ResultVo result = new ResultVo();
-        List<RoomRentVo> list = roomRentService.getRoomRent();
+        List<RoomRentVo> list = roomRentService.getRoomRent(null);
         result.setDatas(list);
         return result;
     }

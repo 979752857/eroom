@@ -1,6 +1,7 @@
 package com.eroom.web.controller.rentlife;
 
 import com.eroom.web.controller.BaseController;
+import com.eroom.web.entity.po.TRoomMessage;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.base.SessionVo;
 import com.eroom.web.entity.vo.rentlife.RoomMessageVo;
@@ -17,8 +18,6 @@ import java.util.List;
 @RequestMapping("/message")
 public class MessageController extends BaseController {
 
-	@Resource
-	private RoomDetailService roomDetailService;
 	@Resource
 	private RoomMessageService roomMessageService;
 
@@ -51,6 +50,22 @@ public class MessageController extends BaseController {
         SessionVo sessionVo = this.getCustSession();
         List<RoomMessageVo> list = roomMessageService.getAllRoomMessage(sessionVo.getCustId());
         result.setDatas(list);
+        return result;
+    }
+
+	/**
+     * 添加留言信息
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/addMessage")
+    @ResponseBody
+    public ResultVo addMessage(String message) throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        TRoomMessage tRoomMessage = roomMessageService.addRoomMessage(sessionVo.getCustId(), message);
+        result.setDatas(tRoomMessage);
         return result;
     }
 }

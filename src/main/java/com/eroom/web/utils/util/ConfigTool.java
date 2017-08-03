@@ -19,9 +19,17 @@ public final class ConfigTool {
         String data="";
         try {
             String encoding = "UTF-8";
-            File file = new File(Thread.currentThread().getContextClassLoader().getResource("")
-                    .getPath()
-                    + "jdbc.json");
+            String jdbcName = "jdbc.json";
+            String filePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+            /*---------------------------------------*/
+            //判断是否是idea单元测试
+            if(filePath.indexOf("classes/test/") > 0){
+                filePath = filePath.substring(0, filePath.indexOf("classes/test/"));
+                filePath += "resources/main/";
+            }
+            /*---------------------------------------*/
+            filePath += jdbcName;
+            File file = new File(filePath);
             if (file.isFile() && file.exists()) { // 判断文件是否存在
                 // 读取文件内容
                 InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);// 考虑到编码格式

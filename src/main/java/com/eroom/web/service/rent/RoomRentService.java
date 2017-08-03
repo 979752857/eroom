@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.entity.bo.RoomRentBo;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.RoomConstants;
@@ -41,8 +42,8 @@ public class RoomRentService {
      * @return
      * @throws Exception
      */
-    public List<RoomRentVo> getRoomRent() throws Exception {
-        return roomRentDao.getTRoomRentVo();
+    public List<RoomRentVo> getRoomRent(RoomRentBo roomRentBo) throws Exception {
+        return roomRentDao.getTRoomRentVo(roomRentBo);
     }
 
     /**

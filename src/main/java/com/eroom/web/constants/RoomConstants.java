@@ -17,6 +17,20 @@ public class RoomConstants {
              */
             public static final String CONFIG = "03";
         }
+        public static class RentType{
+            /**
+             * 整租
+             */
+            public static final String WHOLE_RENT = "01";
+            /**
+             * 合租
+             */
+            public static final String JOINT_RENT = "02";
+            /**
+             * 短租
+             */
+            public static final String SHORT_RENT = "03";
+        }
     }
     
     public static class RoomBook{
