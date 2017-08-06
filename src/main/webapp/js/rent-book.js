@@ -82,8 +82,8 @@ function getListSuccess(result){
 			html += '</div></div></div>';
 		});
 	}else{
-		html += '<div class="empty-list clearfloat" id="main"><i class="iconfont icon-meineirong"></i><p>还没有内容哦！</p></div>';
-		//myUtil.toast('空数据');
+		html += '<div class="empty-list clearfloat" id="main"><i class="iconfont icon-meineirong"></i><p>还没有预约的房子，快去预约吧！</p></div>';
 	}
 	$("#"+tabId).append(html);
 }
+

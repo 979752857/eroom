@@ -1,3 +1,5 @@
+var TASK_INFO_TASK = "01";
+var TASK_INFO_ASSESS = "02";
 /**
  * 页面初始化
  */
@@ -69,31 +71,36 @@ function getTaskListSuccess(result){
 	$("#task").html("");
 	if(datas&&datas.length>0){
 		$.each(datas,function(index,item){
+            if(item.type == TASK_INFO_TASK){
+                html += '<a href="rent-life-taskdetail.html">';
+            }else if(item.type == TASK_INFO_ASSESS){
+                html += '<a href="rent-life-taskassess.html">';
+            }
 			html += '<div class="content clearfloat box-s"><div class="topsche-top box-s clearfloat"><p class="fl time">';
 			html += '<i class="iconfont icon-time"></i>'+myUtil.dateFormat(item.updateTime, "yyyy-MM-dd hh:mm")+'</p>';
-			if(item.type == '01'){
+			if(item.type == TASK_INFO_TASK){
 				html += '<p class="tit fr">查看详情</p></div>';
-			}else if(item.type == '02'){
+			}else if(item.type == TASK_INFO_ASSESS){
 				html += '<p class="tit fr titwo">任务评价</p></div>';
 			}
-			html += '<div class="list clearfloat fl box-s"><a href="#"><div class="tu clearfloat">';
-			if(item.type == '01'){
+			html += '<div class="list clearfloat fl box-s"><div class="tu clearfloat">';
+			if(item.type == TASK_INFO_TASK){
 				html += '<span></span><img src="../upload/clean.jpg"/></div><div class="right clearfloat">';
-			}else if(item.type == '02'){
+			}else if(item.type == TASK_INFO_ASSESS){
 				html += '<span></span><img src="../upload/evaluate.jpg"/></div><div class="right clearfloat">';
 			}
 			html += '<div class="tit clearfloat"><p class="fl">'+item.custName+'</p><span class="fr">'+myUtil.dateFormat(item.endTime, "yyyy-MM-dd")+'</span></div>';
-			if(item.type == '01'){
+			if(item.type == TASK_INFO_TASK){
 				html += '<p class="recom-liuyan">'+item.content+'</p><div class="recom-bottom clearfloat">';
-			}else if(item.type == '02'){
+			}else if(item.type == TASK_INFO_ASSESS){
 				html += '<p class="recom-liuyan">您的室友已经打扫完卫生了，赶快来围观评价吧！</p><div class="recom-bottom clearfloat">';
 			}
 			var strs= new Array(); //定义一数组 
 			strs=item.taskList.split(","); //字符分割 
 			for (i=0;i<strs.length ;i++ ) 
 			{ 
-				strs[i] = myUtil.getSystemParamTitle("PAY_DETAIL", "TYPE", strs[i]);
-				if(item.type == '02'){
+				strs[i] = myUtil.getSystemParamTitle("TASK_INFO", "TASK_LIST", strs[i]);
+				if(item.type == TASK_INFO_ASSESS){
 					html += '<span class="finish"><i class="iconfont icon-duihao"></i>'+strs[i]+'</span>';
 				}else{
 					if(item.taskState == '00'){
@@ -103,7 +110,7 @@ function getTaskListSuccess(result){
 					}
 				}
 			} 
-			html += '</div></div></a></div></div>';
+			html += '</div></div></div></div></a>';
 		});
 	}else{
 		html += '<div class="empty-list clearfloat" id="main"><i class="iconfont icon-meineirong"></i><p>还没有内容哦！</p></div>';

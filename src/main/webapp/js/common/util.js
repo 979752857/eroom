@@ -132,6 +132,10 @@
 	// 存储openid tenant
 	var saveOpenid = (function() {
 		var openid = Kodo.getUrlParam("openid");
+		/***************************/
+		/*  用于方便测试使用  */
+		openid = 1;
+		/***************************/
 		if (openid) {
 			sessionStorage.setItem("$openid", openid);
 		}

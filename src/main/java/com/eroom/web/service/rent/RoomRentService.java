@@ -43,6 +43,9 @@ public class RoomRentService {
      * @throws Exception
      */
     public List<RoomRentVo> getRoomRent(RoomRentBo roomRentBo) throws Exception {
+        if(roomRentBo == null){
+            roomRentBo = new RoomRentBo();
+        }
         return roomRentDao.getTRoomRentVo(roomRentBo);
     }
 

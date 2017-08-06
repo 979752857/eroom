@@ -172,6 +172,7 @@ public class RoomRentDao extends BaseDao {
         if (!CollectionUtils.isEmpty(list)) {
             return list.get(0);
         }
+
         return null;
     }
 

@@ -1,13 +1,13 @@
 package com.eroom.web.utils.util;
 
+import com.alibaba.fastjson.JSONObject;
+import com.eroom.web.utils.exception.BusinessException;
+import com.zaxxer.hikari.HikariConfig;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-
-import com.alibaba.fastjson.JSONObject;
-import com.eroom.web.utils.exception.BusinessException;
-import com.zaxxer.hikari.HikariConfig;
 
 public final class ConfigTool {
 

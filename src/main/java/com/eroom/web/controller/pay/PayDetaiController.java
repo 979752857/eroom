@@ -37,4 +37,19 @@ public class PayDetaiController extends BaseController {
 		return result;
 	}
 
+	/**
+	 * 获取近半年缴费记录
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getPayDetailHalfYear")
+	@ResponseBody
+	public ResultVo getPayDetailHalfYear() throws Exception {
+		ResultVo result = new ResultVo();
+		SessionVo sessionVo = this.getCustSession();
+
+		return result;
+	}
+
 }
