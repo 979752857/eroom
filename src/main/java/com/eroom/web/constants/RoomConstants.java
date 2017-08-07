@@ -55,6 +55,10 @@ public class RoomConstants {
              * 取消
              */
             public static final String CANCEL = "04";
+            /**
+             * 过期
+             */
+            public static final String TIMEOUT = "05";
         }
     }
 }

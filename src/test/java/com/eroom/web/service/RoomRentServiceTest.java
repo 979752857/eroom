@@ -1,3 +1,6 @@
+package com.eroom.web.service;
+
+import com.eroom.web.BaseTest;
 import com.eroom.web.constants.RoomConstants;
 import com.eroom.web.entity.bo.RoomRentBo;
 import com.eroom.web.entity.vo.rent.RoomRentVo;
@@ -16,7 +19,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:applicationContext.xml"})
-public class RoomRentServiceTest extends BaseTest{
+public class RoomRentServiceTest extends BaseTest {
 
     @Resource
     private RoomRentService roomRentService;

@@ -173,4 +173,23 @@ public class RoomBookDao extends BaseDao {
         return null;
     }
 
+    /**
+     * 定时任务执行，预约过期修改状态
+     *
+     * @throws Exception
+     * @author tendy
+     */
+    public int checkBooking(Date time) throws Exception {
+        String hql = "update TRoomBook set applyState = :timeOut where endTime <= :time and state = :state and applyState = :applyState";
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("time", time);
+        params.put("timeOut", RoomConstants.RoomBook.ApplyState.TIMEOUT);
+        params.put("applyState", RoomConstants.RoomBook.ApplyState.AGREE);
+        params.put("state", SystemConstants.State.ACTIVE);
+
+        int result = this.update(hql, params);
+        return result;
+    }
+
 }
