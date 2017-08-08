@@ -61,23 +61,30 @@ function getListSuccess(result){
 		$.each(datas,function(index,item){
 			html += '<div class="content clearfloat box-s"><div class="topsche-top box-s clearfloat">';
 			html += '<p class="fl time"><i class="iconfont icon-time"></i>&nbsp;看房时间：'+myUtil.dateFormat(item.startTime, "MM-dd hh:mm")+'</p>';
-			if(item.applyState == '00'){
-				html += '<p class="tit fr">'; 
-			}else if(item.applyState == '01' || item.applyState == '03'){
-				html += '<p class="tit titwo fr">'; 
-			}else{
+			if((item.applyState == '00' || item.applyState == '01') && checkTimeout(item.endTime)){
 				html += '<p class="tit tithree fr">';
+				html += '已过期</p>';
+			}else{
+				if(item.applyState == '00'){
+					html += '<p class="tit fr">';
+				}else if(item.applyState == '01' || item.applyState == '03'){
+					html += '<p class="tit titwo fr">';
+				}else{
+					html += '<p class="tit tithree fr">';
+				}
+				html += myUtil.getSystemParamTitle("ROOM_BOOK", "APPLY_STATE", item.applyState)+'</p>';
 			}
-			html += myUtil.getSystemParamTitle("ROOM_BOOK", "APPLY_STATE", item.applyState)+'</p>';
 			html += '</div><div class="list clearfloat fl box-s">';
 			html += '<a href="room-detail.html?rentId='+item.rentId+'"><div class="tu clearfloat"><span></span><img src="'+item.bedroomImageUrl+'"/>';
 			html += '</div><div class="right clearfloat"><div class="tit clearfloat"><p class="fl">'+item.name+'</p>';
 			html += '<span class="fr">'+item.price+'<samp>元/月</samp></span></div><p class="recom-jianjie">'+item.roomType+'   |  '+item.space+'  |  '+item.decorate+'</p>';
 			html += '<div class="recom-bottom clearfloat"><span><i class="iconfont icon-duihao"></i>随时住</span>';
 			html += '<span><i class="iconfont icon-duihao"></i>家电齐全</span></div></div></a>';
-			html += '<div class="topsche-top entrust box-s clearfloat"><a href="#" class="tit fr entrust-btn">租住此房</a>';
-			if(item.applyState == '01' || item.applyState == '00'){
-				html += '<a href="javascript:cancelBook('+item.bookId+');" class="tit fr entrust-btn">取消预约</a>';
+            if(!(item.applyState == '00' || item.applyState == '01') || !checkTimeout(item.endTime)){
+                html += '<div class="topsche-top entrust box-s clearfloat"><a href="#" class="tit fr entrust-btn">租住此房</a>';
+                if(item.applyState == '01' || item.applyState == '00'){
+                    html += '<a href="javascript:cancelBook('+item.bookId+');" class="tit fr entrust-btn">取消预约</a>';
+                }
 			}
 			html += '</div></div></div>';
 		});
@@ -87,3 +94,13 @@ function getListSuccess(result){
 	$("#"+tabId).append(html);
 }
 
+//校验时间是否过期
+function checkTimeout(time){
+	var flag = false;
+    var dB = new Date(time.replace(/-/g, "/"));
+    if (new Date() > Date.parse(dB)) {
+        flag = true;
+    }
+    console.log(Date.parse(dB)+"  "+dB);
+	return flag;
+}
