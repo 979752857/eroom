@@ -14,19 +14,21 @@ import java.util.Map;
 public class PayOrderDao extends BaseDao {
 
     /**
-     * 获取最新缴费信息
+     * 获取支付订单列表
      * 
-     * @return TRoomRent
+     * @return TPayOrder
      * @throws Exception
      * @author tendy
      */
-    public List<TPayOrder> getLastTPayOrder(String orderState, int limit) throws Exception {
-        String hql = "from TPayOrder where orderState = :orderState order by createTime desc";
+    public List<TPayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        hql.append("from TPayOrder where orderState = :orderState and custRenterId = :custRenterId order by createTime desc");
         
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderState", orderState);
-        
-        List<TPayOrder> list = this.getPageList(hql, params, 0, limit);
+        params.put("custRenterId", custRenterId);
+
+        List<TPayOrder> list = this.getPageList(hql.toString(), params, 0, limit);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
         }

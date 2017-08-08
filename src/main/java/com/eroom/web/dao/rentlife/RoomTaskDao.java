@@ -63,4 +63,28 @@ public class RoomTaskDao extends BaseDao {
         }
         return null;
     }
+
+    /**
+     * 获取任务信息列表
+     *
+     * @return List<TaskInfoVo>
+     * @throws Exception
+     * @author tendy
+     */
+    public List<TaskInfoVo> getTaskInfoVoList(Long custId, Integer limit) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        hql.append("select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( ");
+        hql.append("tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, ");
+        hql.append("tti.taskList, tti.state, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState ");
+        hql.append(") from TCustInfo tci, TCustInfo tcie, TRoomTask tti ");
+        hql.append("where tti.custId = tci.custId and tti.executeCustId = tcie.custId and tti.executeCustId = :executeCustId order by tti.updateTime desc ");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("executeCustId", custId);
+
+        List<TaskInfoVo> list = this.getPageList(hql.toString(), params, 0, limit);
+        if (!CollectionUtils.isEmpty(list)) {
+            return list;
+        }
+        return null;
+    }
 }
