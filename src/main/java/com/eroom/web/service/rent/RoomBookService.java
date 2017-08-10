@@ -147,10 +147,6 @@ public class RoomBookService {
             throw new BusinessException("没有获取到预约时间");
         }
         TRoomRent tRoomRent = roomRentDao.get(TRoomRent.class, rentId);
-        // 判断数据是否有效
-        if (!SystemConstants.State.ACTIVE.equals(tRoomRent.getState())) {
-            throw new BusinessException("无效的租房信息");
-        }
         // 判断房屋是否已经出租
         if (!RoomConstants.RoomRent.RentState.RENTING.equals(tRoomRent.getRentState())) {
             throw new BusinessException("此房间暂未出租");
@@ -177,7 +173,6 @@ public class RoomBookService {
         tRoomBook.setRentId(rentId);
         tRoomBook.setStartTime(time);
         tRoomBook.setEndTime(endTime);
-        tRoomBook.setState(SystemConstants.State.ACTIVE);
         tRoomBook.setApplyState(RoomConstants.RoomBook.ApplyState.APPLYING);
         tRoomBook.setBedRoomId(tRoomRent.getBedroomId());
         roomBookDao.save(tRoomBook);

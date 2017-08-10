@@ -70,9 +70,6 @@ public class RoomRentDao extends BaseDao {
 		hql.append(" trr.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, trr.price, ");
 		hql.append(" tri.roomType, tbi.space, tbi.decorate) from TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
 		hql.append(" where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId ");
-		//数据有效性
-		hql.append(" and trr.state = :state ");
-		params.put("state", SystemConstants.State.ACTIVE);
 		//价格最小值
 		if(roomRentBo.getPriceMin() != null){
 			hql.append(" and trr.price >= :priceMin ");
@@ -112,13 +109,10 @@ public class RoomRentDao extends BaseDao {
         hql.append(" trr.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, trr.price, ");
         hql.append(" tri.roomType, tbi.space, tbi.decorate, trr.endTime ) from TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
         hql.append(" where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId and trr.custRenterId = :custRenterId and trr.rentState = :rentState ");
-		//数据有效性
-		hql.append(" and trr.state = :state ");
         hql.append(" order by trr.endTime desc ");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("custRenterId", custRenterId);
         params.put("rentState", RoomConstants.RoomRent.RentState.RENTED);
-		params.put("state", SystemConstants.State.ACTIVE);
         List<RoomRentVo> list = this.getList(hql.toString(), params);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
@@ -138,14 +132,13 @@ public class RoomRentDao extends BaseDao {
         String hql = "select new com.eroom.web.entity.vo.rent.RoomRentVo(trr.rentId, trr.roomId, trr.custOwnerId, trr.bedroomId, "
                 + "trr.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, trr.price, "
                 + "tri.roomType, tbi.space, tbi.decorate, trr.endTime, trr.createTime, trr.rentState ) from TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri "
-                + "where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId and trr.custOwnerId = :custOwnerId and trr.state = :state ";
+                + "where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId and trr.custOwnerId = :custOwnerId ";
         if(!StringUtil.isBlank(rentState)){
             hql += "and trr.rentState = :rentState ";
             params.put("rentState", rentState);
         }
         hql += "order by trr.endTime desc";
         params.put("custOwnerId", custOwnerId);
-        params.put("state", SystemConstants.State.ACTIVE);
         List<RoomRentVo> list = this.getList(hql, params);
         if (!CollectionUtils.isEmpty(list)) {
             return list;

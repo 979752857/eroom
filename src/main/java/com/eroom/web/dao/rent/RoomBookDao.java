@@ -43,13 +43,12 @@ public class RoomBookDao extends BaseDao {
     public TRoomBook getTRoomBookApplied(Long custId, Long roomId, Date startTime, Date endTime)
             throws Exception {
         String hql = "from TRoomBook where roomId = :roomId "
-                + "and state = :state and applyState in (:applyState1, :applyState2) "
-                + "and ((startTime >= :startTime and startTime <= :endTime) or (endTime >= :startTime and endTime <= :endTime)) "
-                + "order by startTime desc";
+                + " and applyState in (:applyState1, :applyState2) "
+                + " and ((startTime >= :startTime and startTime <= :endTime) or (endTime >= :startTime and endTime <= :endTime)) "
+                + " order by startTime desc";
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("roomId", roomId);
-        params.put("state", SystemConstants.State.ACTIVE);
         params.put("applyState1", RoomConstants.RoomBook.ApplyState.AGREE);
         params.put("applyState2", RoomConstants.RoomBook.ApplyState.APPLYING);
         params.put("startTime", startTime);
@@ -70,11 +69,10 @@ public class RoomBookDao extends BaseDao {
      * @author tendy
      */
     public TRoomBook getTRoomBook(Long custId) throws Exception {
-        String hql = "from TRoomBook where custRenterId = :custId and state = :state order by startTime desc";
+        String hql = "from TRoomBook where custRenterId = :custId order by startTime desc";
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("custId", custId);
-        params.put("state", SystemConstants.State.ACTIVE);
 
         List<TRoomBook> list = this.getList(hql, params);
         if (!CollectionUtils.isEmpty(list)) {
@@ -97,7 +95,7 @@ public class RoomBookDao extends BaseDao {
         hql.append("trb.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, ");
         hql.append("trr.price, tri.roomType, tbi.space, tbi.decorate, trb.applyState, trb.startTime, trb.endTime) ");
         hql.append(" from TRoomBook trb, TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
-        hql.append(" where trb.custRenterId = :custId and trb.state = :state and trb.rentId = trr.rentId ");
+        hql.append(" where trb.custRenterId = :custId and trb.rentId = trr.rentId ");
         hql.append(" and trb.roomId = tri.roomId and trb.bedRoomId = tbi.bedroomId ");
         if (!CollectionUtils.isEmpty(applyStateList)) {
             hql.append(" and trb.applyState in (");
@@ -119,8 +117,6 @@ public class RoomBookDao extends BaseDao {
                 params.put("applyState" + i, applyStateList.get(i));
             }
         }
-        params.put("state", SystemConstants.State.ACTIVE);
-
         List<RoomBookVo> list = this.getList(hql.toString(), params);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
@@ -142,7 +138,7 @@ public class RoomBookDao extends BaseDao {
         hql.append("trb.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, ");
         hql.append("trr.price, tri.roomType, tbi.space, tbi.decorate, trb.applyState, trb.startTime, trb.endTime) ");
         hql.append(" from TRoomBook trb, TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
-        hql.append(" where trb.custOwnerId = :custId and trb.state = :state and trb.rentId = trr.rentId ");
+        hql.append(" where trb.custOwnerId = :custId and trb.rentId = trr.rentId ");
         hql.append(" and trb.roomId = tri.roomId and trb.bedRoomId = tbi.bedroomId ");
         if (!CollectionUtils.isEmpty(applyStateList)) {
             hql.append(" and trb.applyState in (");
@@ -164,8 +160,7 @@ public class RoomBookDao extends BaseDao {
                 params.put("applyState" + i, applyStateList.get(i));
             }
         }
-        params.put("state", SystemConstants.State.ACTIVE);
-        
+
         List<RoomBookVo> list = this.getList(hql.toString(), params);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
@@ -180,13 +175,12 @@ public class RoomBookDao extends BaseDao {
      * @author tendy
      */
     public int checkBooking(Date time) throws Exception {
-        String hql = "update TRoomBook set applyState = :timeOut where endTime <= :time and state = :state and applyState = :applyState";
+        String hql = "update TRoomBook set applyState = :timeOut where endTime <= :time and applyState = :applyState";
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("time", time);
         params.put("timeOut", RoomConstants.RoomBook.ApplyState.TIMEOUT);
         params.put("applyState", RoomConstants.RoomBook.ApplyState.AGREE);
-        params.put("state", SystemConstants.State.ACTIVE);
 
         int result = this.update(hql, params);
         return result;

@@ -29,12 +29,12 @@ public class BookingCheckTaskTest extends BaseTest {
         try {
             int result = roomBookDao.checkBooking(nowTime);
             if(result > 0){
-                logger.info("用户预约过期校验成功："+result);
+                logger.info("\n用户预约过期校验成功："+result);
             }else{
-                logger.info("用户预约过期校验失败："+result);
+                logger.info("\n用户预约过期校验失败："+result);
             }
         } catch (Exception e) {
-            logger.warn("定时检查用户预订失败："+e.toString());
+            logger.warn("\n定时检查用户预订失败："+e.toString());
         }
     }
 }

@@ -18,7 +18,7 @@ public class PayDetailService {
 	private PayDetailDao payDetailDao;
 
 	/**
-	 * 获取最新留言信息
+	 * 获取最新缴费信息
 	 * 
 	 * @return
 	 * @throws Exception
@@ -28,6 +28,20 @@ public class PayDetailService {
 	        throw new BusinessException("未获取到租客编号");
 	    }
 	    List<TPayDetail> list = payDetailDao.getLastTPayDetail(custId, PaymentConstants.LIMIT);
+		return list;
+	}
+
+	/**
+	 * 获取近半年缴费情况
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TPayDetail> getPayDetailHalfYear(Long custId) throws Exception {
+		if(custId == null || custId == 0){
+			throw new BusinessException("未获取到租客编号");
+		}
+		List<TPayDetail> list = payDetailDao.getLastTPayDetail(custId, PaymentConstants.LIMIT);
 		return list;
 	}
 

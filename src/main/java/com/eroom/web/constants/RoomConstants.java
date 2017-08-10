@@ -52,13 +52,17 @@ public class RoomConstants {
              */
             public static final String FINISH = "03";
             /**
+             * 看房中
+             */
+            public static final String LOOKING = "04";
+            /**
              * 取消
              */
-            public static final String CANCEL = "04";
+            public static final String CANCEL = "09";
             /**
              * 过期
              */
-            public static final String TIMEOUT = "05";
+            public static final String TIMEOUT = "08";
         }
     }
 }

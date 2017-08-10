@@ -21,14 +21,17 @@ public class PayOrderDao extends BaseDao {
      * @author tendy
      */
     public List<TPayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit) throws Exception {
+        return getTPayOrderList(custRenterId, orderState, limit, 0);
+    }
+    public List<TPayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit, int page) throws Exception {
         StringBuilder hql = new StringBuilder();
         hql.append("from TPayOrder where orderState = :orderState and custRenterId = :custRenterId order by createTime desc");
-        
+
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderState", orderState);
         params.put("custRenterId", custRenterId);
 
-        List<TPayOrder> list = this.getPageList(hql.toString(), params, 0, limit);
+        List<TPayOrder> list = this.getPageList(hql.toString(), params, page, limit);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
         }

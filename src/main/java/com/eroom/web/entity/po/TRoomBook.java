@@ -34,8 +34,6 @@ public class TRoomBook implements java.io.Serializable {
 
     private Date endTime;
 
-    private String state;
-
     private String applyState;
 
     private Date createTime;
@@ -53,7 +51,6 @@ public class TRoomBook implements java.io.Serializable {
         this.custRenterId = custRenterId;
         this.custOwnerId = custOwnerId;
         this.roomId = roomId;
-        this.state = state;
         this.applyState = applyState;
         this.createTime = createTime;
     }
@@ -68,7 +65,6 @@ public class TRoomBook implements java.io.Serializable {
         this.bedRoomId = bedRoomId;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.state = state;
         this.applyState = applyState;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -150,15 +146,6 @@ public class TRoomBook implements java.io.Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
-    }
-
-    @Column(name = "state", nullable = false, length = 4)
-    public String getState() {
-        return this.state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     @Column(name = "apply_state", nullable = false, length = 4)
