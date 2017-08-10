@@ -23,13 +23,26 @@
 			<a href="javascript:history.go(-1)" class="fl box-s"><i class="iconfont icon-arrow-l fl"></i></a>
 			<p class="fl">我的任务</p>
 		</div>
-		
+
 		<div class="clearfloat" id="main">
-			<div class="recom clearfloat ">
-		    	<div id="task" class="content clearfloat box-s">
-		    		
-		    	</div>
-		    </div>
+			<div class="schedule clearfloat">
+				<div class="notice">
+					<div class="tab-hd clearfloat">
+						<ul class="tab-nav clearfloat">
+							<li class="tab-three"><a href="javascript:getDatasList(1);">待执行</a></li>
+							<li class="tab-three"><a href="javascript:getDatasList(2);">已完成</a></li>
+						</ul>
+					</div>
+					<div class="tab-bd clearfloat">
+						<div id="task-execute" class="tab-pal">
+
+						</div>
+						<div id="task-finish" class="tab-pal">
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>

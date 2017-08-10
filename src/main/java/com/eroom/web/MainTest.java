@@ -28,23 +28,35 @@ public class MainTest {
 
     public static JedisCluster getJedisCluster(){
         GenericObjectPoolConfig gopc = new GenericObjectPoolConfig();
-        gopc.setMaxTotal(32);
-        gopc.setMaxIdle(4);
-        gopc.setMaxWaitMillis(6000);
+        gopc.setMaxTotal(50);
+        gopc.setMaxIdle(20);
+        gopc.setMaxWaitMillis(10000);
+        gopc.setTestOnBorrow(true);
+        gopc.setTestOnReturn(true);
+        //Idle时进行连接扫描
+        gopc.setTestWhileIdle(true);
+        //表示idle object evitor两次扫描之间要sleep的毫秒数
+        gopc.setTimeBetweenEvictionRunsMillis(30000);
+        //表示idle object evitor每次扫描的最多的对象数
+        gopc.setNumTestsPerEvictionRun(10);
+        //表示一个对象至少停留在idle状态的最短时间，然后才能被idle object evitor扫描并驱逐；这一项只有在timeBetweenEvictionRunsMillis大于0时才有意义
+        gopc.setMinEvictableIdleTimeMillis(60000);
         StringBuilder str = new StringBuilder();
-        str.append("47.93.217.79:6179");
-        str.append(",47.93.217.79:6180");
-        str.append(",47.93.217.79:6181");
-        str.append(",47.93.217.79:6182");
-        str.append(",47.93.217.79:6183");
-        str.append(",47.93.217.79:6184");
+        str.append("47.93.217.79:7001");
+        str.append(",47.93.217.79:7002");
+        str.append(",47.93.217.79:7003");
+        str.append(",47.93.217.79:7004");
+        str.append(",47.93.217.79:7005");
+        str.append(",47.93.217.79:7006");
         hostAndPorts = getHostAndPort(str.toString());
-        jedisCluster = new JedisCluster(hostAndPorts, 2000, 2000, 3, "", gopc);
+        jedisCluster = new JedisCluster(hostAndPorts, 2000, 2000, 3, null, gopc);
         return jedisCluster;
     }
 
     public static void main(String[] arg){
         jedisCluster = getJedisCluster();
-        System.out.println(jedisCluster.get("name"));
+        jedisCluster.set("hello", "word");
+        String value = jedisCluster.get("hello");
+        System.out.println(value);
     }
 }

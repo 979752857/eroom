@@ -1,5 +1,4 @@
-var TASK_INFO_TASK = "01";
-var TASK_INFO_ASSESS = "02";
+
 /**
  * 页面初始化
  */
@@ -14,8 +13,13 @@ $(window).load(function(){
 /**
  * 获取近一个月任务信息
  */
-function getTaskDatasList(){
-	var url = myUtil.BASE + "/taskinfo/getAllTaskInfo";
+function getTaskDatasList(index){
+    var url ;
+	if(index == 1){
+        url = myUtil.BASE + "/taskinfo/getAllTaskInfo";
+	}else{
+        url = myUtil.BASE + "/taskinfo/getAllTaskInfo";
+	}
 	myUtil.ajax.axs(url,null,getTaskListSuccess);
 }
 
@@ -25,7 +29,7 @@ function getTaskListSuccess(result){
 	}
 	var datas = result.datas;
 	var html = "";
-	$("#task").html("");
+	$("#task-execute").html("");
 	if(datas&&datas.length>0){
 		$.each(datas,function(index,item){
 			html += '<div class="content clearfloat box-s"><div class="topsche-top box-s clearfloat"><p class="fl time">';
