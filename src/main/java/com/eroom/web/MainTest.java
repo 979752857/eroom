@@ -42,12 +42,12 @@ public class MainTest {
         //表示一个对象至少停留在idle状态的最短时间，然后才能被idle object evitor扫描并驱逐；这一项只有在timeBetweenEvictionRunsMillis大于0时才有意义
         gopc.setMinEvictableIdleTimeMillis(60000);
         StringBuilder str = new StringBuilder();
-        str.append("47.93.217.79:7001");
-        str.append(",47.93.217.79:7002");
-        str.append(",47.93.217.79:7003");
-        str.append(",47.93.217.79:7004");
-        str.append(",47.93.217.79:7005");
-        str.append(",47.93.217.79:7006");
+        str.append("47.93.217.79:6661");
+        str.append(",47.93.217.79:6662");
+        str.append(",47.93.217.79:6663");
+        str.append(",47.93.217.79:6664");
+        str.append(",47.93.217.79:6665");
+        str.append(",47.93.217.79:6666");
         hostAndPorts = getHostAndPort(str.toString());
         jedisCluster = new JedisCluster(hostAndPorts, 2000, 2000, 3, null, gopc);
         return jedisCluster;
@@ -59,4 +59,5 @@ public class MainTest {
         String value = jedisCluster.get("hello");
         System.out.println(value);
     }
+
 }

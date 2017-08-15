@@ -45,7 +45,7 @@ public class TRoomRent implements java.io.Serializable {
     }
 
     public TRoomRent(long roomId, long custOwnerId, BigDecimal price, String payType,
-            long bedroomId, String state, Date createTime, int sortId) {
+            long bedroomId, Date createTime, int sortId) {
         this.roomId = roomId;
         this.custOwnerId = custOwnerId;
         this.price = price;
@@ -56,7 +56,7 @@ public class TRoomRent implements java.io.Serializable {
     }
 
     public TRoomRent(long roomId, long custOwnerId, String rentType, BigDecimal price,
-            String payType, long bedroomId, String state, Long custRenterId, Date startTime,
+            String payType, long bedroomId, Long custRenterId, Date startTime,
             Date endTime, Date createTime, Date updateTime, int sortId, String rentState) {
         this.roomId = roomId;
         this.custOwnerId = custOwnerId;
