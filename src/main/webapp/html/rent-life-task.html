@@ -32,6 +32,7 @@
 						<ul class="tab-nav clearfloat">
 							<li class="tab-three"><a href="javascript:getTaskDatasList(1);">待执行</a></li>
 							<li class="tab-three"><a href="javascript:getTaskDatasList(2);">已完成</a></li>
+							<li class="tab-three"><a href="javascript:getTaskDatasList(3);">全部</a></li>
 						</ul>
 					</div>
 					<div class="tab-bd clearfloat">
@@ -41,6 +42,9 @@
 						<div id="task-finish" class="tab-pal">
 
 						</div>
+						<div id="task-all" class="tab-pal">
+
+						</div>
 					</div>
 				</div>
 			</div>
@@ -48,6 +52,10 @@
 	</body>
 	<script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
 	<script src="../js/base/fastclick.js"></script>
+	<script type="text/javascript" src="../js/base/jquery.SuperSlide.2.1.js" ></script>
 	<script src="../js/base/mui.min.js"></script>
 	<script type="text/javascript" src="../js/base/hmt.js" ></script>
+	<script type="text/javascript">
+		jQuery(".notice").slide({ titCell:".tab-hd li", mainCell:".tab-bd",trigger: "click",delayTime:0 });
+	</script>
 </html>

@@ -19,10 +19,17 @@ function getTaskDatasList(index){
 	if(_tab_index == 1){
         $("#task-execute").show();
         $("#task-finish").hide();
-        url = myUtil.BASE + "/taskinfo/getTaskInfo";
-	}else{
+        $("#task-all").hide();
+        url = myUtil.BASE + "/taskinfo/getTaskInfoWait";
+	}else if(_tab_index == 2){
         $("#task-execute").hide();
         $("#task-finish").show();
+        $("#task-all").hide();
+        url = myUtil.BASE + "/taskinfo/getTaskInfoFinish";
+	}else{
+        $("#task-execute").hide();
+        $("#task-finish").hide();
+        $("#task-all").show();
         url = myUtil.BASE + "/taskinfo/getAllTaskInfo";
 	}
 	myUtil.ajax.axs(url,null,getTaskListSuccess);
@@ -36,8 +43,10 @@ function getTaskListSuccess(result){
 	var html = "";
     if(_tab_index == 1){
         $("#task-execute").html("");
-    }else{
+    }else if(_tab_index == 2){
         $("#task-finish").html("");
+	}else{
+        $("#task-all").html("");
 	}
 	if(datas&&datas.length>0){
 		$.each(datas,function(index,item){
@@ -83,7 +92,9 @@ function getTaskListSuccess(result){
 	}
     if(_tab_index == 1){
         $("#task-execute").append(html);
-    }else{
+    }else if(_tab_index == 2){
         $("#task-finish").append(html);
+    }else{
+        $("#task-all").append(html);
     }
 }
