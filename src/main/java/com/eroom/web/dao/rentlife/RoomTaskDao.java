@@ -64,6 +64,34 @@ public class RoomTaskDao extends BaseDao {
         return null;
     }
 
+    public List<TaskInfoVo> getTaskInfoVoByState(Long custId, String state, int limit) throws Exception {
+        return getTaskInfoVoByState(custId, state, limit, 0);
+    }
+
+    /**
+     * 获取指定状态的任务信息
+     *
+     * @return List<TaskInfoVo>
+     * @throws Exception
+     * @author tendy
+     */
+    public List<TaskInfoVo> getTaskInfoVoByState(Long custId, String state, int limit, int page) throws Exception {
+        String hql = "select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( "
+                + "tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, "
+                + "tti.taskList, tti.state, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState "
+                + ") from TCustInfo tci, TCustInfo tcie, TRoomTask tti "
+                + "where tti.executeCustId = :executeCustId and tti.custId = tci.custId and tti.executeCustId = tcie.custId and tti.taskState = :taskState order by tti.updateTime desc ";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("executeCustId", custId);
+        params.put("taskState", state);
+
+        List<TaskInfoVo> list = this.getPageList(hql, params, page, limit);
+        if (!CollectionUtils.isEmpty(list)) {
+            return list;
+        }
+        return null;
+    }
+
     /**
      * 获取任务信息列表
      *

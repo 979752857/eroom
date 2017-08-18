@@ -1,9 +1,14 @@
 package com.eroom.web.service.rentlife;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.constants.RoomConstants;
+import com.eroom.web.entity.po.TRoomTask;
+import com.eroom.web.entity.vo.base.ResultVo;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.RentLifeConstants;
@@ -37,6 +42,33 @@ public class TaskInfoService {
 	public List<TaskInfoVo> getMonthTaskInfoVo(Long custId) throws Exception {
 	    List<TaskInfoVo> list = taskInfoDao.getMonthTaskInfoVo(custId, DateUtil.getOffsetMonthsTime(DateUtil.getSysDate(), -1));
 	    return list;
+	}
+
+	/**
+	 * 获取任务信息
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TaskInfoVo> getTaskInfoByState(Long custId, String state) throws Exception {
+	    List<TaskInfoVo> list = taskInfoDao.getTaskInfoVoByState(custId, state, RentLifeConstants.LAST_TASK_DEFAULT_LIMIT);
+	    return list;
+	}
+
+	/**
+	 * 任务完成
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public ResultVo updateTaskInfoFinish(Long custId, Long taskId) throws Exception {
+		ResultVo result = new ResultVo();
+		TRoomTask task = taskInfoDao.get(TRoomTask.class, taskId);
+		if(task != null){
+			task.setTaskState(RentLifeConstants.TaskInfo.TaskState.FINISH);
+			taskInfoDao.update(task);
+		}
+	    return result;
 	}
 
 }

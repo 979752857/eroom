@@ -34,8 +34,6 @@ public class TRoomTask implements java.io.Serializable {
 
     private Date updateTime;
 
-    private String state;
-
     private Date startTime;
 
     private Date endTime;
@@ -54,7 +52,6 @@ public class TRoomTask implements java.io.Serializable {
         this.executeCustId = executeCustId;
         this.custId = custId;
         this.createTime = createTime;
-        this.state = state;
     }
 
     public TRoomTask(long roomId, long executeCustId, long custId, String content, String taskList,
@@ -67,7 +64,6 @@ public class TRoomTask implements java.io.Serializable {
         this.taskList = taskList;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.state = state;
         this.startTime = startTime;
         this.endTime = endTime;
         this.remark = remark;
@@ -150,15 +146,6 @@ public class TRoomTask implements java.io.Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Column(name = "state", nullable = false, length = 4)
-    public String getState() {
-        return this.state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     @Temporal(TemporalType.TIMESTAMP)

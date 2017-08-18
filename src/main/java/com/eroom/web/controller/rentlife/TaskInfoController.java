@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.constants.RentLifeConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +37,21 @@ public class TaskInfoController extends BaseController {
 		result.setDatas(list);
 		return result;
 	}
+
+	/**
+	 * 任务完成
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/taskFinish")
+	@ResponseBody
+	public ResultVo taskFinish(Long taskId) throws Exception {
+		ResultVo result = new ResultVo();
+		SessionVo sessionVo = this.getCustSession();
+		result = taskInfoService.updateTaskInfoFinish(sessionVo.getCustId(), taskId);
+		return result;
+	}
 	
 	/**
 	 * 获取近一个月任务信息
@@ -49,6 +65,54 @@ public class TaskInfoController extends BaseController {
 	    ResultVo result = new ResultVo();
 	    SessionVo sessionVo = this.getCustSession();   
 	    List<TaskInfoVo> list = taskInfoService.getMonthTaskInfoVo(sessionVo.getCustId());
+	    result.setDatas(list);
+	    return result;
+	}
+
+	/**
+	 * 获取待完成任务
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getTaskInfoWait")
+	@ResponseBody
+	public ResultVo getTaskInfoWait() throws Exception {
+	    ResultVo result = new ResultVo();
+	    SessionVo sessionVo = this.getCustSession();
+	    List<TaskInfoVo> list = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), RentLifeConstants.TaskInfo.TaskState.WAITTING);
+	    result.setDatas(list);
+	    return result;
+	}
+
+	/**
+	 * 获取待完成任务
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getTaskInfoFinish")
+	@ResponseBody
+	public ResultVo getTaskInfoFinish() throws Exception {
+	    ResultVo result = new ResultVo();
+	    SessionVo sessionVo = this.getCustSession();
+	    List<TaskInfoVo> list = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), RentLifeConstants.TaskInfo.TaskState.FINISH);
+	    result.setDatas(list);
+	    return result;
+	}
+
+	/**
+	 * 任务评价
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getTaskInfoAssess")
+	@ResponseBody
+	public ResultVo getTaskInfoAssess(Long taskId, String message, int assess) throws Exception {
+	    ResultVo result = new ResultVo();
+	    SessionVo sessionVo = this.getCustSession();
+	    List<TaskInfoVo> list = null; //taskInfoService.getMonthTaskInfoVo(sessionVo.getCustId());
 	    result.setDatas(list);
 	    return result;
 	}

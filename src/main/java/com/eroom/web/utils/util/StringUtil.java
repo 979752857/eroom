@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.eroom.web.utils.encrypt.MD5Util;
+import org.apache.commons.lang.StringUtils;
 
 public class StringUtil {
 
@@ -227,5 +228,21 @@ public class StringUtil {
         int first = completeStr.indexOf(firstStr);
         int last = completeStr.indexOf(lastStr);
         return completeStr.substring(first + 1, last);
+    }
+
+    /**
+     * 判断传入字符串是否为空
+     * @param params
+     * @return
+     */
+    public static boolean isNullStringParam(String... params){
+        boolean flag = true;
+        for(String param : params) {
+            if(StringUtils.isBlank(param)) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
     }
 }

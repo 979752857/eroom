@@ -29,4 +29,22 @@ public class TCustInfoDao extends BaseDao {
 
         return null;
     }
+
+    /**
+     * 根据custid查询客户信息
+     */
+    public TCustInfo getTCustInfoByCustId(Long custId) throws Exception {
+        String hql = "from TCustInfo where custId = :custId";
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("custId", custId);
+
+        List<TCustInfo> l = this.getList(hql, params);
+
+        if (l != null && l.size() > 0) {
+            return l.get(0);
+        }
+
+        return null;
+    }
 }

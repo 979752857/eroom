@@ -2,6 +2,9 @@ package com.eroom.web.service.cust;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.dao.cust.TCustInfoDao;
+import com.eroom.web.entity.po.TCustInfo;
+import com.eroom.web.utils.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.CustConstants;
@@ -18,6 +21,9 @@ public class CmCustService {
 
     @Resource
     private CmCustDao cmCustDao;
+
+    @Resource
+    private TCustInfoDao custInfoDao;
 
     @Resource
     private CustInfoWxService cmCustWxService;
@@ -38,6 +44,41 @@ public class CmCustService {
         }
 
         return cmCustDao.getCmCustByOpenid(tenantNo, openid);
+    }
+
+    /**
+     * 根据openid查询客户信息
+     */
+    public TCustInfo getTCustInfoByCustId(Long custId) throws Exception {
+        if(custId == null){
+            throw new BusinessException("用户id不能为空");
+        }
+        return custInfoDao.getTCustInfoByCustId(custId);
+    }
+
+    /**
+     * 修改用户信息
+     */
+    public TCustInfo updateCustInfo(TCustInfo custInfo) throws Exception {
+        if(custInfo == null){
+            throw new BusinessException("没有获取到修改信息");
+        }
+        TCustInfo t = custInfoDao.get(TCustInfo.class, custInfo.getCustId());
+        StringUtil.isNullStringParam(custInfo.getName(), custInfo.getEmail(), custInfo.getNickName(), custInfo.getPhone(), custInfo.getQq());
+        if(!StringUtil.isBlank(custInfo.getEmail())){
+            t.setEmail(custInfo.getEmail());
+        }
+        if(!StringUtil.isBlank(custInfo.getNickName())){
+            t.setNickName(custInfo.getNickName());
+        }
+        if(!StringUtil.isBlank(custInfo.getPhone())){
+            t.setPhone(custInfo.getPhone());
+        }
+        if(!StringUtil.isBlank(custInfo.getQq())){
+            t.setQq(custInfo.getQq());
+        }
+        custInfoDao.save(t);
+        return t;
     }
 
     /**
