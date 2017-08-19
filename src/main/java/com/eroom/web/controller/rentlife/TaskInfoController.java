@@ -59,12 +59,28 @@ public class TaskInfoController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@RequestMapping("/getAllTaskInfoMonth")
+	@ResponseBody
+	public ResultVo getAllTaskInfoMonth() throws Exception {
+	    ResultVo result = new ResultVo();
+	    SessionVo sessionVo = this.getCustSession();   
+	    List<TaskInfoVo> list = taskInfoService.getMonthTaskInfoVo(sessionVo.getCustId());
+	    result.setDatas(list);
+	    return result;
+	}
+
+	/**
+	 * 获取全部任务信息
+	 *
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/getAllTaskInfo")
 	@ResponseBody
 	public ResultVo getAllTaskInfo() throws Exception {
 	    ResultVo result = new ResultVo();
-	    SessionVo sessionVo = this.getCustSession();   
-	    List<TaskInfoVo> list = taskInfoService.getMonthTaskInfoVo(sessionVo.getCustId());
+	    SessionVo sessionVo = this.getCustSession();
+	    List<TaskInfoVo> list = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), null);
 	    result.setDatas(list);
 	    return result;
 	}
@@ -109,7 +125,7 @@ public class TaskInfoController extends BaseController {
 	 */
 	@RequestMapping("/getTaskInfoAssess")
 	@ResponseBody
-	public ResultVo getTaskInfoAssess(Long taskId, String message, int assess) throws Exception {
+	public ResultVo getTaskInfoAssess(Long taskId, String message, int level) throws Exception {
 	    ResultVo result = new ResultVo();
 	    SessionVo sessionVo = this.getCustSession();
 	    List<TaskInfoVo> list = null; //taskInfoService.getMonthTaskInfoVo(sessionVo.getCustId());

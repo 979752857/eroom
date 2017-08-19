@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.eroom.web.utils.util.StringUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,7 @@ public class RoomTaskDao extends BaseDao {
     public List<TaskInfoVo> getLastTaskInfoVo(Long custId, int limit) throws Exception {
         String hql = "select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( "
                 + "tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, "
-                + "tti.taskList, tti.state, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState "
+                + "tti.taskList, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState "
                 + ") from TCustInfo tci, TCustInfo tcie, TRoomTask tti "
                 + "where tti.executeCustId = :executeCustId and tti.custId = tci.custId and tti.executeCustId = tcie.custId and tti.taskState = :taskState order by tti.updateTime desc ";
         Map<String, Object> params = new HashMap<String, Object>();
@@ -49,7 +50,7 @@ public class RoomTaskDao extends BaseDao {
     public List<TaskInfoVo> getMonthTaskInfoVo(Long custId, Date time) throws Exception {
         String hql = "select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( "
                 + "tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, "
-                + "tti.taskList, tti.state, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState "
+                + "tti.taskList, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState "
                 + ") from TCustInfo tci, TCustInfo tcie, TRoomTask tti "
                 + "where tti.executeCustId = :executeCustId and tti.endTime > :time and tti.custId = tci.custId and tti.executeCustId = tcie.custId and tti.taskState = :taskState order by tti.updateTime desc ";
         Map<String, Object> params = new HashMap<String, Object>();
@@ -76,16 +77,21 @@ public class RoomTaskDao extends BaseDao {
      * @author tendy
      */
     public List<TaskInfoVo> getTaskInfoVoByState(Long custId, String state, int limit, int page) throws Exception {
-        String hql = "select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( "
-                + "tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, "
-                + "tti.taskList, tti.state, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState "
-                + ") from TCustInfo tci, TCustInfo tcie, TRoomTask tti "
-                + "where tti.executeCustId = :executeCustId and tti.custId = tci.custId and tti.executeCustId = tcie.custId and tti.taskState = :taskState order by tti.updateTime desc ";
+        StringBuilder hql = new StringBuilder();
         Map<String, Object> params = new HashMap<String, Object>();
+        hql.append("select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( ");
+        hql.append("tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, ");
+        hql.append("tti.taskList, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState ");
+        hql.append(") from TCustInfo tci, TCustInfo tcie, TRoomTask tti ");
+        hql.append("where tti.executeCustId = :executeCustId and tti.custId = tci.custId and tti.executeCustId = tcie.custId " );
+        if(!StringUtil.isBlank(state)){
+            hql.append("and tti.taskState = :taskState ");
+            params.put("taskState", state);
+        }
+        hql.append("order by tti.updateTime desc ");
         params.put("executeCustId", custId);
-        params.put("taskState", state);
 
-        List<TaskInfoVo> list = this.getPageList(hql, params, page, limit);
+        List<TaskInfoVo> list = this.getPageList(hql.toString(), params, page, limit);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
         }
@@ -114,7 +120,7 @@ public class RoomTaskDao extends BaseDao {
         StringBuilder hql = new StringBuilder();
         hql.append("select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( ");
         hql.append("tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, ");
-        hql.append("tti.taskList, tti.state, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState ");
+        hql.append("tti.taskList, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState ");
         hql.append(") from TCustInfo tci, TCustInfo tcie, TRoomTask tti ");
         hql.append("where tti.custId = tci.custId and tti.executeCustId = tcie.custId and tti.executeCustId = :executeCustId order by tti.updateTime desc ");
         Map<String, Object> params = new HashMap<String, Object>();

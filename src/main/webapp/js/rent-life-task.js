@@ -3,7 +3,7 @@ var _tab_index = 1;
  * 页面初始化
  */
 $(function() {
-	getTaskDatasList();
+	getTaskDatasList(1);
 });
 $(window).load(function(){
 	$(".loading").addClass("loader-chanage")
@@ -11,9 +11,9 @@ $(window).load(function(){
 })
 
 /**
- * 获取近一个月任务信息
+ * 获取任务信息
  */
-function getTaskDatasList(index){
+function getTaskDatasList(index, data){
     var url ;
     _tab_index = index;
 	if(_tab_index == 1){
@@ -32,7 +32,7 @@ function getTaskDatasList(index){
         $("#task-all").show();
         url = myUtil.BASE + "/taskinfo/getAllTaskInfo";
 	}
-	myUtil.ajax.axs(url,null,getTaskListSuccess);
+	myUtil.ajax.axs(url,data,getTaskListSuccess);
 }
 
 function getTaskListSuccess(result){
@@ -55,14 +55,12 @@ function getTaskListSuccess(result){
 			html += '<div class="list clearfloat fl box-s"><a href="#"><div class="tu clearfloat">';
 			if(item.type == ROOM_TASK.getType("TASK")){
 				html += '<span></span><img src="../upload/clean.jpg"/></div><div class="right clearfloat">';
+                html += '<div class="tit clearfloat"><p class="fl">'+item.custName+'</p><span class="fr">'+myUtil.dateFormat(item.endTime, "yyyy-MM-dd")+'</span></div>';
+                html += '<p class="recom-liuyan">'+item.content+'</p><div class="recom-bottom clearfloat">';
 			}else if(item.type == ROOM_TASK.getType("ASSESS")){
 				html += '<span></span><img src="../upload/evaluate.jpg"/></div><div class="right clearfloat">';
-			}
-			html += '<div class="tit clearfloat"><p class="fl">'+item.custName+'</p><span class="fr">'+myUtil.dateFormat(item.endTime, "yyyy-MM-dd")+'</span></div>';
-			if(item.type == ROOM_TASK.getType("TASK")){
-				html += '<p class="recom-liuyan">'+item.content+'</p><div class="recom-bottom clearfloat">';
-			}else if(item.type == ROOM_TASK.getType("ASSESS")){
-				html += '<p class="recom-liuyan">您的室友已经打扫完卫生了，赶快来围观评价吧！</p><div class="recom-bottom clearfloat">';
+                html += '<div class="tit clearfloat"><p class="fl">'+item.custName+'</p><span class="fr">'+myUtil.dateFormat(item.endTime, "yyyy-MM-dd")+'</span></div>';
+                html += '<p class="recom-liuyan">您的室友已经打扫完卫生了，赶快来围观评价吧！</p><div class="recom-bottom clearfloat">';
 			}
 			var strs= new Array(); //定义一数组 
 			strs=item.taskList.split(","); //字符分割 
@@ -80,15 +78,24 @@ function getTaskListSuccess(result){
 				}
 			} 
 			html += '</div></div></a></div>';
-			if(item.type == ROOM_TASK.getType("TASK")){
-				html += '<div class="topsche-top entrust box-s clearfloat"><a href="#" class="tit fr entrust-btn">任务完成</a><a href="rent-life-taskdetail.html" class="tit fr entrust-btn">查看详情</a></div>';
-			}else if(item.type == ROOM_TASK.getType("ASSESS")){
-				html += '<div class="topsche-top entrust box-s clearfloat"><a href="rent-life-taskassess.html" class="tit fr entrust-btn">任务评价</a></div>';
-			}
+            if(item.taskState == ROOM_TASK.getState("WAITING")){
+                if(item.type == ROOM_TASK.getType("TASK")){
+                    html += '<div class="topsche-top entrust box-s clearfloat"><a href="#" class="tit fr entrust-btn">任务完成</a><a href="rent-life-taskdetail.html" class="tit fr entrust-btn">查看详情</a></div>';
+                }else if(item.type == ROOM_TASK.getType("ASSESS")){
+                    html += '<div class="topsche-top entrust box-s clearfloat"><a href="rent-life-taskassess.html" class="tit fr entrust-btn">任务评价</a></div>';
+                }
+            }else if(item.taskState == ROOM_TASK.getState("FINISH")){
+                if(item.type == ROOM_TASK.getType("TASK")){
+                    html += '<div class="topsche-top entrust box-s clearfloat"><a href="rent-life-taskdetail.html" class="tit fr entrust-btn">查看详情</a></div>';
+                }else if(item.type == ROOM_TASK.getType("ASSESS")){
+                    html += '<div class="topsche-top entrust box-s clearfloat"><a href="#" class="tit fr entrust-btn">查看评价</a></div>';
+                }
+            }
 			html += '</div>';
 		});
 	}else{
-		myUtil.toast('目前还没有任务信息哦！');
+        html += '<div class="empty-list clearfloat" id="main"><i class="iconfont icon-meineirong"></i><p>还没有内容哦！</p></div>';
+		// myUtil.toast('目前还没有任务信息哦！');
 	}
     if(_tab_index == 1){
         $("#task-execute").append(html);

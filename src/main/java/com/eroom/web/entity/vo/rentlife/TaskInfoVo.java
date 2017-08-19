@@ -20,8 +20,6 @@ public class TaskInfoVo {
 
     private String taskList;
 
-    private String state;
-
     private Date startTime;
     
     private Date updateTime;
@@ -38,7 +36,7 @@ public class TaskInfoVo {
     }
 
     public TaskInfoVo(Long id, long roomId, long executeCustId, String executeCustName, long custId,
-            String custName, String content, String taskList, String state, Date startTime,
+            String custName, String content, String taskList, Date startTime,
             Date endTime, String remark, String type, Date updateTime) {
         super();
         this.id = id;
@@ -49,7 +47,6 @@ public class TaskInfoVo {
         this.custName = custName;
         this.content = content;
         this.taskList = taskList;
-        this.state = state;
         this.startTime = startTime;
         this.endTime = endTime;
         this.remark = remark;
@@ -58,7 +55,7 @@ public class TaskInfoVo {
     }
 
     public TaskInfoVo(Long id, long roomId, long executeCustId, String executeCustName, long custId,
-            String custName, String content, String taskList, String state, Date startTime,
+            String custName, String content, String taskList, Date startTime,
             Date endTime, String remark, String type, Date updateTime, String taskState) {
         super();
         this.id = id;
@@ -69,7 +66,6 @@ public class TaskInfoVo {
         this.custName = custName;
         this.content = content;
         this.taskList = taskList;
-        this.state = state;
         this.startTime = startTime;
         this.updateTime = updateTime;
         this.endTime = endTime;
@@ -140,14 +136,6 @@ public class TaskInfoVo {
 
     public void setTaskList(String taskList) {
         this.taskList = taskList;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public Date getStartTime() {
