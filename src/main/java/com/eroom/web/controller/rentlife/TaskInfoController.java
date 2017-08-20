@@ -1,6 +1,8 @@
 package com.eroom.web.controller.rentlife;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -77,11 +79,11 @@ public class TaskInfoController extends BaseController {
 	 */
 	@RequestMapping("/getAllTaskInfo")
 	@ResponseBody
-	public ResultVo getAllTaskInfo() throws Exception {
+	public ResultVo getAllTaskInfo(int page) throws Exception {
 	    ResultVo result = new ResultVo();
 	    SessionVo sessionVo = this.getCustSession();
-	    List<TaskInfoVo> list = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), null);
-	    result.setDatas(list);
+		Map<String, Object> map = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), null, page);
+	    result.setDatas(map);
 	    return result;
 	}
 
@@ -93,11 +95,11 @@ public class TaskInfoController extends BaseController {
 	 */
 	@RequestMapping("/getTaskInfoWait")
 	@ResponseBody
-	public ResultVo getTaskInfoWait() throws Exception {
+	public ResultVo getTaskInfoWait(int page) throws Exception {
 	    ResultVo result = new ResultVo();
 	    SessionVo sessionVo = this.getCustSession();
-	    List<TaskInfoVo> list = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), RentLifeConstants.TaskInfo.TaskState.WAITTING);
-	    result.setDatas(list);
+		Map<String, Object> map = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), RentLifeConstants.TaskInfo.TaskState.WAITTING, page);
+	    result.setDatas(map);
 	    return result;
 	}
 
@@ -109,11 +111,11 @@ public class TaskInfoController extends BaseController {
 	 */
 	@RequestMapping("/getTaskInfoFinish")
 	@ResponseBody
-	public ResultVo getTaskInfoFinish() throws Exception {
+	public ResultVo getTaskInfoFinish(int page) throws Exception {
 	    ResultVo result = new ResultVo();
 	    SessionVo sessionVo = this.getCustSession();
-	    List<TaskInfoVo> list = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), RentLifeConstants.TaskInfo.TaskState.FINISH);
-	    result.setDatas(list);
+		Map<String, Object> map = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), RentLifeConstants.TaskInfo.TaskState.FINISH, page);
+	    result.setDatas(map);
 	    return result;
 	}
 

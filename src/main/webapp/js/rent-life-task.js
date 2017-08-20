@@ -39,7 +39,7 @@ function getTaskListSuccess(result){
 	if(!result){
 		myUtil.toast('服务器繁忙请重试');
 	}
-	var datas = result.datas;
+	var datas = result.datas.list;
 	var html = "";
     if(_tab_index == 1){
         $("#task-execute").html("");
@@ -82,7 +82,7 @@ function getTaskListSuccess(result){
                 if(item.type == ROOM_TASK.getType("TASK")){
                     html += '<div class="topsche-top entrust box-s clearfloat"><a href="#" class="tit fr entrust-btn">任务完成</a><a href="rent-life-taskdetail.html" class="tit fr entrust-btn">查看详情</a></div>';
                 }else if(item.type == ROOM_TASK.getType("ASSESS")){
-                    html += '<div class="topsche-top entrust box-s clearfloat"><a href="rent-life-taskassess.html" class="tit fr entrust-btn">任务评价</a></div>';
+                    html += '<div class="topsche-top entrust box-s clearfloat"><a href="rent-life-taskassess.html?taskId='+item.id+'" class="tit fr entrust-btn">任务评价</a></div>';
                 }
             }else if(item.taskState == ROOM_TASK.getState("FINISH")){
                 if(item.type == ROOM_TASK.getType("TASK")){
@@ -104,4 +104,16 @@ function getTaskListSuccess(result){
     }else{
         $("#task-all").append(html);
     }
+    loadMore(result.datas);
+}
+
+
+function loadMore(data){
+	if(data.curPage == data.page){
+        $("#load-more").hid();
+	}else if(data.curPage < data.page){
+        $("#load-more").show();
+	}else{
+        $("#load-more").hid();
+	}
 }

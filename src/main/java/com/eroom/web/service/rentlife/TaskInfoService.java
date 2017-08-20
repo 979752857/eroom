@@ -50,9 +50,22 @@ public class TaskInfoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<TaskInfoVo> getTaskInfoByState(Long custId, String state) throws Exception {
+	public Map<String, Object> getTaskInfoByState(Long custId, String state, int curPage) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		Long page = 0L;
+		Long totle = taskInfoDao.countTaskInfoVoByState(custId, state);
+		if(totle != null){
+			page = totle/RentLifeConstants.LAST_TASK_DEFAULT_LIMIT;
+			if(totle%RentLifeConstants.LAST_TASK_DEFAULT_LIMIT != 0){
+				page += 1;
+			}
+		}
 	    List<TaskInfoVo> list = taskInfoDao.getTaskInfoVoByState(custId, state, RentLifeConstants.LAST_TASK_DEFAULT_LIMIT);
-	    return list;
+	    map.put("list", list);
+	    map.put("totle", totle);
+	    map.put("page", page);
+	    map.put("curPage", curPage);
+	    return map;
 	}
 
 	/**

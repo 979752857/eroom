@@ -69,6 +69,22 @@ public class RoomTaskDao extends BaseDao {
         return getTaskInfoVoByState(custId, state, limit, 0);
     }
 
+    public Long countTaskInfoVoByState(Long custId, String state) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        Map<String, Object> params = new HashMap<String, Object>();
+        hql.append("select count(1) ");
+        hql.append(" from TCustInfo tci, TCustInfo tcie, TRoomTask tti ");
+        hql.append("where tti.executeCustId = :executeCustId and tti.custId = tci.custId and tti.executeCustId = tcie.custId " );
+        if(!StringUtil.isBlank(state)){
+            hql.append("and tti.taskState = :taskState ");
+            params.put("taskState", state);
+        }
+        hql.append("order by tti.updateTime desc ");
+        params.put("executeCustId", custId);
+        Long count = this.getCount(hql.toString(), params);
+        return count;
+    }
+
     /**
      * 获取指定状态的任务信息
      *

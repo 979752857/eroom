@@ -74,4 +74,15 @@ public class SystemConstants {
         public static class ParamSubType {
         }
     }
+
+    public static class ExceptionMsg{
+        /**
+         * 方法获取参数出现异常
+         */
+        public static String PARAM_NULL_EXCEPTION = "参数错误";
+        /**
+         * 数据库查询异常
+         */
+        public static String SYS_ERROR_EXCEPTION = "系统异常";
+    }
 }

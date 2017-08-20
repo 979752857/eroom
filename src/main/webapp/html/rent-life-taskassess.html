@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../style/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="../js/slick/slick.css"/>
 	<script type="text/javascript" src="../js/common/util.js"></script>
+	<script type="text/javascript" src="../js/rent-life-taskassess.js"></script>
 	<script type="text/javascript">
 		$(window).load(function(){
 			$(".loading").addClass("loader-chanage")
@@ -32,7 +33,7 @@
 		<div class="assess clearfloat" id="main">
 			<div class="top clearfloat">
 				<i class="iconfont icon-edit-copy edit fl"></i>
-				<textarea name="" rows="4" cols="" class="tarea fr box-s" placeholder="室友打扫的干净吗，按时打扫了吗，是否有责任心？"></textarea>
+				<textarea id="content" name="content" rows="4" cols="" class="tarea fr box-s" placeholder="室友打扫的干净吗，按时打扫了吗，是否有责任心？"></textarea>
 			</div>
 			<div class="bottom clearfloat">
 				<i class="iconfont icon-xiangji"></i>
@@ -51,7 +52,7 @@
 					</li>
 				</ul>
 			</div>
-			<a href="#" class="pay-btn clearfloat">
+			<a href="javascript:assessTask();" class="pay-btn clearfloat">
 				发表评价
 			</a>
 		</div>
@@ -63,7 +64,8 @@
 		function level(s)
 		{			
 			var str = '';		
-			var k = 6-s;			
+			var k = 6-s;
+            _level = s;
 			for(i=1;i<s+1;i++)			{	
 				str += "<img onclick='level("+i+")' src='../images/detail-iocn01.png'/>";
 			}
@@ -71,7 +73,7 @@
 			{
 				var d=j+s
 				str += "<img onclick='level("+d+")' src='../images/detail-iocn001.png'/>";
-			}		
+			}
 			$('.assess-right').html(str);
 		}		
 	</script>

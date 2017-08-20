@@ -149,7 +149,9 @@
 .recom-xia .bottom .top .price span{font-size: .2rem; font-weight: normal;}
 .recom-xia .bottom .fu-tit{font-size: .2rem; color: #888888;}
 .footer-look{ position: fixed; bottom: 0; left: 0; width: 100%;}
+.footer-load{ position: relative;}
 .footer-look a{padding: 3% 0; display: block; float: left; text-align: center; width: 50%; background-color: #0089e1; color: #fff; font-size: .45rem;}
+.footer-look .full {width: 100%; }
 
 /*弹窗内容*/
 #lean_overlay{position:fixed;z-index:100000;top:0px;left:0px;height:100%;width:100%;	background:#000;display:none;}
