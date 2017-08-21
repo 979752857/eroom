@@ -59,4 +59,43 @@ public class RoomMessageDao extends BaseDao {
 	    return null;
 	}
 
+	/**
+	 * 获取留言信息分页
+	 *
+	 * @return TRoomMessage
+	 * @throws Exception
+	 * @author tendy
+	 */
+	public List<RoomMessageVo> getRoomMessageVo(Long roomId, int limit, int page) throws Exception {
+	    String hql = "select new com.eroom.web.entity.vo.rentlife.RoomMessageVo( "
+	            + "trm.roomId, trm.custId, tci.name, tci.image, trm.content, trm.createTime, trm.state "
+	            + ") from TCustInfo tci, TRoomMessage trm "
+	            + "where trm.roomId = :roomId and trm.custId = tci.id order by trm.createTime desc ";
+	    Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("roomId", roomId);
+
+		List<RoomMessageVo> list = this.getPageList(hql, params, page, limit);
+	    if (!CollectionUtils.isEmpty(list)) {
+	        return list;
+	    }
+	    return null;
+	}
+
+	/**
+	 * 获取留言信息分页
+	 *
+	 * @return TRoomMessage
+	 * @throws Exception
+	 * @author tendy
+	 */
+	public Long countRoomMessageVo(Long roomId) throws Exception {
+	    String hql = "select count(1) from TCustInfo tci, TRoomMessage trm "
+	            + "where trm.roomId = :roomId and trm.custId = tci.id order by trm.createTime desc ";
+	    Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("roomId", roomId);
+
+		Long count = this.getCount(hql, params);
+	    return count;
+	}
+
 }

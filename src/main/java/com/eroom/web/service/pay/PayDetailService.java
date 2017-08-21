@@ -1,9 +1,14 @@
 package com.eroom.web.service.pay;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.constants.RentLifeConstants;
+import com.eroom.web.constants.SystemConstants;
+import com.eroom.web.entity.vo.rentlife.TaskInfoVo;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.PaymentConstants;
@@ -32,16 +37,29 @@ public class PayDetailService {
 	}
 
 	/**
-	 * 获取近半年缴费情况
+	 * 获取分页缴费情况
 	 *
 	 * @return
 	 * @throws Exception
 	 */
-	public List<TPayDetail> getPayDetailHalfYear(Long custId) throws Exception {
+	public List<TPayDetail> getPayDetail(Long custId, int curPage) throws Exception {
 		if(custId == null || custId == 0){
 			throw new BusinessException("未获取到租客编号");
 		}
-		List<TPayDetail> list = payDetailDao.getLastTPayDetail(custId, PaymentConstants.LIMIT);
+		Map<String, Object> map = new HashMap<>();
+		Long page = 0L;
+		Long totle = payDetailDao.countTPayDetail(custId);
+		if(totle != null){
+			page = totle/ SystemConstants.LAST_DATA_LIMIT;
+			if(totle%SystemConstants.LAST_DATA_LIMIT != 0){
+				page += 1;
+			}
+		}
+		List<TPayDetail> list = payDetailDao.getTPayDetail(custId, SystemConstants.LAST_DATA_LIMIT, curPage);
+		map.put("list", list);
+		map.put("totle", totle);
+		map.put("page", page);
+		map.put("curPage", curPage);
 		return list;
 	}
 

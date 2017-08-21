@@ -1,6 +1,7 @@
 package com.eroom.web.controller.pay;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -38,17 +39,19 @@ public class PayDetaiController extends BaseController {
 	}
 
 	/**
-	 * 获取近半年缴费记录
+	 * 获取缴费记录(分页)
 	 *
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/getPayDetailHalfYear")
+	@RequestMapping("/getPayDetail")
 	@ResponseBody
-	public ResultVo getPayDetailHalfYear() throws Exception {
+	public ResultVo getPayDetail(int page) throws Exception {
 		ResultVo result = new ResultVo();
 		SessionVo sessionVo = this.getCustSession();
-
+//		Map<String, Object> map = payDetailService.getPayDetail(sessionVo.getCustId(), page);
+		List<TPayDetail> list = payDetailService.getPayDetail(sessionVo.getCustId(), page);
+		result.setDatas(list);
 		return result;
 	}
 

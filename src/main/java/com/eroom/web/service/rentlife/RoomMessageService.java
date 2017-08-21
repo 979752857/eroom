@@ -1,24 +1,27 @@
 package com.eroom.web.service.rentlife;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import com.eroom.web.constants.SystemConstants;
-import com.eroom.web.entity.po.TRoomMessage;
-import com.eroom.web.utils.util.StringUtil;
-import org.springframework.stereotype.Service;
-
 import com.eroom.web.constants.RentLifeConstants;
+import com.eroom.web.constants.RoomConstants;
+import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.dao.rentlife.RoomMessageDao;
+import com.eroom.web.entity.po.TRoomMessage;
 import com.eroom.web.entity.po.TRoomRent;
+import com.eroom.web.entity.vo.rent.RoomRentVo;
 import com.eroom.web.entity.vo.rentlife.RoomMessageVo;
+import com.eroom.web.service.BaseService;
 import com.eroom.web.service.rent.RoomRentService;
 import com.eroom.web.utils.exception.BusinessException;
 import com.eroom.web.utils.util.DateUtil;
+import com.eroom.web.utils.util.StringUtil;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
-public class RoomMessageService {
+public class RoomMessageService extends BaseService {
 
 	@Resource
 	private RoomMessageDao roomMessageDao;
@@ -46,6 +49,31 @@ public class RoomMessageService {
     public List<RoomMessageVo> getAllRoomMessage(Long custId) throws Exception {
         TRoomRent tRoomRent = getRoomRent(custId);
         List<RoomMessageVo> list = roomMessageDao.getMonthRoomMessageVo(tRoomRent.getRoomId(), DateUtil.getOffsetMonthsTime(DateUtil.getSysDate(), -1));
+        return list;
+    }
+
+	/**
+     * 获取所有留言信息
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<RoomMessageVo> getAllRoomMessage(Long custId, int curPage) throws Exception {
+        TRoomRent tRoomRent = getRoomRent(custId);
+		Map<String, Object> map = new HashMap<>();
+		Long page = 0L;
+		Long totle = roomMessageDao.countRoomMessageVo(tRoomRent.getRoomId());
+		if(totle != null){
+			page = totle/ SystemConstants.LAST_DATA_LIMIT;
+			if(totle%SystemConstants.LAST_DATA_LIMIT != 0){
+				page += 1;
+			}
+		}
+		List<RoomMessageVo> list = roomMessageDao.getRoomMessageVo(tRoomRent.getRoomId(), SystemConstants.LAST_DATA_LIMIT, curPage);
+		map.put("list", list);
+		map.put("totle", totle);
+		map.put("page", page);
+		map.put("curPage", curPage);
         return list;
     }
 
@@ -82,7 +110,8 @@ public class RoomMessageService {
 		}
 		Long roomId = tRoomRent.getRoomId();
 		if(roomId == null || roomId == 0){
-			throw new BusinessException("roomId出错： custId--"+custId+"  roomid--"+roomId);
+			logger.warn("roomId出错： custId--"+custId+"  roomid--"+roomId);
+			throw new BusinessException("服务器错误，请重试");
 		}
 		return  tRoomRent;
 	}

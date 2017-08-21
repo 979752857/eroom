@@ -2,6 +2,11 @@ package com.eroom.web.constants;
 
 public class RoomConstants {
 
+    /**
+     * 显示10条数据，其他加载更多
+     */
+    public static final int LAST_ROOM_LIMIT = 20;
+
     public static class RoomRent{
         public static class RentState{
             /**

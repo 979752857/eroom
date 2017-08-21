@@ -1,10 +1,14 @@
 package com.eroom.web.service.rent;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.entity.bo.RoomRentBo;
+import com.eroom.web.entity.po.TPayDetail;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.RoomConstants;
@@ -47,6 +51,33 @@ public class RoomRentService {
             roomRentBo = new RoomRentBo();
         }
         return roomRentDao.getTRoomRentVo(roomRentBo);
+    }
+
+    /**
+     * 获取所有房源
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<RoomRentVo> getRoomRent(RoomRentBo roomRentBo, int curPage) throws Exception {
+        if(roomRentBo == null){
+            roomRentBo = new RoomRentBo();
+        }
+        Map<String, Object> map = new HashMap<>();
+        Long page = 0L;
+        Long totle = roomRentDao.countRoomRentVo(roomRentBo);
+        if(totle != null){
+            page = totle/ RoomConstants.LAST_ROOM_LIMIT;
+            if(totle%RoomConstants.LAST_ROOM_LIMIT != 0){
+                page += 1;
+            }
+        }
+        List<RoomRentVo> list = roomRentDao.getTRoomRentVo(roomRentBo, RoomConstants.LAST_ROOM_LIMIT, curPage);
+        map.put("list", list);
+        map.put("totle", totle);
+        map.put("page", page);
+        map.put("curPage", curPage);
+        return list;
     }
 
     /**

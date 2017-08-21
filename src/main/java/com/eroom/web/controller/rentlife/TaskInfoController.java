@@ -1,21 +1,18 @@
 package com.eroom.web.controller.rentlife;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import com.eroom.web.constants.RentLifeConstants;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.eroom.web.controller.BaseController;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.base.SessionVo;
 import com.eroom.web.entity.vo.rentlife.TaskInfoVo;
 import com.eroom.web.service.rentlife.TaskInfoService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/taskinfo")
@@ -83,7 +80,6 @@ public class TaskInfoController extends BaseController {
 	    ResultVo result = new ResultVo();
 	    SessionVo sessionVo = this.getCustSession();
 		Map<String, Object> map = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), null, page);
-	    result.setDatas(map);
 	    return result;
 	}
 

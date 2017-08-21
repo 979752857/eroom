@@ -6,6 +6,11 @@ package com.eroom.web.constants;
 public class SystemConstants {
 
     /**
+     * 显示10条数据，其他加载更多
+     */
+    public static final int LAST_DATA_LIMIT = 10;
+
+    /**
      * redis中相关的key或前后缀
      */
     public static class RedisKey {

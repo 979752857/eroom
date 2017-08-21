@@ -35,4 +35,19 @@ public class RoomController extends BaseController {
         return result;
     }
 
+    /**
+     * 获取房源信息
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getRoomPage")
+    @ResponseBody
+    public ResultVo getRoom(int page) throws Exception {
+        ResultVo result = new ResultVo();
+        List<RoomRentVo> list = roomRentService.getRoomRent(null, page);
+        result.setDatas(list);
+        return result;
+    }
+
 }

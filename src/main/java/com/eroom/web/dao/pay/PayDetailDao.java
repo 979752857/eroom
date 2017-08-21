@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.eroom.web.utils.util.StringUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
@@ -41,9 +42,26 @@ public class PayDetailDao extends BaseDao {
      * @throws Exception
      * @author tendy
      */
-    public List<TPayDetail> getTPayDetail(Long custId, int limit, Date startTime) throws Exception {
-        return getTPayDetail(custId, limit, startTime, 0);
+    public List<TPayDetail> getTPayDetail(Long custId, int limit) throws Exception {
+        return getTPayDetail(custId, limit, 0);
     }
+
+	/**
+	 * 统计缴费历史情况
+	 * @param custId
+	 * @return
+	 * @throws Exception
+     */
+	public Long countTPayDetail(Long custId) throws Exception {
+		StringBuilder hql = new StringBuilder();
+		Map<String, Object> params = new HashMap<String, Object>();
+		hql.append("select count(1) ");
+		hql.append(" from TPayDetail where custId = :custId ");
+		hql.append(" order by createTime desc ");
+		params.put("custId", custId);
+		Long count = this.getCount(hql.toString(), params);
+		return count;
+	}
 
 	/**
 	 * 获取缴费信息
@@ -52,14 +70,10 @@ public class PayDetailDao extends BaseDao {
 	 * @throws Exception
 	 * @author tendy
 	 */
-    public List<TPayDetail> getTPayDetail(Long custId, int limit, Date startTime, int page) throws Exception {
+    public List<TPayDetail> getTPayDetail(Long custId, int limit, int page) throws Exception {
         StringBuilder hql = new StringBuilder();
 		Map<String, Object> params = new HashMap<String, Object>();
 		hql.append(" from TPayDetail where custId = :custId ");
-		if(startTime != null){
-			hql.append(" and createTime >= :startTime ");
-			params.put("startTime", startTime);
-		}
 		hql.append(" order by createTime desc ");
 
         params.put("custId", custId);

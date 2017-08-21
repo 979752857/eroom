@@ -95,6 +95,81 @@ public class RoomRentDao extends BaseDao {
         }
         return null;
     }
+
+	/**
+     * 获取租房信息表
+     *
+     * @return TRoomRent
+     * @throws Exception
+     * @author tendy
+     */
+    public List<RoomRentVo> getTRoomRentVo(RoomRentBo roomRentBo, int limit, int page) throws Exception {
+		StringBuilder hql = new StringBuilder();
+		Map<String, Object> params = new HashMap<String, Object>();
+		hql.append(" select new com.eroom.web.entity.vo.rent.RoomRentVo(trr.rentId, trr.roomId, trr.custOwnerId, trr.bedroomId, ");
+		hql.append(" trr.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, trr.price, ");
+		hql.append(" tri.roomType, tbi.space, tbi.decorate) from TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
+		hql.append(" where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId ");
+		//价格最小值
+		if(roomRentBo.getPriceMin() != null){
+			hql.append(" and trr.price >= :priceMin ");
+			params.put("priceMin", roomRentBo.getPriceMin());
+		}
+		//价格最大值
+		if(roomRentBo.getPriceMax() != null){
+			hql.append(" and trr.price <= :priceMax ");
+			params.put("priceMax", roomRentBo.getPriceMax());
+		}
+		//租住类型
+		if(roomRentBo.getRentType() != null){
+			hql.append(" and trr.rentType = :rentType ");
+			params.put("rentType", roomRentBo.getRentType());
+		}
+		//出租状态
+		hql.append(" and trr.rentState = :rentState ");
+		params.put("rentState", RoomConstants.RoomRent.RentState.RENTING);
+		hql.append(" order by trr.sortId desc ");
+        List<RoomRentVo> list = this.getPageList(hql.toString(), params, page, limit);
+        if (!CollectionUtils.isEmpty(list)) {
+            return list;
+        }
+        return null;
+    }
+
+	/**
+     * 统计租房信息表
+     *
+     * @return TRoomRent
+     * @throws Exception
+     * @author tendy
+     */
+    public Long countRoomRentVo(RoomRentBo roomRentBo) throws Exception {
+		StringBuilder hql = new StringBuilder();
+		Map<String, Object> params = new HashMap<String, Object>();
+		hql.append(" select count(1) from TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
+		hql.append(" where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId ");
+		//价格最小值
+		if(roomRentBo.getPriceMin() != null){
+			hql.append(" and trr.price >= :priceMin ");
+			params.put("priceMin", roomRentBo.getPriceMin());
+		}
+		//价格最大值
+		if(roomRentBo.getPriceMax() != null){
+			hql.append(" and trr.price <= :priceMax ");
+			params.put("priceMax", roomRentBo.getPriceMax());
+		}
+		//租住类型
+		if(roomRentBo.getRentType() != null){
+			hql.append(" and trr.rentType = :rentType ");
+			params.put("rentType", roomRentBo.getRentType());
+		}
+		//出租状态
+		hql.append(" and trr.rentState = :rentState ");
+		params.put("rentState", RoomConstants.RoomRent.RentState.RENTING);
+		hql.append(" order by trr.sortId desc ");
+		Long count = this.getCount(hql.toString(), params);
+		return count;
+    }
     
     /**
      * 获取租房租期信息表
