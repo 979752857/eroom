@@ -23,7 +23,6 @@ public class TaskInfoController extends BaseController {
 
 	/**
 	 * 获取最新任务信息
-	 * 
 	 * @return
 	 * @throws Exception
 	 */

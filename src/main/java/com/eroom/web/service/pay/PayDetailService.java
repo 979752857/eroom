@@ -1,5 +1,6 @@
 package com.eroom.web.service.pay;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,8 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.eroom.web.constants.RentLifeConstants;
-import com.eroom.web.constants.SystemConstants;
-import com.eroom.web.entity.vo.rentlife.TaskInfoVo;
+import com.eroom.web.utils.util.DateUtil;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.PaymentConstants;
@@ -37,30 +37,31 @@ public class PayDetailService {
 	}
 
 	/**
-	 * 获取分页缴费情况
+	 * 获取分页缴费情况（最多展示两年的数据）
 	 *
 	 * @return
 	 * @throws Exception
 	 */
-	public List<TPayDetail> getPayDetail(Long custId, int curPage) throws Exception {
+	public Map<String, Object> getPayDetailPage(Long custId, int curPage) throws Exception {
 		if(custId == null || custId == 0){
 			throw new BusinessException("未获取到租客编号");
 		}
+		Date startTime = DateUtil.getOffsetYearsTime(DateUtil.getSysDate(), -2);
 		Map<String, Object> map = new HashMap<>();
 		Long page = 0L;
-		Long totle = payDetailDao.countTPayDetail(custId);
+		Long totle = payDetailDao.countTPayDetail(custId, startTime);
 		if(totle != null){
-			page = totle/ SystemConstants.LAST_DATA_LIMIT;
-			if(totle%SystemConstants.LAST_DATA_LIMIT != 0){
-				page += 1;
+			page = totle/ RentLifeConstants.LAST_TASK_DEFAULT_LIMIT;
+			if(totle%RentLifeConstants.LAST_TASK_DEFAULT_LIMIT == 0){
+				page -= 1;
 			}
 		}
-		List<TPayDetail> list = payDetailDao.getTPayDetail(custId, SystemConstants.LAST_DATA_LIMIT, curPage);
+		List<TPayDetail> list = payDetailDao.getTPayDetail(custId, PaymentConstants.PAYDETAI_LIMIT, startTime, curPage);
 		map.put("list", list);
 		map.put("totle", totle);
 		map.put("page", page);
 		map.put("curPage", curPage);
-		return list;
+		return map;
 	}
 
 }

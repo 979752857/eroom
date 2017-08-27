@@ -1,11 +1,18 @@
 package com.eroom.web;
 
+import com.eroom.web.utils.util.StringUtil;
+import jxl.Cell;
+import jxl.CellType;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableWorkbook;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 /**
  * Created by tendy on 2017/8/3.
@@ -53,11 +60,10 @@ public class MainTest {
         return jedisCluster;
     }
 
-    public static void main(String[] arg){
-        jedisCluster = getJedisCluster();
-        jedisCluster.set("hello", "word");
-        String value = jedisCluster.get("hello");
-        System.out.println(value);
-    }
-
+//    public static void main(String[] arg){
+//        jedisCluster = getJedisCluster();
+//        jedisCluster.set("hello", "word");
+//        String value = jedisCluster.get("hello");
+//        System.out.println(value);
+//    }
 }

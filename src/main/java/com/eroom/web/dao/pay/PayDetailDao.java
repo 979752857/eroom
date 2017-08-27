@@ -35,6 +35,22 @@ public class PayDetailDao extends BaseDao {
         return null;
     }
 
+	public Long countTPayDetail(Long custId, Date startTime) throws Exception {
+		StringBuilder hql = new StringBuilder();
+		Map<String, Object> params = new HashMap<String, Object>();
+		hql.append("select count(1) ");
+		hql.append(" from TPayDetail where custId = :custId ");
+		if(startTime != null){
+			hql.append(" and createTime >= :startTime ");
+			params.put("startTime", startTime);
+		}
+		hql.append(" order by createTime desc ");
+
+		params.put("custId", custId);
+		Long count = this.getCount(hql.toString(), params);
+		return count;
+	}
+
     /**
      * 获取缴费信息
      *

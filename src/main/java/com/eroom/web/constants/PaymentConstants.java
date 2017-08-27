@@ -9,6 +9,10 @@ public class PaymentConstants {
      * 显示3条最新缴费明细记录
      */
     public static final int LIMIT = 3;
+    /**
+     * 显示默认显示15条缴费明细记录
+     */
+    public static final int PAYDETAI_LIMIT = 15;
 
     public static final class PAY_CHANNEL {
 

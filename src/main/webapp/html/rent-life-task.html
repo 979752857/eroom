@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../style/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="../js/slick/slick.css"/>
 	<script type="text/javascript" src="../js/common/util.js"></script>
+	<script type="text/javascript" src="../js/common/load-more.js"></script>
 	<script type="text/javascript" src="../js/common/param-util.js"></script>
 	<script type="text/javascript" src="../js/rent-life-task.js" ></script>
 </head>
@@ -30,9 +31,9 @@
 				<div class="notice">
 					<div class="tab-hd clearfloat">
 						<ul class="tab-nav clearfloat">
-							<li class="tab-three"><a href="javascript:getTaskDatasList(1);">待执行</a></li>
-							<li class="tab-three"><a href="javascript:getTaskDatasList(2);">已完成</a></li>
-							<li class="tab-three"><a href="javascript:getTaskDatasList(3);">全部</a></li>
+							<li class="tab-three"><a href="javascript:changeTab(1);">待执行</a></li>
+							<li class="tab-three"><a href="javascript:changeTab(2);">已完成</a></li>
+							<li class="tab-three"><a href="javascript:changeTab(3);">全部</a></li>
 						</ul>
 					</div>
 					<div class="tab-bd clearfloat">
@@ -46,7 +47,7 @@
 
 						</div>
 						<div class="footer-look footer-load clearfloat" id="load-more" >
-							<a class="full" href="javascript:void();">加载更多</a>
+							<a class="full" href="javascript:loadMore();">加载更多</a>
 						</div>
 					</div>
 				</div>

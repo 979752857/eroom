@@ -104,7 +104,7 @@ public class RoomTaskDao extends BaseDao {
             hql.append("and tti.taskState = :taskState ");
             params.put("taskState", state);
         }
-        hql.append("order by tti.updateTime desc ");
+        hql.append("order by tti.startTime desc ");
         params.put("executeCustId", custId);
 
         List<TaskInfoVo> list = this.getPageList(hql.toString(), params, page, limit);

@@ -23,7 +23,6 @@ public class MessageController extends BaseController {
 
 	/**
 	 * 获取最新留言信息
-	 * 
 	 * @return
 	 * @throws Exception
 	 */
@@ -39,7 +38,6 @@ public class MessageController extends BaseController {
 
 	/**
      * 获取所有留言信息
-     * 
      * @return
      * @throws Exception
      */
@@ -55,7 +53,6 @@ public class MessageController extends BaseController {
 
 	/**
      * 添加留言信息
-     *
      * @return
      * @throws Exception
      */

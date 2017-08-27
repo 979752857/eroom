@@ -1,4 +1,19 @@
 var _tab_index = 1;
+var _data_execute = {
+	isLoad : false,
+	loadMore : true,
+	page : 0
+}
+var _data_finish = {
+	isLoad : false,
+    loadMore : true,
+	page : 0
+}
+var _data_all = {
+	isLoad : false,
+    loadMore : true,
+	page : 0
+}
 /**
  * 页面初始化
  */
@@ -11,26 +26,64 @@ $(window).load(function(){
 })
 
 /**
+ * tab页切换
+ */
+function changeTab(index){
+    _tab_index = index;
+    if(_tab_index == 1){
+		if(!_data_execute.isLoad){
+			_data_execute.isLoad = true;
+			getTaskDatasList();
+		}else{
+            checkLoadMore(null, _data_execute);
+		}
+    }else if(_tab_index == 2){
+		if(!_data_finish.isLoad) {
+            _data_finish.isLoad = true;
+            getTaskDatasList();
+        }else{
+            checkLoadMore(null, _data_finish);
+        }
+    }else if(_tab_index == 3){
+		if(!_data_all.isLoad) {
+            _data_all.isLoad = true;
+            getTaskDatasList();
+        }else{
+            checkLoadMore(null, _data_all);
+		}
+    }
+}
+
+/**
  * 获取任务信息
  */
-function getTaskDatasList(index, data){
+function getTaskDatasList(){
     var url ;
-    _tab_index = index;
+    var data;
 	if(_tab_index == 1){
         $("#task-execute").show();
         $("#task-finish").hide();
         $("#task-all").hide();
         url = myUtil.BASE + "/taskinfo/getTaskInfoWait";
+        data = {
+        	page : _data_execute.page
+		}
 	}else if(_tab_index == 2){
         $("#task-execute").hide();
         $("#task-finish").show();
         $("#task-all").hide();
         url = myUtil.BASE + "/taskinfo/getTaskInfoFinish";
+        data = {
+            page : _data_finish.page
+        }
 	}else{
         $("#task-execute").hide();
         $("#task-finish").hide();
         $("#task-all").show();
         url = myUtil.BASE + "/taskinfo/getAllTaskInfo";
+        data = {
+            page : _data_all.page
+        }
 	}
 	myUtil.ajax.axs(url,data,getTaskListSuccess);
 }
@@ -41,17 +94,10 @@ function getTaskListSuccess(result){
 	}
 	var datas = result.datas.list;
 	var html = "";
-    if(_tab_index == 1){
-        $("#task-execute").html("");
-    }else if(_tab_index == 2){
-        $("#task-finish").html("");
-	}else{
-        $("#task-all").html("");
-	}
 	if(datas&&datas.length>0){
 		$.each(datas,function(index,item){
 			html += '<div class="content clearfloat box-s"><div class="topsche-top box-s clearfloat"><p class="fl time">';
-			html += '<i class="iconfont icon-time"></i>'+myUtil.dateFormat(item.updateTime, "yyyy-MM-dd hh:mm")+'</p></div>';
+			html += '<i class="iconfont icon-time"></i>'+myUtil.dateFormat(item.startTime, "yyyy-MM-dd")+'</p></div>';
 			html += '<div class="list clearfloat fl box-s"><a href="#"><div class="tu clearfloat">';
 			if(item.type == ROOM_TASK.getType("TASK")){
 				html += '<span></span><img src="../upload/clean.jpg"/></div><div class="right clearfloat">';
@@ -93,27 +139,32 @@ function getTaskListSuccess(result){
             }
 			html += '</div>';
 		});
+        if(_tab_index == 1){
+            _data_execute.page = _data_execute.page+1;
+        }else if(_tab_index == 2){
+            _data_finish.page = _data_finish.page+1;
+        }else{
+            _data_all.page = _data_all.page+1;
+        }
 	}else{
         html += '<div class="empty-list clearfloat" id="main"><i class="iconfont icon-meineirong"></i><p>还没有内容哦！</p></div>';
 		// myUtil.toast('目前还没有任务信息哦！');
 	}
     if(_tab_index == 1){
         $("#task-execute").append(html);
+        checkLoadMore(result.datas, _data_execute);
     }else if(_tab_index == 2){
         $("#task-finish").append(html);
+        checkLoadMore(result.datas, _data_finish);
     }else{
         $("#task-all").append(html);
+        checkLoadMore(result.datas, _data_all);
     }
-    loadMore(result.datas);
 }
 
-
-function loadMore(data){
-	if(data.curPage == data.page){
-        $("#load-more").hid();
-	}else if(data.curPage < data.page){
-        $("#load-more").show();
-	}else{
-        $("#load-more").hid();
-	}
+/**
+ * 加载更多
+ */
+function loadMore(){
+    getTaskDatasList();
 }

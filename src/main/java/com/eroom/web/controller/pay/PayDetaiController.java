@@ -39,20 +39,19 @@ public class PayDetaiController extends BaseController {
 	}
 
 	/**
-	 * 获取缴费记录(分页)
+	 * 获取最多两年缴费记录
 	 *
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/getPayDetail")
+	@RequestMapping("/getPayDetailPage")
 	@ResponseBody
-	public ResultVo getPayDetail(int page) throws Exception {
+	public ResultVo getPayDetailHalfYear(int page) throws Exception {
 		ResultVo result = new ResultVo();
 		SessionVo sessionVo = this.getCustSession();
-//		Map<String, Object> map = payDetailService.getPayDetail(sessionVo.getCustId(), page);
-		List<TPayDetail> list = payDetailService.getPayDetail(sessionVo.getCustId(), page);
-		result.setDatas(list);
+		Map<String, Object> map = payDetailService.getPayDetailPage(sessionVo.getCustId(), page);
+		result.setDatas(map);
 		return result;
-	}
+}
 
 }

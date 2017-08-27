@@ -164,7 +164,7 @@ public class BaseDao {
 
             }
             if (pageNo != null && pageNo >= 0 && pageSize != null && pageSize > 0) {
-                query.setFirstResult(pageNo == 0 ? 0 : pageNo);
+                query.setFirstResult((pageNo == 0 ? 0 : pageNo)*pageSize);
                 query.setMaxResults(pageSize);
             }
 
