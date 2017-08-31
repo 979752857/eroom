@@ -11,6 +11,11 @@ public class SystemConstants {
     public static final int LAST_DATA_LIMIT = 10;
 
     /**
+     * 显示地铁站区域范围（米）
+     */
+    public static final int STATION_RANGE = 2000;
+
+    /**
      * redis中相关的key或前后缀
      */
     public static class RedisKey {

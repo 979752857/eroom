@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.math.BigDecimal;
+
 /**
  * Created by tendy on 2017/8/21.
  */
@@ -37,11 +39,6 @@ public class LocationUtilTest extends BaseTest {
 
         distance = LocationUtil.getDistance(lat1, lng1, arr[0], arr[1]);        //准确
         logger.info("\n测试距离为："+distance+"米");
-
-        arr = LocationUtil.getAroundPrecision(lat1, lng1, 2000);
-        for(double item : arr){
-            logger.info("\n范围2："+item);
-        }
 
         distance = LocationUtil.getDistance(lat1, lng1, arr[0], arr[1]);        //准确
         logger.info("\n测试距离为："+distance+"米");

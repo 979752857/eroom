@@ -56,7 +56,7 @@ public class PayDetailService {
 				page -= 1;
 			}
 		}
-		List<TPayDetail> list = payDetailDao.getTPayDetail(custId, PaymentConstants.PAYDETAI_LIMIT, startTime, curPage);
+		List<TPayDetail> list = payDetailDao.getTPayDetail(custId, startTime, PaymentConstants.PAYDETAI_LIMIT, curPage);
 		map.put("list", list);
 		map.put("totle", totle);
 		map.put("page", page);

@@ -58,8 +58,8 @@ public class PayDetailDao extends BaseDao {
      * @throws Exception
      * @author tendy
      */
-    public List<TPayDetail> getTPayDetail(Long custId, int limit) throws Exception {
-        return getTPayDetail(custId, limit, 0);
+    public List<TPayDetail> getTPayDetail(Long custId, Date startTime, int limit) throws Exception {
+        return getTPayDetail(custId, startTime, limit, 0);
     }
 
 	/**
@@ -86,10 +86,14 @@ public class PayDetailDao extends BaseDao {
 	 * @throws Exception
 	 * @author tendy
 	 */
-    public List<TPayDetail> getTPayDetail(Long custId, int limit, int page) throws Exception {
+    public List<TPayDetail> getTPayDetail(Long custId, Date startTime, int limit, int page) throws Exception {
         StringBuilder hql = new StringBuilder();
 		Map<String, Object> params = new HashMap<String, Object>();
 		hql.append(" from TPayDetail where custId = :custId ");
+		if(startTime != null){
+			hql.append(" and createTime >= :startTime ");
+			params.put("startTime", startTime);
+		}
 		hql.append(" order by createTime desc ");
 
         params.put("custId", custId);

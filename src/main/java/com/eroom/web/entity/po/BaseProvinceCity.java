@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "base_province_city", schema = "eroom", catalog = "")
-public class BaseProvinceCityEntity {
+public class BaseProvinceCity {
     private int id;
     private String provinceName;
     private String provinceEname;
@@ -102,7 +102,7 @@ public class BaseProvinceCityEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BaseProvinceCityEntity that = (BaseProvinceCityEntity) o;
+        BaseProvinceCity that = (BaseProvinceCity) o;
 
         if (id != that.id) return false;
         if (state != that.state) return false;

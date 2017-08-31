@@ -33,6 +33,19 @@ public class RoomRentBo {
      */
     private Long districtId;
 
+    /**
+     * 地铁站不为空则传入地址范围
+     */
+    private LocationRangeBo locationRange;
+
+    public LocationRangeBo getLocationRange() {
+        return locationRange;
+    }
+
+    public void setLocationRange(LocationRangeBo locationRange) {
+        this.locationRange = locationRange;
+    }
+
     public BigDecimal getPriceMax() {
         return priceMax;
     }

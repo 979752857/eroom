@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "base_city_district", schema = "eroom", catalog = "")
-public class BaseCityDistrictEntity {
+public class BaseCityDistrict {
     private int id;
     private int cityId;
     private String districtName;
@@ -47,7 +47,7 @@ public class BaseCityDistrictEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BaseCityDistrictEntity that = (BaseCityDistrictEntity) o;
+        BaseCityDistrict that = (BaseCityDistrict) o;
 
         if (id != that.id) return false;
         if (cityId != that.cityId) return false;

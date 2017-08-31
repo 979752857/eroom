@@ -1,5 +1,7 @@
 package com.eroom.web.utils.util;
 
+import com.eroom.web.entity.bo.LocationRangeBo;
+
 import java.math.BigDecimal;
 
 /**
@@ -91,40 +93,46 @@ public class LocationUtil {
      * @param raidus 半径(米)
      * @return
      */
-    public static double[] getAroundPrecision(double lat, double lon, int raidus)
+    public static LocationRangeBo getAroundPrecision(BigDecimal lat, BigDecimal lon, int raidus)
     {
+        double latitude = precise2Double6(lat);
+        double longitude = precise2Double6(lon);
         //先计算查询点的经纬度范围
         double r = EARTH_RADIUS;//地球半径千米
         double dis = raidus/1000;
-        double dlng =  2*Math.asin(Math.sin(dis/(2*r))/Math.cos(rad(lat)));
+        double dlng =  2*Math.asin(Math.sin(dis/(2*r))/Math.cos(rad(latitude)));
         dlng = dlng*180/Math.PI;//角度转为弧度
         double dlat = dis/r;
         dlat = dlat*180/Math.PI;
-        double minLat =lat-dlat;
-        double maxLat = lat+dlat;
-        double minLng = lon -dlng;
-        double maxLng = lon + dlng;
-
-        return new double[] { minLat, minLng, maxLat, maxLng };
+        double minLat =latitude-dlat;
+        double maxLat = latitude+dlat;
+        double minLng = longitude -dlng;
+        double maxLng = longitude + dlng;
+        LocationRangeBo locationRange = new LocationRangeBo();
+        locationRange.setMaxLat(precise2BigDecimal6(BigDecimal.valueOf(maxLat)));
+        locationRange.setMinLat(precise2BigDecimal6(BigDecimal.valueOf(minLat)));
+        locationRange.setMaxLon(precise2BigDecimal6(BigDecimal.valueOf(maxLng)));
+        locationRange.setMinLon(precise2BigDecimal6(BigDecimal.valueOf(minLng)));
+        return locationRange;
     }
 
-    private int precise2Double(BigDecimal num){
+    private static int precise2Double(BigDecimal num){
         int n = num.setScale(0, BigDecimal.ROUND_HALF_UP).intValue();
         return n;
     }
 
-    private double precise2Double2(BigDecimal num){
+    private static double precise2Double2(BigDecimal num){
         double n = num.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         return n;
     }
 
-    private double precise2Double6(BigDecimal num){
+    private static double precise2Double6(BigDecimal num){
         double n = num.setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
         return n;
     }
 
-    private BigDecimal precise2BigDecimal6(BigDecimal num){
-        BigDecimal n = num.setScale(6);
+    private static BigDecimal precise2BigDecimal6(BigDecimal num){
+        BigDecimal n = num.setScale(6, BigDecimal.ROUND_HALF_UP);
         return n;
     }
 }
