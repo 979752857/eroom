@@ -19,7 +19,7 @@ public class RoomRentVo {
 	private String decorate;
 	private Date endTime;
 	private Date createTime;
-    private String rentState;
+	private String rentState;
 
 	public RoomRentVo(Long id, long roomId, long custOwnerId, long bedroomId, Long custRenterId, String bedroomImageUrl,
 			String roomImageUrl, String name, BigDecimal price, String roomType, String space, String decorate) {

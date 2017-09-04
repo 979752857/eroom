@@ -26,6 +26,9 @@ public class BaseSubwayStationService extends BaseService {
      */
     public LocationRangeBo getLocationRange(Long stationId) throws Exception {
         BaseSubwayStation station = baseSubwayStationDao.getBaseSubwayStation(stationId);
+        if(station == null || station.getLat() == null || station.getLon() == null){
+            return null;
+        }
         LocationRangeBo locationRange = LocationUtil.getAroundPrecision(station.getLat(), station.getLon(), SystemConstants.STATION_RANGE);
         return locationRange;
     }

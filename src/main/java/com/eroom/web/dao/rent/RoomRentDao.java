@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.eroom.web.entity.bo.LocationRangeBo;
 import com.eroom.web.entity.bo.RoomRentBo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Repository;
@@ -85,6 +86,26 @@ public class RoomRentDao extends BaseDao {
 			hql.append(" and trr.rentType = :rentType ");
 			params.put("rentType", roomRentBo.getRentType());
 		}
+		//地铁站
+		if(roomRentBo.getStationId() != null && roomRentBo.getLocationRange() != null){
+			LocationRangeBo range = roomRentBo.getLocationRange();
+			if(range.getMinLat() != null){
+				hql.append(" and tri.lat >= :minLat ");
+				params.put("minLat", range.getMinLat());
+			}
+			if(range.getMaxLat() != null){
+				hql.append(" and tri.lat <= :maxLat ");
+				params.put("maxLat", range.getMaxLat());
+			}
+			if(range.getMinLon() != null){
+				hql.append(" and tri.lon >= :minLon ");
+				params.put("minLon", range.getMinLon());
+			}
+			if(range.getMaxLon() != null){
+				hql.append(" and tri.lon <= :maxLon ");
+				params.put("maxLon", range.getMaxLon());
+			}
+		}
 		//出租状态
 		hql.append(" and trr.rentState = :rentState ");
 		params.put("rentState", RoomConstants.RoomRent.RentState.RENTING);
@@ -124,6 +145,26 @@ public class RoomRentDao extends BaseDao {
 		if(roomRentBo.getRentType() != null){
 			hql.append(" and trr.rentType = :rentType ");
 			params.put("rentType", roomRentBo.getRentType());
+		}
+		//地铁站
+		if(roomRentBo.getStationId() != null && roomRentBo.getLocationRange() != null){
+			LocationRangeBo range = roomRentBo.getLocationRange();
+			if(range.getMinLat() != null){
+				hql.append(" and tri.lat >= :minLat ");
+				params.put("minLat", range.getMinLat());
+			}
+			if(range.getMaxLat() != null){
+				hql.append(" and tri.lat <= :maxLat ");
+				params.put("maxLat", range.getMaxLat());
+			}
+			if(range.getMinLon() != null){
+				hql.append(" and tri.lon >= :minLon ");
+				params.put("minLon", range.getMinLon());
+			}
+			if(range.getMaxLon() != null){
+				hql.append(" and tri.lon <= :maxLon ");
+				params.put("maxLon", range.getMaxLon());
+			}
 		}
 		//出租状态
 		hql.append(" and trr.rentState = :rentState ");

@@ -7,8 +7,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.eroom.web.constants.SystemConstants;
+import com.eroom.web.entity.bo.LocationRangeBo;
 import com.eroom.web.entity.bo.RoomRentBo;
 import com.eroom.web.entity.po.TPayDetail;
+import com.eroom.web.service.base.BaseSubwayStationService;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.RoomConstants;
@@ -30,6 +32,9 @@ public class RoomRentService {
     @Resource
     private SystemCfgService systemCfgService;
 
+    @Resource
+    private BaseSubwayStationService baseSubwayStationService;
+
     /**
      * 获取热门房源
      * 
@@ -49,6 +54,10 @@ public class RoomRentService {
     public List<RoomRentVo> getRoomRent(RoomRentBo roomRentBo) throws Exception {
         if(roomRentBo == null){
             roomRentBo = new RoomRentBo();
+        }
+        if(roomRentBo.getStationId() != null){
+            LocationRangeBo rangeBo = baseSubwayStationService.getLocationRange(roomRentBo.getStationId());
+            roomRentBo.setLocationRange(rangeBo);
         }
         return roomRentDao.getTRoomRentVo(roomRentBo);
     }
@@ -71,6 +80,10 @@ public class RoomRentService {
             if(totle%RoomConstants.LAST_ROOM_LIMIT != 0){
                 page += 1;
             }
+        }
+        if(roomRentBo.getStationId() != null){
+            LocationRangeBo rangeBo = baseSubwayStationService.getLocationRange(roomRentBo.getStationId());
+            roomRentBo.setLocationRange(rangeBo);
         }
         List<RoomRentVo> list = roomRentDao.getTRoomRentVo(roomRentBo, RoomConstants.LAST_ROOM_LIMIT, curPage);
         map.put("list", list);

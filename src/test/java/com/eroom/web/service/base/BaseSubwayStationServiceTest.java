@@ -18,8 +18,8 @@ public class BaseSubwayStationServiceTest extends BaseTest {
 
     @Test
     public void getStationRange() throws Exception {
-
-        LocationRangeBo range = baseSubwayStationService.getLocationRange(268L);
+        //116.419342,40.072825  天通苑南
+        LocationRangeBo range = baseSubwayStationService.getLocationRange(423L);
         logger.info("\n测试数据：" + range.toString());
 
     }

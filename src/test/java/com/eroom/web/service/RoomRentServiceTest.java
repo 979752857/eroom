@@ -35,4 +35,17 @@ public class RoomRentServiceTest extends BaseTest {
             logger.info("\n获取空数据");
         }
     }
+
+    @Test
+    public void getRoomRentPageTest() throws Exception {
+        RoomRentBo roomRentBo = new RoomRentBo();
+        roomRentBo.setRentType(RoomConstants.RoomRent.RentType.JOINT_RENT);
+        roomRentBo.setStationId(423L);
+        List<RoomRentVo> list = roomRentService.getRoomRent(roomRentBo,0);
+        if(!CollectionUtil.isEmpty(list)){
+            logger.info("\n测试数据："+list.size());
+        }else{
+            logger.info("\n获取空数据");
+        }
+    }
 }
