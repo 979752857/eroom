@@ -14,7 +14,6 @@ public class SystemCfgDao extends BaseDao {
     /**
      * 根据租户编码/配置分类/配置编码获取配置取值
      * 
-     * @param tenantNo
      * @param cfgType
      * @param cfgCode
      * @return

@@ -15,9 +15,8 @@ public class SystemCfgService {
     /**
      * 根据租户/表名/字段名获取参数配置
      * 
-     * @param tenantNo
-     * @param paramType
-     * @param paramSubType
+     * @param cfgType
+     * @param cfgCode
      * @return
      * @throws Exception
      * @author tendy
