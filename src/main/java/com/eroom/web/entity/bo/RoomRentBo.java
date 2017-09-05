@@ -34,6 +34,11 @@ public class RoomRentBo {
     private Long districtId;
 
     /**
+     * 商圈id
+     */
+    private Long bussinessId;
+
+    /**
      * 地铁站不为空则传入地址范围
      */
     private LocationRangeBo locationRange;
@@ -84,5 +89,13 @@ public class RoomRentBo {
 
     public void setDistrictId(Long districtId) {
         this.districtId = districtId;
+    }
+
+    public Long getBussinessId() {
+        return bussinessId;
+    }
+
+    public void setBussinessId(Long bussinessId) {
+        this.bussinessId = bussinessId;
     }
 }

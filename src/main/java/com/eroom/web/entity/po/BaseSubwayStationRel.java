@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by tendy on 2017/8/31.
+ * Created by tendy on 2017/9/5.
  */
 @Entity
 @Table(name = "base_subway_station_rel", schema = "eroom", catalog = "")
 public class BaseSubwayStationRel {
-    private int id;
-    private int subwayId;
-    private int stationId;
+    private long id;
+    private long subwayId;
+    private long stationId;
     private String sysRemark;
     private byte sysStatus;
     private Date sysCdate;
@@ -21,31 +21,31 @@ public class BaseSubwayStationRel {
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "subway_id")
-    public int getSubwayId() {
+    public long getSubwayId() {
         return subwayId;
     }
 
-    public void setSubwayId(int subwayId) {
+    public void setSubwayId(long subwayId) {
         this.subwayId = subwayId;
     }
 
     @Basic
     @Column(name = "station_id")
-    public int getStationId() {
+    public long getStationId() {
         return stationId;
     }
 
-    public void setStationId(int stationId) {
+    public void setStationId(long stationId) {
         this.stationId = stationId;
     }
 
@@ -131,9 +131,9 @@ public class BaseSubwayStationRel {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + subwayId;
-        result = 31 * result + stationId;
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) (subwayId ^ (subwayId >>> 32));
+        result = 31 * result + (int) (stationId ^ (stationId >>> 32));
         result = 31 * result + (sysRemark != null ? sysRemark.hashCode() : 0);
         result = 31 * result + (int) sysStatus;
         result = 31 * result + (sysCdate != null ? sysCdate.hashCode() : 0);
@@ -143,4 +143,3 @@ public class BaseSubwayStationRel {
         return result;
     }
 }
-

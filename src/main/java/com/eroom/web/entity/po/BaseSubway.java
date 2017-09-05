@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by tendy on 2017/8/31.
+ * Created by tendy on 2017/9/5.
  */
 @Entity
 @Table(name = "base_subway", schema = "eroom", catalog = "")
 public class BaseSubway {
-    private int id;
-    private int cityId;
+    private long id;
+    private long cityId;
     private String subwayName;
     private String sysRemark;
     private byte sysStatus;
@@ -21,21 +21,21 @@ public class BaseSubway {
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "city_id")
-    public int getCityId() {
+    public long getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(long cityId) {
         this.cityId = cityId;
     }
 
@@ -131,8 +131,8 @@ public class BaseSubway {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + cityId;
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) (cityId ^ (cityId >>> 32));
         result = 31 * result + (subwayName != null ? subwayName.hashCode() : 0);
         result = 31 * result + (sysRemark != null ? sysRemark.hashCode() : 0);
         result = 31 * result + (int) sysStatus;
@@ -143,4 +143,3 @@ public class BaseSubway {
         return result;
     }
 }
-

@@ -5,40 +5,40 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Created by tendy on 2017/8/31.
+ * Created by tendy on 2017/9/5.
  */
 @Entity
 @Table(name = "base_subway_station", schema = "eroom", catalog = "")
 public class BaseSubwayStation {
-    private Long id;
-    private Long cityId;
+    private long id;
+    private long cityId;
     private String stationName;
     private BigDecimal lon;
     private BigDecimal lat;
     private String sysRemark;
     private byte sysStatus;
     private Date sysCdate;
-    private Long sysCuser;
+    private int sysCuser;
     private Date sysMdate;
-    private Long sysMuser;
+    private int sysMuser;
 
     @Id
     @Column(name = "id")
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "city_id")
-    public Long getCityId() {
+    public long getCityId() {
         return cityId;
     }
 
-    public void setCityId(Long cityId) {
+    public void setCityId(long cityId) {
         this.cityId = cityId;
     }
 
@@ -53,7 +53,7 @@ public class BaseSubwayStation {
     }
 
     @Basic
-    @Column(name = "lon", precision = 6)
+    @Column(name = "lon")
     public BigDecimal getLon() {
         return lon;
     }
@@ -63,7 +63,7 @@ public class BaseSubwayStation {
     }
 
     @Basic
-    @Column(name = "lat", precision = 6)
+    @Column(name = "lat")
     public BigDecimal getLat() {
         return lat;
     }
@@ -104,11 +104,11 @@ public class BaseSubwayStation {
 
     @Basic
     @Column(name = "sys_cuser")
-    public Long getSysCuser() {
+    public int getSysCuser() {
         return sysCuser;
     }
 
-    public void setSysCuser(Long sysCuser) {
+    public void setSysCuser(int sysCuser) {
         this.sysCuser = sysCuser;
     }
 
@@ -124,13 +124,11 @@ public class BaseSubwayStation {
 
     @Basic
     @Column(name = "sys_muser")
-    public Long getSysMuser() {
+    public int getSysMuser() {
         return sysMuser;
     }
 
-    public void setSysMuser(Long sysMuser) {
+    public void setSysMuser(int sysMuser) {
         this.sysMuser = sysMuser;
     }
-
 }
-

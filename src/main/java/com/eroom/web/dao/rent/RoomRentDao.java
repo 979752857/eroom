@@ -106,6 +106,16 @@ public class RoomRentDao extends BaseDao {
 				params.put("maxLon", range.getMaxLon());
 			}
 		}
+		//行政区
+		if(roomRentBo.getDistrictId() != null){
+			hql.append(" and tri.districtId = :districId ");
+			params.put("districId", roomRentBo.getDistrictId());
+		}
+		//商圈
+		if(roomRentBo.getBussinessId() != null){
+			hql.append(" and tri.bussinessId = :bussinessId ");
+			params.put("bussinessId", roomRentBo.getBussinessId());
+		}
 		//出租状态
 		hql.append(" and trr.rentState = :rentState ");
 		params.put("rentState", RoomConstants.RoomRent.RentState.RENTING);
@@ -165,6 +175,16 @@ public class RoomRentDao extends BaseDao {
 				hql.append(" and tri.lon <= :maxLon ");
 				params.put("maxLon", range.getMaxLon());
 			}
+		}
+		//行政区
+		if(roomRentBo.getDistrictId() != null){
+			hql.append(" and tri.districtId = :districId ");
+			params.put("districId", roomRentBo.getDistrictId());
+		}
+		//商圈
+		if(roomRentBo.getBussinessId() != null){
+			hql.append(" and tri.bussinessId = :bussinessId ");
+			params.put("bussinessId", roomRentBo.getBussinessId());
 		}
 		//出租状态
 		hql.append(" and trr.rentState = :rentState ");

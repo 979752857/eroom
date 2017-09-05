@@ -239,39 +239,39 @@ public class TRoomInfo {
         this.lat = lat;
     }
 
-    private Integer cityId;
+    private Long cityId;
 
     @Basic
     @javax.persistence.Column(name = "city_id")
-    public Integer getCityId() {
+    public Long getCityId() {
         return cityId;
     }
 
-    public void setCityId(Integer cityId) {
+    public void setCityId(Long cityId) {
         this.cityId = cityId;
     }
 
-    private Integer districtId;
+    private Long districtId;
 
     @Basic
     @javax.persistence.Column(name = "district_id")
-    public Integer getDistrictId() {
+    public Long getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(Integer districtId) {
+    public void setDistrictId(Long districtId) {
         this.districtId = districtId;
     }
 
-    private Integer bussinessId;
+    private Long bussinessId;
 
     @Basic
     @javax.persistence.Column(name = "bussiness_id")
-    public Integer getBussinessId() {
+    public Long getBussinessId() {
         return bussinessId;
     }
 
-    public void setBussinessId(Integer bussinessId) {
+    public void setBussinessId(Long bussinessId) {
         this.bussinessId = bussinessId;
     }
 

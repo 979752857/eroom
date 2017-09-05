@@ -3,32 +3,32 @@ package com.eroom.web.entity.po;
 import javax.persistence.*;
 
 /**
- * Created by tendy on 2017/7/25.
+ * Created by tendy on 2017/9/5.
  */
 @Entity
 @Table(name = "base_city_district", schema = "eroom", catalog = "")
 public class BaseCityDistrict {
-    private int id;
-    private int cityId;
+    private long id;
+    private Long cityId;
     private String districtName;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "city_id")
-    public int getCityId() {
+    public Long getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(Long cityId) {
         this.cityId = cityId;
     }
 
@@ -50,7 +50,7 @@ public class BaseCityDistrict {
         BaseCityDistrict that = (BaseCityDistrict) o;
 
         if (id != that.id) return false;
-        if (cityId != that.cityId) return false;
+        if (cityId != null ? !cityId.equals(that.cityId) : that.cityId != null) return false;
         if (districtName != null ? !districtName.equals(that.districtName) : that.districtName != null) return false;
 
         return true;
@@ -58,8 +58,8 @@ public class BaseCityDistrict {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + cityId;
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (cityId != null ? cityId.hashCode() : 0);
         result = 31 * result + (districtName != null ? districtName.hashCode() : 0);
         return result;
     }

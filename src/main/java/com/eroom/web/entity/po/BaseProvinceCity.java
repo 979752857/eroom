@@ -1,29 +1,35 @@
 package com.eroom.web.entity.po;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
- * Created by tendy on 2017/7/25.
+ * Created by tendy on 2017/9/5.
  */
 @Entity
 @Table(name = "base_province_city", schema = "eroom", catalog = "")
 public class BaseProvinceCity {
-    private int id;
+    private long id;
     private String provinceName;
     private String provinceEname;
     private String cityName;
     private String cityEname;
     private int state;
+    private Date serviceTime;
+    private Integer baseFee;
+    private String rule;
+    private String pinganProvinceCode;
+    private Integer baiduCityCode;
     private Byte hot;
     private Byte cityLevel;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -78,6 +84,56 @@ public class BaseProvinceCity {
     }
 
     @Basic
+    @Column(name = "service_time")
+    public Date getServiceTime() {
+        return serviceTime;
+    }
+
+    public void setServiceTime(Date serviceTime) {
+        this.serviceTime = serviceTime;
+    }
+
+    @Basic
+    @Column(name = "base_fee")
+    public Integer getBaseFee() {
+        return baseFee;
+    }
+
+    public void setBaseFee(Integer baseFee) {
+        this.baseFee = baseFee;
+    }
+
+    @Basic
+    @Column(name = "rule")
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    @Basic
+    @Column(name = "pingan_province_code")
+    public String getPinganProvinceCode() {
+        return pinganProvinceCode;
+    }
+
+    public void setPinganProvinceCode(String pinganProvinceCode) {
+        this.pinganProvinceCode = pinganProvinceCode;
+    }
+
+    @Basic
+    @Column(name = "baidu_city_code")
+    public Integer getBaiduCityCode() {
+        return baiduCityCode;
+    }
+
+    public void setBaiduCityCode(Integer baiduCityCode) {
+        this.baiduCityCode = baiduCityCode;
+    }
+
+    @Basic
     @Column(name = "hot")
     public Byte getHot() {
         return hot;
@@ -111,6 +167,13 @@ public class BaseProvinceCity {
             return false;
         if (cityName != null ? !cityName.equals(that.cityName) : that.cityName != null) return false;
         if (cityEname != null ? !cityEname.equals(that.cityEname) : that.cityEname != null) return false;
+        if (serviceTime != null ? !serviceTime.equals(that.serviceTime) : that.serviceTime != null) return false;
+        if (baseFee != null ? !baseFee.equals(that.baseFee) : that.baseFee != null) return false;
+        if (rule != null ? !rule.equals(that.rule) : that.rule != null) return false;
+        if (pinganProvinceCode != null ? !pinganProvinceCode.equals(that.pinganProvinceCode) : that.pinganProvinceCode != null)
+            return false;
+        if (baiduCityCode != null ? !baiduCityCode.equals(that.baiduCityCode) : that.baiduCityCode != null)
+            return false;
         if (hot != null ? !hot.equals(that.hot) : that.hot != null) return false;
         if (cityLevel != null ? !cityLevel.equals(that.cityLevel) : that.cityLevel != null) return false;
 
@@ -119,12 +182,17 @@ public class BaseProvinceCity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (provinceName != null ? provinceName.hashCode() : 0);
         result = 31 * result + (provinceEname != null ? provinceEname.hashCode() : 0);
         result = 31 * result + (cityName != null ? cityName.hashCode() : 0);
         result = 31 * result + (cityEname != null ? cityEname.hashCode() : 0);
         result = 31 * result + state;
+        result = 31 * result + (serviceTime != null ? serviceTime.hashCode() : 0);
+        result = 31 * result + (baseFee != null ? baseFee.hashCode() : 0);
+        result = 31 * result + (rule != null ? rule.hashCode() : 0);
+        result = 31 * result + (pinganProvinceCode != null ? pinganProvinceCode.hashCode() : 0);
+        result = 31 * result + (baiduCityCode != null ? baiduCityCode.hashCode() : 0);
         result = 31 * result + (hot != null ? hot.hashCode() : 0);
         result = 31 * result + (cityLevel != null ? cityLevel.hashCode() : 0);
         return result;

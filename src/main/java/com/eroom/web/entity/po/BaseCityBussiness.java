@@ -3,32 +3,32 @@ package com.eroom.web.entity.po;
 import javax.persistence.*;
 
 /**
- * Created by tendy on 2017/8/31.
+ * Created by tendy on 2017/9/5.
  */
 @Entity
 @Table(name = "base_city_bussiness", schema = "eroom", catalog = "")
 public class BaseCityBussiness {
-    private int id;
-    private int districtId;
+    private long id;
+    private long districtId;
     private String bussinessName;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "district_id")
-    public int getDistrictId() {
+    public long getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(int districtId) {
+    public void setDistrictId(long districtId) {
         this.districtId = districtId;
     }
 
@@ -59,8 +59,8 @@ public class BaseCityBussiness {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + districtId;
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) (districtId ^ (districtId >>> 32));
         result = 31 * result + (bussinessName != null ? bussinessName.hashCode() : 0);
         return result;
     }
