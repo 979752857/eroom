@@ -37,10 +37,12 @@ public class RoomBookVo {
 
     private Date endTime;
 
+    private Date updateTime;
+
     public RoomBookVo(Long bookId, Long rentId, long roomId, long custOwnerId, long bedroomId,
             Long custRenterId, String bedroomImageUrl, String roomImageUrl, String name,
             BigDecimal price, String roomType, String space, String decorate, String applyState,
-            Date startTime, Date endTime) {
+            Date startTime, Date endTime, Date updateTime) {
         super();
         this.bookId = bookId;
         this.rentId = rentId;
@@ -58,6 +60,7 @@ public class RoomBookVo {
         this.applyState = applyState;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.updateTime = updateTime;
     }
 
     public Long getBookId() {
@@ -188,4 +191,34 @@ public class RoomBookVo {
         this.endTime = endTime;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "RoomBookVo{" +
+                "bookId=" + bookId +
+                ", rentId=" + rentId +
+                ", roomId=" + roomId +
+                ", custOwnerId=" + custOwnerId +
+                ", bedroomId=" + bedroomId +
+                ", custRenterId=" + custRenterId +
+                ", bedroomImageUrl='" + bedroomImageUrl + '\'' +
+                ", roomImageUrl='" + roomImageUrl + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", roomType='" + roomType + '\'' +
+                ", space='" + space + '\'' +
+                ", decorate='" + decorate + '\'' +
+                ", applyState='" + applyState + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

@@ -7,6 +7,10 @@ public class RoomConstants {
      */
     public static final int LAST_ROOM_LIMIT = 20;
 
+    public static String ROOM_BOOK = "ROOM_BOOK";
+
+    public static String BOOK_WAIT_TIME_LIMIT = "BOOK_WAIT_TIME_LIMIT";
+
     public static class RoomRent{
         public static class RentState{
             /**

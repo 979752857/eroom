@@ -55,6 +55,10 @@ public class DateUtil {
 		return ts;
 	}
 
+	public static Timestamp getTimestamp(Date date){
+		return new Timestamp(date.getTime());
+	}
+
 	/**
 	 * 根据指定的格式输入时间字符串
 	 */
@@ -259,6 +263,29 @@ public class DateUtil {
 			log.error(e.toString(), e);
 		}
 		return Integer.parseInt(String.valueOf(between_days));
+	}
+
+	/**
+	 * 计算两个日期的时间差(秒)
+	 */
+	public static long getSecondDif(Timestamp formatTime1, Timestamp formatTime2) {
+		SimpleDateFormat timeformat = new SimpleDateFormat("yyyy-MM-dd,HH:mm:ss");
+		long t1 = 0L;
+		long t2 = 0L;
+		try {
+			t1 = timeformat.parse(getTimeStampNumberFormat(formatTime1)).getTime();
+		} catch (ParseException e) {
+			log.error(e.toString(), e);
+		}
+		try {
+			t2 = timeformat.parse(getTimeStampNumberFormat(formatTime2)).getTime();
+		} catch (ParseException e) {
+			log.error(e.toString(), e);
+		}
+		// 毫秒ms
+		long diff = t1 - t2;
+		long diffSecond = diff / (1000);
+		return diffSecond;
 	}
 
 	/**

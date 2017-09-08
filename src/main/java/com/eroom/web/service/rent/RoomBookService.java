@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.service.BaseService;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.RoomConstants;
@@ -20,7 +21,7 @@ import com.eroom.web.utils.exception.BusinessException;
 import com.eroom.web.utils.util.DateUtil;
 
 @Service
-public class RoomBookService {
+public class RoomBookService extends BaseService{
 
     @Resource
     private RoomRentDao roomRentDao;
@@ -175,6 +176,9 @@ public class RoomBookService {
         tRoomBook.setEndTime(endTime);
         tRoomBook.setApplyState(RoomConstants.RoomBook.ApplyState.APPLYING);
         tRoomBook.setBedRoomId(tRoomRent.getBedroomId());
+        tRoomBook.setUpdateTime(DateUtil.getCurrentDate());
         roomBookDao.save(tRoomBook);
     }
+
+
 }

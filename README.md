@@ -19,4 +19,6 @@
 # param-uril.js常量测试
 # 问卷调查
 
-#notice:  roomrent_apply_state状态修改
+#notice:  roomrent_apply_state状态修改(think)
+查询语句修改：1、查找出申请中以及授权的状态  然后进行时间校验
+              2、sql查询时加入筛选时条件

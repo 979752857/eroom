@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.eroom.web.service.rent.BookStateUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +15,13 @@ import com.eroom.web.dao.BaseDao;
 import com.eroom.web.entity.po.TRoomBook;
 import com.eroom.web.entity.vo.rent.RoomBookVo;
 
+import javax.annotation.Resource;
+
 @Repository
 public class RoomBookDao extends BaseDao {
+
+    @Resource
+    private BookStateUtil stateUtil;
 
     /**
      * 获取租房信息表
@@ -93,7 +99,7 @@ public class RoomBookDao extends BaseDao {
         StringBuffer hql = new StringBuffer(); 
         hql.append("select new com.eroom.web.entity.vo.rent.RoomBookVo(trb.bookId, trb.rentId, trb.roomId, trb.custOwnerId, trb.bedRoomId, ");
         hql.append("trb.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, ");
-        hql.append("trr.price, tri.roomType, tbi.space, tbi.decorate, trb.applyState, trb.startTime, trb.endTime) ");
+        hql.append("trr.price, tri.roomType, tbi.space, tbi.decorate, trb.applyState, trb.startTime, trb.endTime, trb.updateTime) ");
         hql.append(" from TRoomBook trb, TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
         hql.append(" where trb.custRenterId = :custId and trb.rentId = trr.rentId ");
         hql.append(" and trb.roomId = tri.roomId and trb.bedRoomId = tbi.bedroomId ");
@@ -119,6 +125,7 @@ public class RoomBookDao extends BaseDao {
         }
         List<RoomBookVo> list = this.getList(hql.toString(), params);
         if (!CollectionUtils.isEmpty(list)) {
+            list = stateUtil.checkRoomBookVoState(list);
             return list;
         }
         return null;
@@ -136,7 +143,7 @@ public class RoomBookDao extends BaseDao {
         StringBuffer hql = new StringBuffer(); 
         hql.append("select new com.eroom.web.entity.vo.rent.RoomBookVo(trb.bookId, trb.rentId, trb.roomId, trb.custOwnerId, trb.bedRoomId, ");
         hql.append("trb.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, ");
-        hql.append("trr.price, tri.roomType, tbi.space, tbi.decorate, trb.applyState, trb.startTime, trb.endTime) ");
+        hql.append("trr.price, tri.roomType, tbi.space, tbi.decorate, trb.applyState, trb.startTime, trb.endTime, trb.updateTime) ");
         hql.append(" from TRoomBook trb, TRoomRent trr, TBedroomInfo tbi, TRoomInfo tri ");
         hql.append(" where trb.custOwnerId = :custId and trb.rentId = trr.rentId ");
         hql.append(" and trb.roomId = tri.roomId and trb.bedRoomId = tbi.bedroomId ");
@@ -163,6 +170,7 @@ public class RoomBookDao extends BaseDao {
 
         List<RoomBookVo> list = this.getList(hql.toString(), params);
         if (!CollectionUtils.isEmpty(list)) {
+            list = stateUtil.checkRoomBookVoState(list);
             return list;
         }
         return null;
@@ -185,5 +193,4 @@ public class RoomBookDao extends BaseDao {
         int result = this.update(hql, params);
         return result;
     }
-
 }

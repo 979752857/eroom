@@ -39,22 +39,6 @@ public class RoomBookController extends BaseController {
     }
 
     /**
-     * 房东获取预约信息
-     * 
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/getFdRentBookApply")
-    @ResponseBody
-    public ResultVo getFdRentBookApply() throws Exception {
-        ResultVo result = new ResultVo();
-        SessionVo sessionVo = this.getCustSession();
-        List<RoomBookVo> list = roomBookService.getFdRoomBookApply(sessionVo.getCustId());
-        result.setDatas(list);
-        return result;
-    }
-
-    /**
      * 获取已完成预约信息
      * 
      * @return
@@ -71,22 +55,6 @@ public class RoomBookController extends BaseController {
     }
 
     /**
-     * 房东获取已完成预约信息
-     * 
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/getFdRentBookFinish")
-    @ResponseBody
-    public ResultVo getFdRentBookFinish() throws Exception {
-        ResultVo result = new ResultVo();
-        SessionVo sessionVo = this.getCustSession();
-        List<RoomBookVo> list = roomBookService.getFdRoomBookFinish(sessionVo.getCustId());
-        result.setDatas(list);
-        return result;
-    }
-
-    /**
      * 获取所有预约信息
      * 
      * @return
@@ -98,22 +66,6 @@ public class RoomBookController extends BaseController {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
         List<RoomBookVo> list = roomBookService.getRoomBookAll(sessionVo.getCustId());
-        result.setDatas(list);
-        return result;
-    }
-
-    /**
-     * 房东获取所有预约信息
-     * 
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/getFdRentBookAll")
-    @ResponseBody
-    public ResultVo getFdRentBookAll() throws Exception {
-        ResultVo result = new ResultVo();
-        SessionVo sessionVo = this.getCustSession();
-        List<RoomBookVo> list = roomBookService.getFdRoomBookAll(sessionVo.getCustId());
         result.setDatas(list);
         return result;
     }
@@ -148,6 +100,54 @@ public class RoomBookController extends BaseController {
         roomBookService.deleteRoomBook(bookId);
         result.setDatas(null);
         result.setSuccess(true);
+        return result;
+    }
+
+    /**
+     * 房东获取所有预约信息
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getFdRentBookAll")
+    @ResponseBody
+    public ResultVo getFdRentBookAll() throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        List<RoomBookVo> list = roomBookService.getFdRoomBookAll(sessionVo.getCustId());
+        result.setDatas(list);
+        return result;
+    }
+
+    /**
+     * 房东获取预约信息
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getFdRentBookApply")
+    @ResponseBody
+    public ResultVo getFdRentBookApply() throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        List<RoomBookVo> list = roomBookService.getFdRoomBookApply(sessionVo.getCustId());
+        result.setDatas(list);
+        return result;
+    }
+
+    /**
+     * 房东获取已完成预约信息
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getFdRentBookFinish")
+    @ResponseBody
+    public ResultVo getFdRentBookFinish() throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        List<RoomBookVo> list = roomBookService.getFdRoomBookFinish(sessionVo.getCustId());
+        result.setDatas(list);
         return result;
     }
 
