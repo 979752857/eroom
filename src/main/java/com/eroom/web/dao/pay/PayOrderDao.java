@@ -1,8 +1,7 @@
 package com.eroom.web.dao.pay;
 
 import com.eroom.web.dao.BaseDao;
-import com.eroom.web.entity.po.TPayDetail;
-import com.eroom.web.entity.po.TPayOrder;
+import com.eroom.web.entity.po.PayOrder;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
@@ -16,22 +15,22 @@ public class PayOrderDao extends BaseDao {
     /**
      * 获取支付订单列表
      * 
-     * @return TPayOrder
+     * @return PayOrder
      * @throws Exception
      * @author tendy
      */
-    public List<TPayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit) throws Exception {
+    public List<PayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit) throws Exception {
         return getTPayOrderList(custRenterId, orderState, limit, 0);
     }
-    public List<TPayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit, int page) throws Exception {
+    public List<PayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit, int page) throws Exception {
         StringBuilder hql = new StringBuilder();
-        hql.append("from TPayOrder where orderState = :orderState and custRenterId = :custRenterId order by createTime desc");
+        hql.append("from PayOrder where orderState = :orderState and custRenterId = :custRenterId order by createTime desc");
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderState", orderState);
         params.put("custRenterId", custRenterId);
 
-        List<TPayOrder> list = this.getPageList(hql.toString(), params, page, limit);
+        List<PayOrder> list = this.getPageList(hql.toString(), params, page, limit);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
         }

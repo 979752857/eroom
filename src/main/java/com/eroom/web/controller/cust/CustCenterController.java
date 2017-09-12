@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eroom.web.controller.BaseController;
-import com.eroom.web.entity.po.TCustRoomCollect;
+import com.eroom.web.entity.po.CustRoomCollect;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.base.SessionVo;
 import com.eroom.web.entity.vo.rent.RoomRentVo;
@@ -69,7 +69,7 @@ public class CustCenterController extends BaseController {
     public ResultVo getCollectByRentid(Long rentId) throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        TCustRoomCollect collect = custCenterService.getCustRoomCollect(sessionVo.getCustId(),
+        CustRoomCollect collect = custCenterService.getCustRoomCollect(sessionVo.getCustId(),
                 rentId);
         result.setDatas(collect);
         return result;
@@ -101,7 +101,7 @@ public class CustCenterController extends BaseController {
     @ResponseBody
     public ResultVo deleteCollect(Long collectId) throws Exception {
         ResultVo result = new ResultVo();
-        TCustRoomCollect t = custCenterService.deleteCustRoomCollect(collectId);
+        CustRoomCollect t = custCenterService.deleteCustRoomCollect(collectId);
         result.setDatas(t);
         return result;
     }
@@ -117,7 +117,7 @@ public class CustCenterController extends BaseController {
     public ResultVo addCollect(Long rentId) throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        TCustRoomCollect collect = custCenterService.addCustRoomCollect(sessionVo.getCustId(),
+        CustRoomCollect collect = custCenterService.addCustRoomCollect(sessionVo.getCustId(),
                 rentId);
         result.setDatas(collect);
         return result;

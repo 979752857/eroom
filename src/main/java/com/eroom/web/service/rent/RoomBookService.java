@@ -13,8 +13,8 @@ import com.eroom.web.constants.RoomConstants;
 import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.dao.rent.RoomBookDao;
 import com.eroom.web.dao.rent.RoomRentDao;
-import com.eroom.web.entity.po.TRoomBook;
-import com.eroom.web.entity.po.TRoomRent;
+import com.eroom.web.entity.po.RoomBook;
+import com.eroom.web.entity.po.RoomRent;
 import com.eroom.web.entity.vo.rent.RoomBookVo;
 import com.eroom.web.service.system.SystemCfgService;
 import com.eroom.web.utils.exception.BusinessException;
@@ -39,7 +39,7 @@ public class RoomBookService extends BaseService{
      * @throws Exception
      */
     public void deleteRoomBook(Long bookId) throws Exception {
-        TRoomBook t = roomBookDao.get(TRoomBook.class, bookId);
+        RoomBook t = roomBookDao.get(RoomBook.class, bookId);
         t.setApplyState(RoomConstants.RoomBook.ApplyState.CANCEL);
         roomBookDao.update(t);
     }
@@ -51,7 +51,7 @@ public class RoomBookService extends BaseService{
      * @throws Exception
      */
     public void updateRefuseRoomBook(Long bookId) throws Exception {
-        TRoomBook t = roomBookDao.get(TRoomBook.class, bookId);
+        RoomBook t = roomBookDao.get(RoomBook.class, bookId);
         t.setApplyState(RoomConstants.RoomBook.ApplyState.REFUSE);
         roomBookDao.update(t);
     }
@@ -63,7 +63,7 @@ public class RoomBookService extends BaseService{
      * @throws Exception
      */
     public void updateAgreeRoomBook(Long bookId) throws Exception {
-        TRoomBook t = roomBookDao.get(TRoomBook.class, bookId);
+        RoomBook t = roomBookDao.get(RoomBook.class, bookId);
         t.setApplyState(RoomConstants.RoomBook.ApplyState.AGREE);
         roomBookDao.update(t);
     }
@@ -147,9 +147,9 @@ public class RoomBookService extends BaseService{
         if (time == null) {
             throw new BusinessException("没有获取到预约时间");
         }
-        TRoomRent tRoomRent = roomRentDao.get(TRoomRent.class, rentId);
+        RoomRent roomRent = roomRentDao.get(RoomRent.class, rentId);
         // 判断房屋是否已经出租
-        if (!RoomConstants.RoomRent.RentState.RENTING.equals(tRoomRent.getRentState())) {
+        if (!RoomConstants.RoomRent.RentState.RENTING.equals(roomRent.getRentState())) {
             throw new BusinessException("此房间暂未出租");
         }
         // 判断时间是否早于当前时间
@@ -160,22 +160,22 @@ public class RoomBookService extends BaseService{
         String limitStr = systemCfgService.getCfgValue(SystemConstants.SystemCfg.CfgType.ROOM_BOOK,
                 SystemConstants.SystemCfg.CfgCode.BOOK_LIMIT);
         Date endTime = new Date(time.getTime() + Long.parseLong(limitStr) * 1000);
-        TRoomBook t = roomBookDao.getTRoomBookApplied(custId, tRoomRent.getRoomId(), time, endTime);
+        RoomBook t = roomBookDao.getTRoomBookApplied(custId, roomRent.getRoomId(), time, endTime);
         if (t != null) {
             throw new BusinessException("这个时间段已经预约过啦");
         }
 
-        TRoomBook tRoomBook = new TRoomBook();
-        tRoomBook.setBedRoomId(tRoomRent.getBedroomId());
-        tRoomBook.setRoomId(tRoomRent.getRoomId());
+        RoomBook tRoomBook = new RoomBook();
+        tRoomBook.setBedRoomId(roomRent.getBedroomId());
+        tRoomBook.setRoomId(roomRent.getRoomId());
         tRoomBook.setCreateTime(DateUtil.getCurrentDate());
-        tRoomBook.setCustOwnerId(tRoomRent.getCustOwnerId());
+        tRoomBook.setCustOwnerId(roomRent.getCustOwnerId());
         tRoomBook.setCustRenterId(custId);
         tRoomBook.setRentId(rentId);
         tRoomBook.setStartTime(time);
         tRoomBook.setEndTime(endTime);
         tRoomBook.setApplyState(RoomConstants.RoomBook.ApplyState.APPLYING);
-        tRoomBook.setBedRoomId(tRoomRent.getBedroomId());
+        tRoomBook.setBedRoomId(roomRent.getBedroomId());
         tRoomBook.setUpdateTime(DateUtil.getCurrentDate());
         roomBookDao.save(tRoomBook);
     }

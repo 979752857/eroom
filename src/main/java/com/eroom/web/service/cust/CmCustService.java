@@ -3,7 +3,7 @@ package com.eroom.web.service.cust;
 import javax.annotation.Resource;
 
 import com.eroom.web.dao.cust.TCustInfoDao;
-import com.eroom.web.entity.po.TCustInfo;
+import com.eroom.web.entity.po.CustInfo;
 import com.eroom.web.utils.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +49,7 @@ public class CmCustService {
     /**
      * 根据openid查询客户信息
      */
-    public TCustInfo getTCustInfoByCustId(Long custId) throws Exception {
+    public CustInfo getTCustInfoByCustId(Long custId) throws Exception {
         if(custId == null){
             throw new BusinessException("用户id不能为空");
         }
@@ -59,11 +59,11 @@ public class CmCustService {
     /**
      * 修改用户信息
      */
-    public TCustInfo updateCustInfo(TCustInfo custInfo) throws Exception {
+    public CustInfo updateCustInfo(CustInfo custInfo) throws Exception {
         if(custInfo == null){
             throw new BusinessException("没有获取到修改信息");
         }
-        TCustInfo t = custInfoDao.get(TCustInfo.class, custInfo.getCustId());
+        CustInfo t = custInfoDao.get(CustInfo.class, custInfo.getCustId());
         StringUtil.isNullStringParam(custInfo.getName(), custInfo.getEmail(), custInfo.getNickName(), custInfo.getPhone(), custInfo.getQq());
         if(!StringUtil.isBlank(custInfo.getEmail())){
             t.setEmail(custInfo.getEmail());

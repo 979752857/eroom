@@ -1,11 +1,10 @@
 package com.eroom.web.controller.rentlife;
 
 import com.eroom.web.controller.BaseController;
-import com.eroom.web.entity.po.TRoomMessage;
+import com.eroom.web.entity.po.RoomMessage;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.base.SessionVo;
 import com.eroom.web.entity.vo.rentlife.RoomMessageVo;
-import com.eroom.web.service.rent.RoomDetailService;
 import com.eroom.web.service.rentlife.RoomMessageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +60,7 @@ public class MessageController extends BaseController {
     public ResultVo addMessage(String message) throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        TRoomMessage tRoomMessage = roomMessageService.addRoomMessage(sessionVo.getCustId(), message);
+        RoomMessage tRoomMessage = roomMessageService.addRoomMessage(sessionVo.getCustId(), message);
         result.setDatas(tRoomMessage);
         return result;
     }

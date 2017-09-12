@@ -17,14 +17,14 @@ public class RoomMessageDao extends BaseDao {
 	/**
 	 * 获取最新留言信息
 	 * 
-	 * @return TRoomMessage
+	 * @return RoomMessage
 	 * @throws Exception
 	 * @author tendy
 	 */
 	public List<RoomMessageVo> getLastRoomMessageVo(Long roomId, int limit) throws Exception {
 		String hql = "select new com.eroom.web.entity.vo.rentlife.RoomMessageVo( "
                 + "trm.roomId, trm.custId, tci.name, tci.image, trm.content, trm.createTime, trm.state "
-                + ") from TCustInfo tci, TRoomMessage trm "
+                + ") from CustInfo tci, RoomMessage trm "
                 + "where trm.roomId = :roomId and trm.custId = tci.id order by trm.createTime desc ";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("roomId", roomId);
@@ -39,14 +39,14 @@ public class RoomMessageDao extends BaseDao {
 	/**
 	 * 获取近一个月留言信息
 	 * 
-	 * @return TRoomMessage
+	 * @return RoomMessage
 	 * @throws Exception
 	 * @author tendy
 	 */
 	public List<RoomMessageVo> getMonthRoomMessageVo(Long roomId, Date time) throws Exception {
 	    String hql = "select new com.eroom.web.entity.vo.rentlife.RoomMessageVo( "
 	            + "trm.roomId, trm.custId, tci.name, tci.image, trm.content, trm.createTime, trm.state "
-	            + ") from TCustInfo tci, TRoomMessage trm "
+	            + ") from CustInfo tci, RoomMessage trm "
 	            + "where trm.roomId = :roomId and trm.createTime > :time and trm.custId = tci.id order by trm.createTime desc ";
 	    Map<String, Object> params = new HashMap<String, Object>();
 	    params.put("roomId", roomId);
@@ -62,14 +62,14 @@ public class RoomMessageDao extends BaseDao {
 	/**
 	 * 获取留言信息分页
 	 *
-	 * @return TRoomMessage
+	 * @return RoomMessage
 	 * @throws Exception
 	 * @author tendy
 	 */
 	public List<RoomMessageVo> getRoomMessageVo(Long roomId, int limit, int page) throws Exception {
 	    String hql = "select new com.eroom.web.entity.vo.rentlife.RoomMessageVo( "
 	            + "trm.roomId, trm.custId, tci.name, tci.image, trm.content, trm.createTime, trm.state "
-	            + ") from TCustInfo tci, TRoomMessage trm "
+	            + ") from CustInfo tci, RoomMessage trm "
 	            + "where trm.roomId = :roomId and trm.custId = tci.id order by trm.createTime desc ";
 	    Map<String, Object> params = new HashMap<String, Object>();
 	    params.put("roomId", roomId);
@@ -84,12 +84,12 @@ public class RoomMessageDao extends BaseDao {
 	/**
 	 * 获取留言信息分页
 	 *
-	 * @return TRoomMessage
+	 * @return RoomMessage
 	 * @throws Exception
 	 * @author tendy
 	 */
 	public Long countRoomMessageVo(Long roomId) throws Exception {
-	    String hql = "select count(1) from TCustInfo tci, TRoomMessage trm "
+	    String hql = "select count(1) from CustInfo tci, RoomMessage trm "
 	            + "where trm.roomId = :roomId and trm.custId = tci.id order by trm.createTime desc ";
 	    Map<String, Object> params = new HashMap<String, Object>();
 	    params.put("roomId", roomId);

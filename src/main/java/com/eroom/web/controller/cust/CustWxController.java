@@ -16,7 +16,7 @@ import com.eroom.web.controller.BaseController;
 import com.eroom.web.entity.po.CmCustWx;
 import com.eroom.web.entity.po.CmCustWxExt;
 import com.eroom.web.entity.po.SystemBaseExt;
-import com.eroom.web.entity.po.TCustInfo;
+import com.eroom.web.entity.po.CustInfo;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.base.SessionVo;
 import com.eroom.web.service.cust.CmCustService;
@@ -54,7 +54,7 @@ public class CustWxController extends BaseController {
     public ResultVo getCustInfo() throws Exception {
         String openid = request.getParameter("openid");
         ResultVo result = new ResultVo();
-        TCustInfo custInfo = custInfoWxService.getTCustInfoByOpenId(openid);
+        CustInfo custInfo = custInfoWxService.getTCustInfoByOpenId(openid);
         // 存入session中
         SessionVo cust = new SessionVo();
         cust.setCustId(custInfo.getCustId());

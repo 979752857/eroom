@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.dao.cust.TCustRoomCollectDao;
-import com.eroom.web.entity.po.TCustRoomCollect;
+import com.eroom.web.entity.po.CustRoomCollect;
 import com.eroom.web.entity.vo.rent.RoomRentVo;
 import com.eroom.web.utils.util.DateUtil;
 
@@ -22,19 +22,19 @@ public class CustCenterService {
         return tCustRoomCollectDao.getCollectTRoomRentVo(custId);
     }
     
-    public TCustRoomCollect getCustRoomCollect(Long custId, Long rentId) throws Exception{
+    public CustRoomCollect getCustRoomCollect(Long custId, Long rentId) throws Exception{
         return tCustRoomCollectDao.getTCustRoomCollect(custId, rentId);
     }
     
-    public TCustRoomCollect deleteCustRoomCollect(Long collectId) throws Exception{
-        TCustRoomCollect t = tCustRoomCollectDao.get(TCustRoomCollect.class, collectId);
+    public CustRoomCollect deleteCustRoomCollect(Long collectId) throws Exception{
+        CustRoomCollect t = tCustRoomCollectDao.get(CustRoomCollect.class, collectId);
         t.setState(SystemConstants.State.INACTIVE);
         tCustRoomCollectDao.update(t);
         return t;
     }
     
-    public TCustRoomCollect addCustRoomCollect(Long custId, Long rentId) throws Exception{
-        TCustRoomCollect t = new TCustRoomCollect();
+    public CustRoomCollect addCustRoomCollect(Long custId, Long rentId) throws Exception{
+        CustRoomCollect t = new CustRoomCollect();
         t.setCustId(custId);
         t.setRentId(rentId);
         t.setState(SystemConstants.State.ACTIVE);

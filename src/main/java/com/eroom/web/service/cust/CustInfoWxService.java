@@ -14,7 +14,7 @@ import com.eroom.web.dao.cust.CmCustWxDao;
 import com.eroom.web.dao.cust.TCustInfoDao;
 import com.eroom.web.entity.po.CmCustWx;
 import com.eroom.web.entity.po.SystemBase;
-import com.eroom.web.entity.po.TCustInfo;
+import com.eroom.web.entity.po.CustInfo;
 import com.eroom.web.service.system.SystemBaseService;
 import com.eroom.web.service.wechat.WechatService;
 import com.eroom.web.utils.exception.BusinessException;
@@ -40,7 +40,7 @@ public class CustInfoWxService {
         return cmCustWxDao.getCmCustByOpenId(openid);
     }
     
-    public TCustInfo getTCustInfoByOpenId(String openid) throws Exception {
+    public CustInfo getTCustInfoByOpenId(String openid) throws Exception {
     	return tCustInfoDao.getTCustInfoByOpenid(openid);
     }
 

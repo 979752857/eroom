@@ -6,17 +6,15 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.entity.bo.LocationRangeBo;
 import com.eroom.web.entity.bo.RoomRentBo;
-import com.eroom.web.entity.po.TPayDetail;
 import com.eroom.web.service.base.BaseSubwayStationService;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.RoomConstants;
 import com.eroom.web.dao.rent.RoomBookDao;
 import com.eroom.web.dao.rent.RoomRentDao;
-import com.eroom.web.entity.po.TRoomRent;
+import com.eroom.web.entity.po.RoomRent;
 import com.eroom.web.entity.vo.rent.RoomRentVo;
 import com.eroom.web.service.system.SystemCfgService;
 
@@ -101,8 +99,8 @@ public class RoomRentService {
      * @throws Exception
      * @author tendy
      */
-    public TRoomRent getTRoomRentByCustId(Long custId) throws Exception {
-        TRoomRent t = roomRentDao.getTRoomRent(custId, RoomConstants.RoomRent.RentState.RENTED);
+    public RoomRent getTRoomRentByCustId(Long custId) throws Exception {
+        RoomRent t = roomRentDao.getTRoomRent(custId, RoomConstants.RoomRent.RentState.RENTED);
         return t;
     }
 

@@ -27,7 +27,7 @@ public class RoomTaskDao extends BaseDao {
         String hql = "select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( "
                 + "tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, "
                 + "tti.taskList, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState "
-                + ") from TCustInfo tci, TCustInfo tcie, TRoomTask tti "
+                + ") from CustInfo tci, CustInfo tcie, RoomTask tti "
                 + "where tti.executeCustId = :executeCustId and tti.custId = tci.custId and tti.executeCustId = tcie.custId and tti.taskState = :taskState order by tti.updateTime desc ";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("executeCustId", custId);
@@ -51,7 +51,7 @@ public class RoomTaskDao extends BaseDao {
         String hql = "select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( "
                 + "tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, "
                 + "tti.taskList, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState "
-                + ") from TCustInfo tci, TCustInfo tcie, TRoomTask tti "
+                + ") from CustInfo tci, CustInfo tcie, RoomTask tti "
                 + "where tti.executeCustId = :executeCustId and tti.endTime > :time and tti.custId = tci.custId and tti.executeCustId = tcie.custId and tti.taskState = :taskState order by tti.updateTime desc ";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("executeCustId", custId);
@@ -73,7 +73,7 @@ public class RoomTaskDao extends BaseDao {
         StringBuilder hql = new StringBuilder();
         Map<String, Object> params = new HashMap<String, Object>();
         hql.append("select count(1) ");
-        hql.append(" from TCustInfo tci, TCustInfo tcie, TRoomTask tti ");
+        hql.append(" from CustInfo tci, CustInfo tcie, RoomTask tti ");
         hql.append("where tti.executeCustId = :executeCustId and tti.custId = tci.custId and tti.executeCustId = tcie.custId " );
         if(!StringUtil.isBlank(state)){
             hql.append("and tti.taskState = :taskState ");
@@ -98,7 +98,7 @@ public class RoomTaskDao extends BaseDao {
         hql.append("select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( ");
         hql.append("tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, ");
         hql.append("tti.taskList, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState ");
-        hql.append(") from TCustInfo tci, TCustInfo tcie, TRoomTask tti ");
+        hql.append(") from CustInfo tci, CustInfo tcie, RoomTask tti ");
         hql.append("where tti.executeCustId = :executeCustId and tti.custId = tci.custId and tti.executeCustId = tcie.custId " );
         if(!StringUtil.isBlank(state)){
             hql.append("and tti.taskState = :taskState ");
@@ -137,7 +137,7 @@ public class RoomTaskDao extends BaseDao {
         hql.append("select new com.eroom.web.entity.vo.rentlife.TaskInfoVo( ");
         hql.append("tti.taskId, tti.roomId, tti.executeCustId, tcie.name, tti.custId, tci.name, tti.content, ");
         hql.append("tti.taskList, tti.startTime, tti.endTime, tti.remark, tti.type, tti.updateTime, tti.taskState ");
-        hql.append(") from TCustInfo tci, TCustInfo tcie, TRoomTask tti ");
+        hql.append(") from CustInfo tci, CustInfo tcie, RoomTask tti ");
         hql.append("where tti.custId = tci.custId and tti.executeCustId = tcie.custId and tti.executeCustId = :executeCustId order by tti.updateTime desc ");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("executeCustId", custId);

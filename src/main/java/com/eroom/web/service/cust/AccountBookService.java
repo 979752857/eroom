@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.CustConstants;
 import com.eroom.web.dao.cust.TAccountBookDao;
-import com.eroom.web.entity.po.TAccountBook;
+import com.eroom.web.entity.po.AccountBook;
 import com.eroom.web.utils.exception.BusinessException;
 
 @Service
@@ -21,11 +21,11 @@ public class AccountBookService {
 	 * @return
 	 * @throws Exception
 	 */
-	public TAccountBook getCustAccount(Long custId) throws Exception {
+	public AccountBook getCustAccount(Long custId) throws Exception {
 	    if(custId == null || custId == 0){
 	        throw new BusinessException("未获取到租客编号");
 	    }
-	    TAccountBook account = tAccountBookDao.getAcccoutBookByCustId(custId, CustConstants.TAccountBook.BookItemId.CUSTMONEY);
+	    AccountBook account = tAccountBookDao.getAcccoutBookByCustId(custId, CustConstants.TAccountBook.BookItemId.CUSTMONEY);
 		return account;
 	}
 

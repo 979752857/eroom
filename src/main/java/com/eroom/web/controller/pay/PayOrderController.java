@@ -2,7 +2,7 @@ package com.eroom.web.controller.pay;
 
 import com.eroom.web.constants.PayConstants;
 import com.eroom.web.controller.BaseController;
-import com.eroom.web.entity.po.TPayOrder;
+import com.eroom.web.entity.po.PayOrder;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.base.SessionVo;
 import com.eroom.web.service.pay.PayOrderService;
@@ -31,7 +31,7 @@ public class PayOrderController extends BaseController {
     public ResultVo getPayOrderWait() throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        List<TPayOrder> list = payOrderService.getPayOrderList(sessionVo .getCustId(), PayConstants.PayOrder.OrderState.WAITING);
+        List<PayOrder> list = payOrderService.getPayOrderList(sessionVo .getCustId(), PayConstants.PayOrder.OrderState.WAITING);
         result.setDatas(list);
         return result;
     }
@@ -47,7 +47,7 @@ public class PayOrderController extends BaseController {
     public ResultVo getPayOrderFinish() throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        List<TPayOrder> list = payOrderService.getPayOrderList(sessionVo .getCustId(), PayConstants.PayOrder.OrderState.FINISH);
+        List<PayOrder> list = payOrderService.getPayOrderList(sessionVo .getCustId(), PayConstants.PayOrder.OrderState.FINISH);
         result.setDatas(list);
         return result;
     }
@@ -63,7 +63,7 @@ public class PayOrderController extends BaseController {
     public ResultVo getPayOrderAll() throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        List<TPayOrder> list = payOrderService.getPayOrderList(sessionVo .getCustId(), null);
+        List<PayOrder> list = payOrderService.getPayOrderList(sessionVo .getCustId(), null);
         result.setDatas(list);
         return result;
     }

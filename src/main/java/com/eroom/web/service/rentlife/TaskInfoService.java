@@ -6,8 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.eroom.web.constants.RoomConstants;
-import com.eroom.web.entity.po.TRoomTask;
+import com.eroom.web.entity.po.RoomTask;
 import com.eroom.web.entity.vo.base.ResultVo;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +75,7 @@ public class TaskInfoService {
 	 */
 	public ResultVo updateTaskInfoFinish(Long custId, Long taskId) throws Exception {
 		ResultVo result = new ResultVo();
-		TRoomTask task = taskInfoDao.get(TRoomTask.class, taskId);
+		RoomTask task = taskInfoDao.get(RoomTask.class, taskId);
 		if(task != null){
 			task.setTaskState(RentLifeConstants.TaskInfo.TaskState.FINISH);
 			taskInfoDao.update(task);

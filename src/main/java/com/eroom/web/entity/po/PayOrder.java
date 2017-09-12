@@ -9,7 +9,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "t_pay_order", schema = "eroom", catalog = "")
-public class TPayOrder {
+public class PayOrder {
     private long payOrderId;
     private long rentId;
     private long custRenterId;
@@ -137,7 +137,7 @@ public class TPayOrder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TPayOrder that = (TPayOrder) o;
+        PayOrder that = (PayOrder) o;
 
         if (payOrderId != that.payOrderId) return false;
         if (rentId != that.rentId) return false;

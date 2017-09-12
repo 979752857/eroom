@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.PaymentConstants;
 import com.eroom.web.dao.pay.PayDetailDao;
-import com.eroom.web.entity.po.TPayDetail;
+import com.eroom.web.entity.po.PayDetail;
 import com.eroom.web.utils.exception.BusinessException;
 
 @Service
@@ -28,11 +28,11 @@ public class PayDetailService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<TPayDetail> getLastPayDetail(Long custId) throws Exception {
+	public List<PayDetail> getLastPayDetail(Long custId) throws Exception {
 	    if(custId == null || custId == 0){
 	        throw new BusinessException("未获取到租客编号");
 	    }
-	    List<TPayDetail> list = payDetailDao.getLastTPayDetail(custId, PaymentConstants.LIMIT);
+	    List<PayDetail> list = payDetailDao.getLastTPayDetail(custId, PaymentConstants.LIMIT);
 		return list;
 	}
 
@@ -56,7 +56,7 @@ public class PayDetailService {
 				page -= 1;
 			}
 		}
-		List<TPayDetail> list = payDetailDao.getTPayDetail(custId, startTime, PaymentConstants.PAYDETAI_LIMIT, curPage);
+		List<PayDetail> list = payDetailDao.getTPayDetail(custId, startTime, PaymentConstants.PAYDETAI_LIMIT, curPage);
 		map.put("list", list);
 		map.put("totle", totle);
 		map.put("page", page);

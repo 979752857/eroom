@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eroom.web.controller.BaseController;
-import com.eroom.web.entity.po.TPayDetail;
+import com.eroom.web.entity.po.PayDetail;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.base.SessionVo;
 import com.eroom.web.service.pay.PayDetailService;
@@ -33,7 +33,7 @@ public class PayDetaiController extends BaseController {
 	public ResultVo getPayDetail() throws Exception {
 		ResultVo result = new ResultVo();
 		SessionVo sessionVo = this.getCustSession();
-		List<TPayDetail> list = payDetailService.getLastPayDetail(sessionVo.getCustId());
+		List<PayDetail> list = payDetailService.getLastPayDetail(sessionVo.getCustId());
 		result.setDatas(list);
 		return result;
 	}

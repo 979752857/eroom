@@ -2,7 +2,7 @@ package com.eroom.web.service;
 
 import com.eroom.web.BaseTest;
 import com.eroom.web.constants.PayConstants;
-import com.eroom.web.entity.po.TPayOrder;
+import com.eroom.web.entity.po.PayOrder;
 import com.eroom.web.service.pay.PayOrderService;
 import com.eroom.web.utils.util.CollectionUtil;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class PayOrderServiceTest extends BaseTest {
 
     @Test
     public void getPayOrderTest() throws Exception {
-        List<TPayOrder> list = payOrderService.getPayOrderList(1L, PayConstants.PayOrder.OrderState.FINISH);
+        List<PayOrder> list = payOrderService.getPayOrderList(1L, PayConstants.PayOrder.OrderState.FINISH);
         if(!CollectionUtil.isEmpty(list)){
             logger.info("\n测试数据："+list.size());
         }else{
