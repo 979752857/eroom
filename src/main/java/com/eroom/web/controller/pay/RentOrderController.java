@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/rentorder")
@@ -35,6 +36,36 @@ public class RentOrderController extends BaseController {
         SessionVo sessionVo = this.getCustSession();
         List<RentOrder> list = rentOrderService.getRentOrderList(sessionVo.getCustId());
         result.setDatas(list);
+        return result;
+    }
+    /**
+     * 保存未提交租房订单
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/insertRentOrder")
+    @ResponseBody
+    public ResultVo insertRentOrder(RentOrder rentOrder) throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        rentOrder.setCustRenterId(sessionVo.getCustId());
+        Map<String, String> map = rentOrderService.insertRentOrder(rentOrder);
+        result.setDatas(map);
+        return result;
+    }
+    /**
+     * 提交租房订单
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/saveRentOrder")
+    @ResponseBody
+    public ResultVo saveRentOrder(RentOrder rentOrder) throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        rentOrder.setCustRenterId(sessionVo.getCustId());
+        Map<String, String> map = rentOrderService.saveRentOrder(rentOrder);
+        result.setDatas(map);
         return result;
     }
 }

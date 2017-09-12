@@ -9,7 +9,9 @@ import com.eroom.web.utils.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RentOrderService extends BaseService {
@@ -38,4 +40,31 @@ public class RentOrderService extends BaseService {
         return list;
     }
 
+    /**
+     * 保存未提交的租房订单
+     * @param rentOrder
+     * @return
+     */
+    public Map<String, String> insertRentOrder(RentOrder rentOrder){
+        Map<String, String> map = new HashMap<String, String>();
+
+        return map;
+    }
+
+    /**
+     * 保存提交得租房订单
+     * @param rentOrder
+     * @return
+     */
+    public Map<String, String> saveRentOrder(RentOrder rentOrder){
+        Map<String, String> map = new HashMap<String, String>();
+
+        return map;
+    }
+
+    private Map<String, String> checkRentOrder(RentOrder rentOrder){
+        Map<String, String> map = new HashMap<>();
+
+        return map;
+    }
 }
