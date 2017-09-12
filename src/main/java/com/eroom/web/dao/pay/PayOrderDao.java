@@ -24,7 +24,7 @@ public class PayOrderDao extends BaseDao {
     }
     public List<PayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit, int page) throws Exception {
         StringBuilder hql = new StringBuilder();
-        hql.append("from PayOrder where orderState = :orderState and custRenterId = :custRenterId order by createTime desc");
+        hql.append("from PayOrder where payOrderState = :orderState and custRenterId = :custRenterId order by createTime desc");
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderState", orderState);

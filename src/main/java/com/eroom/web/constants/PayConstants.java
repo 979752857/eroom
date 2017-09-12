@@ -27,4 +27,35 @@ public class PayConstants {
             public static final String FAIL = "04";
         }
     }
+
+    public static class RentOrder{
+
+        /**
+         * 租房订单列表显示限制
+         */
+        public static Integer RENT_ORDER_LIMIT = 10;
+
+        public static class RentOrderState{
+            /**
+             * 未提交
+             */
+            public static final String UNCOMMIT = "01";
+            /**
+             * 待支付
+             */
+            public static final String WAIT_PAY = "02";
+            /**
+             * 已支付
+             */
+            public static final String PAID = "03";
+            /**
+             * 完成
+             */
+            public static final String FINISH = "04";
+            /**
+             * 取消
+             */
+            public static final String CANCEL = "05";
+        }
+    }
 }

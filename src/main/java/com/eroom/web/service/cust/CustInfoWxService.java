@@ -67,7 +67,6 @@ public class CustInfoWxService {
      * @param code
      * @return
      * @throws Exception
-     * @author zhangym
      */
     public CmCustWx addByWechat(String tenantNo, String code) throws Exception {
         SystemBase systemBase = systemBaseService.getSystemBase();
@@ -137,7 +136,6 @@ public class CustInfoWxService {
      * 
      * @param cmCust
      * @throws Exception
-     * @author zhangym
      */
     public CmCustWx becomeAgent(CmCustWx cmCust) throws Exception {
         // 获取基本accesstoken

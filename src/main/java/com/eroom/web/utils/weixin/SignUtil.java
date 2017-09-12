@@ -8,13 +8,12 @@ import java.util.Arrays;
  * 
 * @ClassName: SignUtil 
 * @Description: 签名处理工具
-* @author lifeng lifeng3@asiainfo.com
-* @date 2014年9月3日 下午4:16:35
+* @author tendy
  */
 public class SignUtil {
 
 	// 与接口配置信息中的Token要一致
-		private static String token = "2E454BE4AE7BBD9ED10ADE15797E44B1";
+		private static String token = "tendy";
 
 		/**
 		 * 验证签名

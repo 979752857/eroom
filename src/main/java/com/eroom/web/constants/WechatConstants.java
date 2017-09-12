@@ -13,7 +13,7 @@ public class WechatConstants {
             // 2002：支付成功
             public static final String PAY_SUCCESS = "2002";
 
-            // 3001:名师诊股
+            // 3001:
             public static final String CHECK_STOCK = "3001";
         }
     }
