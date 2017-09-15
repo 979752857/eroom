@@ -3,6 +3,7 @@ package com.eroom.web.service;
 import com.eroom.web.BaseTest;
 import com.eroom.web.constants.RoomConstants;
 import com.eroom.web.entity.bo.RoomRentBo;
+import com.eroom.web.entity.vo.rent.RoomDetailVo;
 import com.eroom.web.entity.vo.rent.RoomRentVo;
 import com.eroom.web.service.rent.RoomRentService;
 import com.eroom.web.utils.util.CollectionUtil;
@@ -47,5 +48,16 @@ public class RoomRentServiceTest extends BaseTest {
         }else{
             logger.info("\n获取空数据");
         }
+    }
+
+    @Test
+    public void getRoomDetailVoByRentIdTest() throws Exception {
+        RoomDetailVo vo = roomRentService.getRoomDetailVoByRentId(6L);
+        if(vo == null){
+            logger.info("\n空数据");
+        }else{
+            logger.info("\n测试数据："+vo.toString());
+        }
+
     }
 }

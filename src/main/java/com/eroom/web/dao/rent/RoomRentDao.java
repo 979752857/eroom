@@ -334,7 +334,7 @@ public class RoomRentDao extends BaseDao {
 		String hql = " select new com.eroom.web.entity.vo.rent.RoomDetailVo(trr.rentId, trr.roomId, trr.custOwnerId, trr.bedroomId, "
 				+ " trr.custRenterId, tbi.imageUrl, tri.imageUrl, tri.name, trr.price, "
 				+ " tri.roomType, tbi.space, tbi.decorate, tbi.direction, tri.environment, tri.year, tri.buildType, "
-				+ " tri.heating, tri.greening, tri.config, trr.rentState, trr.updateTime, tri.floor, tri.aroundInfo, tri.traffice) "
+				+ " tri.heating, tri.greening, tri.config, trr.rentState, trr.updateTime, tri.floor, tri.aroundInfo, tri.traffice, tri.address) "
 				+ " from RoomRent trr, BedroomInfo tbi, RoomInfo tri "
 				+ " where trr.roomId = tri.roomId and trr.bedroomId = tbi.bedroomId and trr.rentId = :rentId order by trr.sortId desc ";
 

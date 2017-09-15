@@ -29,6 +29,15 @@ public class RoomDetailVo {
 	private String floor;
 	private String aroundInfo;
 	private String traffice;
+	private String address;
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public RoomDetailVo() {
 		super();
@@ -38,7 +47,7 @@ public class RoomDetailVo {
 	public RoomDetailVo(Long id, long roomId, long custOwnerId, long bedroomId, Long custRenterId,
 			String bedroomImageUrl, String roomImageUrl, String name, BigDecimal price, String roomType, String space,
 			String decorate, String direction, String environment, String year, String buildType, String heating,
-			String greening, String config, String state, Date updateTime, String floor, String aroundInfo, String traffice) {
+			String greening, String config, String state, Date updateTime, String floor, String aroundInfo, String traffice, String address) {
 		super();
 		this.id = id;
 		this.roomId = roomId;
@@ -64,6 +73,7 @@ public class RoomDetailVo {
 		this.floor = floor;
 		this.aroundInfo = aroundInfo;
 		this.traffice = traffice;
+		this.address = address;
 	}
 
 	public Long getId() {
@@ -258,4 +268,34 @@ public class RoomDetailVo {
 		this.traffice = traffice;
 	}
 
+	@Override
+	public String toString() {
+		return "RoomDetailVo{" +
+				"id=" + id +
+				", roomId=" + roomId +
+				", custOwnerId=" + custOwnerId +
+				", bedroomId=" + bedroomId +
+				", custRenterId=" + custRenterId +
+				", bedroomImageUrl='" + bedroomImageUrl + '\'' +
+				", roomImageUrl='" + roomImageUrl + '\'' +
+				", name='" + name + '\'' +
+				", price=" + price +
+				", roomType='" + roomType + '\'' +
+				", space='" + space + '\'' +
+				", decorate='" + decorate + '\'' +
+				", direction='" + direction + '\'' +
+				", environment='" + environment + '\'' +
+				", year='" + year + '\'' +
+				", buildType='" + buildType + '\'' +
+				", heating='" + heating + '\'' +
+				", greening='" + greening + '\'' +
+				", config='" + config + '\'' +
+				", state='" + state + '\'' +
+				", updateTime=" + updateTime +
+				", floor='" + floor + '\'' +
+				", aroundInfo='" + aroundInfo + '\'' +
+				", traffice='" + traffice + '\'' +
+				", address='" + address + '\'' +
+				'}';
+	}
 }

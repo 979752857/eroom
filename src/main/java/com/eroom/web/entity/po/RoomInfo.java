@@ -215,6 +215,18 @@ public class RoomInfo {
         this.remark = remark;
     }
 
+    private String address;
+
+    @Basic
+    @javax.persistence.Column(name = "address")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     private BigDecimal lon;
 
     @Basic

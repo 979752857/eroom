@@ -6,9 +6,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.entity.bo.LocationRangeBo;
 import com.eroom.web.entity.bo.RoomRentBo;
+import com.eroom.web.entity.vo.rent.RoomDetailVo;
 import com.eroom.web.service.base.BaseSubwayStationService;
+import com.eroom.web.utils.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.RoomConstants;
@@ -167,6 +170,22 @@ public class RoomRentService {
     public RoomRentVo getLastRoomRentVoByCustId(Long custId) throws Exception {
         RoomRentVo list = roomRentDao.getLastTRoomRentVo(custId);
         return list;
+    }
+
+    /**
+     * 通过rentid获取出租房源信息
+     *
+     * @param rentId
+     * @return
+     * @throws Exception
+     * @author tendy
+     */
+    public RoomDetailVo getRoomDetailVoByRentId(Long rentId) throws Exception {
+        if(rentId == null){
+            throw new BusinessException(SystemConstants.ExceptionMsg.PARAM_NULL_EXCEPTION_MSG);
+        }
+        RoomDetailVo vo = roomRentDao.getRoomDetailVo(rentId);
+        return vo;
     }
 
 }

@@ -23,7 +23,7 @@ public class RoomDetailService {
 	 */
 	public RoomDetailVo getRoomDetail(Long rentId) throws Exception {
 		if(rentId == null){
-			throw new BusinessException(SystemConstants.ExceptionMsg.PARAM_NULL_EXCEPTION);
+			throw new BusinessException(SystemConstants.ExceptionMsg.PARAM_NULL_EXCEPTION_MSG);
 		}
 		return roomRentDao.getRoomDetailVo(rentId);
 	}
