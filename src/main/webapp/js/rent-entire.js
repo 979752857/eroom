@@ -1,3 +1,32 @@
+var LOCATION_MAP = {
+	"不限":0,
+	"地铁":{
+		"1号线":{
+			"西单":"1",
+            "天安门":"2",
+            "东单":"3"
+		},
+        "5号线":{
+            "天通苑":"1",
+            "立水桥":"2",
+            "北苑南":"3"
+        }
+	},
+	"区域":{
+        "朝阳区":{
+            "朝阳商圈1":"1",
+            "朝阳商圈2":"2",
+            "朝阳商圈3":"3",
+            "朝阳商圈4":"4"
+        },
+        "海淀区":{
+            "海淀商圈1":"1",
+            "海淀商圈2":"2",
+            "海淀商圈3":"3",
+            "海淀商圈4":"4"
+        }
+	}
+}
 /**
  * 页面初始化
  */
@@ -6,6 +35,20 @@ $(function() {
     init();
 	getDatasList();
 	$("#oe_overlay").hide();
+
+    for(var key in LOCATION_MAP){
+        console.log("属性：" + key + ",值："+ LOCATION_MAP[key]);
+        if(LOCATION_MAP[key]){
+            for(var key1 in LOCATION_MAP[key]){
+                console.log("       " + key1 + ",值："+ LOCATION_MAP[key][key1]);
+                if(LOCATION_MAP[key][key1]){
+                    for(var key2 in LOCATION_MAP[key][key1]){
+                        console.log("                " + key2 + ",值："+ LOCATION_MAP[key][key1][key2]);
+                    }
+                }
+            }
+        }
+    }
 });
 $(window).load(function(){
 	$(".loading").addClass("loader-chanage")
@@ -43,6 +86,12 @@ function getListSuccess(result){
 }
 
 function init(){
+    //添加租住类型事件
+    $('#rent-type').on('click','li',function (e){
+        var content = $(this).children().html();
+        $("#rent-type-href").html(content+"<i></i>");
+        $("#rent-type-href").click();
+    });
 	//添加区域筛选事件
     $('#condition-area').on('click','li',function (e){
         var content = $(this).children().html();
