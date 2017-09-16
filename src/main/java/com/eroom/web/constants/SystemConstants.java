@@ -85,6 +85,7 @@ public class SystemConstants {
         }
     }
 
+<<<<<<< Updated upstream
     public static class ExceptionMsg{
         /**
          * 方法获取成功返回码
@@ -101,5 +102,17 @@ public class SystemConstants {
          */
         public static String SYS_ERROR_EXCEPTION_MSG = "系统异常";
         public static String SYS_ERROR_EXCEPTION_CODE = "101";
+=======
+    /**
+     * 返回code
+     */
+    public static class ResultCode {
+
+        //成功
+        public static final int SUCCESS = 0;
+
+        //失败
+        public static final int FAIL = 1;
+>>>>>>> Stashed changes
     }
 }
