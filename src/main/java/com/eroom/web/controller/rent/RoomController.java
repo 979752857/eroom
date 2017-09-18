@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.entity.bo.RoomRentBo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,9 +29,9 @@ public class RoomController extends BaseController {
      */
     @RequestMapping("/getRoom")
     @ResponseBody
-    public ResultVo getRoom() throws Exception {
+    public ResultVo getRoom(RoomRentBo roomRentBo) throws Exception {
         ResultVo result = new ResultVo();
-        List<RoomRentVo> list = roomRentService.getRoomRent(null);
+        List<RoomRentVo> list = roomRentService.getRoomRent(roomRentBo);
         result.setDatas(list);
         return result;
     }

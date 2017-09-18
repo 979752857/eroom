@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../style/css/loaders.min.css"/>
     <link rel="stylesheet" type="text/css" href="../style/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="../js/slick/slick.css"/>
+	<script type="text/javascript" src="../js/common/util.js"></script>
+	<script type="text/javascript" src="../js/rent-submit-order.js" ></script>
 	<script type="text/javascript">
 		$(window).load(function(){
 			$(".loading").addClass("loader-chanage")
@@ -70,51 +72,38 @@
 				<ul>
 					<li class="box-s clearfloat">
 						<p class="tit fl">租房信息</p>
-						<p class="xinxi fr">怀宁路柠溪荒原</p>
+						<p class="xinxi fr" id="rent-info"></p>
 					</li>
 					<li class="box-s clearfloat">
 						<p class="tit fl">房屋住址</p>
-						<p class="xinxi fr">合肥市蜀山区怀宁路12号</p>
+						<p class="xinxi fr" id="rent-address"></p>
 					</li>
 					<li class="box-s clearfloat">
 						<p class="tit fl">合同开始日</p>
-						<input type="text" name="" id="" value="" placeholder="请选择合同开始日期" readonly="readonly" class="fl day" />
-						<i class="iconfont icon-arrowright fl"></i>
+						<p class="xinxi fr" name="startTime" id="start-time"></p>
 					</li>
 					<li class="box-s clearfloat">
 						<p class="tit fl">合同结束日</p>
-						<input type="text" name="" id="" value="" placeholder="请选择合同结束日期" readonly="readonly" class="fl day" />
-						<i class="iconfont icon-arrowright fl"></i>
+						<p class="xinxi fr" name="endTime" id="end-time"></p>
 					</li>
 					<li class="box-s clearfloat">
 						<p class="tit fl">租房押金</p>
-						<input type="text" name="" id="" value="" placeholder="请输入您的租房押金" class="fl day" />
-						<i class="iconfont icon-arrowright fl"></i>
+						<p class="xinxi price fr" name="mortgage" id="mortgage"></p>
 					</li>
 					<li class="box-s clearfloat">
 						<p class="tit fl">每月租金</p>
-						<p class="xinxi price fr">2500元</p>
-					</li>
-					<li class="box-s clearfloat">
-						<p class="tit fl">本次支付</p>
-						<input type="text" name="" id="" value="" placeholder="3个月" class="fl day daytwo" />
-						<i class="iconfont icon-arrowright fl"></i>
+						<p class="xinxi price fr" name="price" id="price"></p>
 					</li>
 					<li class="box-s clearfloat">
 						<p class="tit fl">其他费用</p>
-						<p class="xinxi huise fr">水、电、煤等费用</p>
+						<p class="xinxi price fr" id="otherPrice">水、电、煤等费用</p>
 					</li>
 					<li class="box-s clearfloat">
-						<p class="tit fl">平台佣金</p>
-						<p class="xinxi huise fr">本次平台佣金</p>
-					</li>
-					<li class="box-s clearfloat">
-						<p class="tit fl">合同照片</p>
-						<i class="iconfont icon-arrowright fr"></i>
-						<i class="iconfont icon-qianhetong fr chapter"></i>						
+						<p class="tit fl">本次支付</p>
+						<p class="xinxi price fr" name="totlePrice" id="totlePrice"></p>
 					</li>
 				</ul>
-				<a href="javascript:submitOrderDatasList()" class="pay-btn clearfloat">
+				<a href="javascript:saveRentOrder()" class="pay-btn clearfloat">
 					下一步
 				</a>
 			</div>

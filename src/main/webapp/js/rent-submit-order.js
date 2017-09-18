@@ -1,9 +1,10 @@
-
+var _rentId = 0;
 /**
  * 页面初始化
  */
 $(function() {
-
+    _rentId = myUtil.getUrlParam("rentId");
+    getOrderDatas();
 });
 $(window).load(function(){
 	$(".loading").addClass("loader-chanage")
@@ -11,12 +12,15 @@ $(window).load(function(){
 })
 
 /**
- * 获取两年缴费明细
+ * 提交租住订单
  */
-function submitOrderDatasList(){
+function saveRentOrder(){
 	var url = myUtil.BASE + "/rentorder/saveRentOrder";
 	var data = {
-		rentId:0
+		rentId:_rentId,
+		startTime:null,
+		endTime:null,
+		type:null
 	}
 	myUtil.ajax.axs(url,data,getPaydetailListSuccess);
 }
@@ -27,7 +31,7 @@ function submitOrderDatasList(){
 function getOrderDatas(){
 	var url = myUtil.BASE + "/roomrent/getRentingRentId";
 	var data = {
-		rentId:0
+		rentId:_rentId
 	}
 	myUtil.ajax.axs(url,data,getOrderDataSuccess);
 }
@@ -59,9 +63,20 @@ function getOrderDataSuccess(result){
 	var datas = result.datas;
 	var html = "";
 	if(datas){
-
+		$("#rent-info").html(datas.name);
+		$("#rent-address").html(datas.address);
+		$("#start-time").html(myUtil.dateFormat(new Date(), "yyyy-MM-dd"));
+        var now = new Date();
+        now.setFullYear(now.getFullYear()+1);
+        $("#end-time").html(myUtil.dateFormat(now, "yyyy-MM-dd"));
+		$("#mortgage").html(datas.price+"元");
+		$("#price").html(datas.price+"元");
+		$("#otherPrice").html("200"+"元");
+		$("#totlePrice").html("3200"+"元");
+		console.info(datas);
 	}else{
 
 	}
 	$("#paydetail").append(html);
 }
+

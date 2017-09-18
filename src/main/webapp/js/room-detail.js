@@ -21,6 +21,7 @@ function init(){
 	$('#collect').click(function(){
 		changeCollectDatas();
 	});
+	$("#sign").attr('href','rent-submit-order.html?rentId='+_rentId);
 }
 
 /**
