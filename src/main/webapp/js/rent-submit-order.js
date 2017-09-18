@@ -80,3 +80,31 @@ function getOrderDataSuccess(result){
 	$("#paydetail").append(html);
 }
 
+(function($, doc) {
+    $.init();
+    $.ready(function() {
+        var userPicker = new $.PopPicker();
+        userPicker.setData([{
+            value: '1',
+            text: '年租'
+        }, {
+            value: '2',
+            text: '月租'
+        }, {
+            value: '3',
+            text: '周租'
+        }, {
+            value: '4',
+            text: '三日租'
+        }]);
+        var showUserPickerButton = doc.getElementById('showUserPicker');
+        var userResult = doc.getElementById('rent-type');
+        showUserPickerButton.addEventListener('tap', function(event) {
+            userPicker.show(function(items) {
+                userResult.value = JSON.stringify(items[0]);
+            });
+        }, false);
+
+
+    });
+})(mui, document);
