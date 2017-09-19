@@ -49,7 +49,7 @@ package com.eroom.web.dao.redis;
 //     * @param key
 //     * @param decrby
 //     * @return
-//     * @author caiyt
+//     * @author tendy
 //     */
 //    public void incrBy(String key, long integer) {
 //        jedisCluster.incrBy(key, integer);
@@ -61,7 +61,7 @@ package com.eroom.web.dao.redis;
 //     * @param key
 //     * @param decrby
 //     * @return
-//     * @author caiyt
+//     * @author tendy
 //     */
 //    public Long incr(String key) {
 //        Long res = jedisCluster.incr(key);
@@ -73,7 +73,7 @@ package com.eroom.web.dao.redis;
 //     * 
 //     * @param key
 //     * @return
-//     * @author caiyt
+//     * @author tendy
 //     */
 //    public String lpop(final String key) {
 //        String val = jedisCluster.lpop(key);
@@ -86,7 +86,7 @@ package com.eroom.web.dao.redis;
 //     * @param key
 //     * @param decrby
 //     * @return
-//     * @author caiyt
+//     * @author tendy
 //     */
 //    public Long decrby(String key, Long decrby) {
 //        Long res = jedisCluster.decrBy(key, decrby);
@@ -97,7 +97,7 @@ package com.eroom.web.dao.redis;
 //     * 原子性的设置该Key为指定的Value，同时返回该Key的原有值
 //     * 
 //     * @param keys
-//     * @author caiyt
+//     * @author tendy
 //     */
 //    public String getset(final String key, final String value) {
 //        String valueOrigin = jedisCluster.getSet(key, value);
@@ -108,7 +108,7 @@ package com.eroom.web.dao.redis;
 //     * 删除key
 //     * 
 //     * @param keys
-//     * @author caiyt
+//     * @author tendy
 //     */
 //    public void del(final String... keys) {
 //        jedisCluster.del(keys);
@@ -119,7 +119,7 @@ package com.eroom.web.dao.redis;
 //     * 
 //     * @param key
 //     * @return
-//     * @author caiyt
+//     * @author tendy
 //     */
 //    public long llen(final String key) {
 //        long llen = jedisCluster.llen(key);
@@ -131,7 +131,7 @@ package com.eroom.web.dao.redis;
 //     * 
 //     * @param key
 //     * @param string
-//     * @author caiyt
+//     * @author tendy
 //     */
 //    public void lpush(final String key, final String... string) {
 //        for (String str : string) {
@@ -143,7 +143,7 @@ package com.eroom.web.dao.redis;
 //     * 删除key
 //     * 
 //     * @param keys
-//     * @author caiyt
+//     * @author tendy
 //     */
 //    public void rem(final String... keys) {
 //        jedisCluster.del(keys);

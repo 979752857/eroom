@@ -7,7 +7,7 @@ package com.eroom.web.utils.encrypt;
  * Date: 2016年6月15日 <br>
  * Copyright (c) 2016 MINIJY <br>
  * 
- * @author caiyt
+ * @author tendy
  */
 public class Base64 {
     /**

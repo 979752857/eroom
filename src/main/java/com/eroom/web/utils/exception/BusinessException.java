@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 业务异常封装
  * 
- * @author caiyt
+ * @author tendy
  *
  */
 public class BusinessException extends RuntimeException implements Serializable {

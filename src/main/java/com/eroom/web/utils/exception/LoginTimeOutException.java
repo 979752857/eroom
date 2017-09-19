@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 登录超时异常封装
  * 
- * @author caiyt
+ * @author tendy
  *
  */
 public class LoginTimeOutException extends RuntimeException implements Serializable {

@@ -34,7 +34,7 @@ public class BaseController {
     /**
      * 异常统一封装处理
      * 
-     * @author caiyt
+     * @author tendy
      */
     @ExceptionHandler
     @ResponseBody
@@ -72,7 +72,7 @@ public class BaseController {
      * @param response
      * @param errorMsg
      * @param errorCode
-     * @author caiyt
+     * @author tendy
      */
     protected void outErrorMsg(HttpServletResponse response, String errorMsg, String errorCode) {
         try {
@@ -105,7 +105,7 @@ public class BaseController {
      * 
      * @param request
      * @return
-     * @author caiyt
+     * @author tendy
      */
     public String getProjectRoot(HttpServletRequest request) {
         String path = request.getContextPath();
@@ -133,7 +133,7 @@ public class BaseController {
      * 
      * @param response
      * @return
-     * @author caiyt
+     * @author tendy
      */
     protected ResultVo parseResStr(String response) {
         JSONObject resObj = JSONObject.parseObject(response);

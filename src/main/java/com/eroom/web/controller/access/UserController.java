@@ -18,10 +18,10 @@ public class UserController extends BaseController {
 	/**
 	 * 获取手机验证码
 	 * 
-	 * @param phone[手机号码]
+	 * @param phone
 	 * @return
 	 * @throws Exception
-	 * @author caiyt
+	 * @author tendy
 	 */
 	@RequestMapping("/getSmsValidCode")
 	@ResponseBody
@@ -39,11 +39,12 @@ public class UserController extends BaseController {
 	/**
 	 * 验证完成注册
 	 * 
-	 * @param phone[手机号码]
-	 * @param validCode[短信验证码]
+	 * @param userName
+	 * @param phone
+	 * @param validCode
 	 * @return
 	 * @throws Exception
-	 * @author caiyt
+	 * @author tendy
 	 */
 	@RequestMapping("/bindphone")
 	@ResponseBody

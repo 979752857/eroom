@@ -54,7 +54,7 @@ package com.eroom.web.service.user;
 //	 * @param phone
 //	 * @param validCode
 //	 * @throws Exception
-//	 * @author caiyt
+//	 * @author tendy
 //	 */
 //	public void updateCmCust(String tenantNo, long custId, String userName, String phone, String validCode)
 //			throws Exception {
@@ -95,7 +95,7 @@ package com.eroom.web.service.user;
 //	 * @param tenantNo
 //	 * @param custId
 //	 * @param phone
-//	 * @author caiyt
+//	 * @author tendy
 //	 */
 //	 private void getValidCodeCntCheck(String tenantNo, long custId, String
 //	 phone) {

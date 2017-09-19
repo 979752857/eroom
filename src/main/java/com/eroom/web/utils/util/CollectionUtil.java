@@ -44,7 +44,7 @@ public class CollectionUtil {
      * map转为对象
      * 
      * @return
-     * @author caiyt
+     * @author tendy
      */
     public static Object mapToObject(Map<String, String> map, Class<?> beanClass) throws Exception {
         if (map == null)

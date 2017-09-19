@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 系统配置类异常封装
  * 
- * @author caiyt
+ * @author tendy
  *
  */
 public class SystemException extends RuntimeException implements Serializable {

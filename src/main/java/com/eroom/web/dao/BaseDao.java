@@ -251,7 +251,7 @@ public class BaseDao {
      * 
      * @param sql
      * @param list
-     * @author caiyt
+     * @author tendy
      */
     public void saveObjectBatch(String sql, List<Object[]> list) {
         jdbcTemplate.batchUpdate(sql, list);

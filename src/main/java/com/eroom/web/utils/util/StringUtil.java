@@ -69,7 +69,7 @@ public class StringUtil {
      * 获取随机短信验证码
      * 
      * @return
-     * @author caiyt
+     * @author tendy
      */
     public static String getRandomCode() {
         String str = "0123456789";

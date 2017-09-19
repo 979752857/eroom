@@ -43,10 +43,12 @@ public class RentOrderController extends BaseController {
      */
     @RequestMapping("/saveRentOrder")
     @ResponseBody
-    public ResultVo saveRentOrder(RentOrder rentOrder) throws Exception {
+    public ResultVo saveRentOrder(Long rentId, String rentType) throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
+        RentOrder rentOrder = new RentOrder();
         rentOrder.setCustRenterId(sessionVo.getCustId());
+        rentOrder.setRentId(rentId);
         rentOrder = rentOrderService.saveRentOrder(rentOrder);
         result.setCode(SystemConstants.ExceptionMsg.SUCCESS_CODE);
         result.setDatas(rentOrder);
