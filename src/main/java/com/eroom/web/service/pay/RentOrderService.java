@@ -3,7 +3,9 @@ package com.eroom.web.service.pay;
 import com.eroom.web.constants.PayConstants;
 import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.dao.pay.RentOrderDao;
+import com.eroom.web.dao.rent.RoomRentDao;
 import com.eroom.web.entity.po.RentOrder;
+import com.eroom.web.entity.po.RoomRent;
 import com.eroom.web.service.BaseService;
 import com.eroom.web.utils.exception.BusinessException;
 import com.eroom.web.utils.util.DateUtil;
@@ -20,6 +22,9 @@ public class RentOrderService extends BaseService {
 
     @Resource
     private RentOrderDao rentOrderDao;
+
+    @Resource
+    private RoomRentDao roomRentDao;
 
     /**
      * 获取租房订单列表
@@ -44,19 +49,34 @@ public class RentOrderService extends BaseService {
 
     /**
      * 保存提交得租房订单
-     * @param rentOrder
      * @return
      */
-    public RentOrder saveRentOrder(RentOrder rentOrder) throws Exception {
+    public RentOrder saveRentOrder(Long custId, Long rentId, String rentTimeType) throws Exception {
+        RentOrder rentOrder = new RentOrder();
+        rentOrder.setCustRenterId(custId);
+        rentOrder.setRentId(rentId);
         //获取rentid
-
-        if(!checkRentOrder(rentOrder)){
-            throw new BusinessException(SystemConstants.ExceptionMsg.PARAM_NULL_EXCEPTION_MSG);
+        RoomRent roomRent = roomRentDao.get(RoomRent.class, rentId);
+        if(roomRent == null){
+            logger.error("RentOrderService.saveRentOrder  roomRent为空 custId:"+custId+"  rentId:"+rentId+"   rentTimeType:"+rentTimeType);
+            throw new BusinessException(SystemConstants.ExceptionMsg.SYS_ERROR_EXCEPTION_MSG);
         }
+
+        //生成租房订单的租住时间
+
+        //判断租住时间是在出租期
+
+
+
+        rentOrder.setBedroomId(roomRent.getBedroomId());
+        rentOrder.setRentType(roomRent.getRentType());
+        rentOrder.setPayType(roomRent.getPayType());
+
         //设置订单状态为待支付状态
         rentOrder.setRentOrderState(PayConstants.RentOrder.RentOrderState.WAIT_PAY);
         rentOrder.setCreateTime(DateUtil.getCurrentDate());
 
+        logger.info("RentOrderService.saveRentOrder  rentOrder:"+rentOrder.toString());
         rentOrder = rentOrderDao.save(rentOrder);
         return rentOrder;
     }
@@ -101,7 +121,7 @@ public class RentOrderService extends BaseService {
         if(rentOrder.getRentAmount() == null){
             flag = false;
         }
-        if(rentOrder.getType() == null){
+        if(rentOrder.getRentType() == null){
             flag = false;
         }
         return flag;
