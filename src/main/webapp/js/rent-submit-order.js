@@ -80,6 +80,31 @@ function getOrderDataSuccess(result){
 	$("#paydetail").append(html);
 }
 
+function getTimeLength(type){
+	var date = new Date();
+    var dateStr = dateFormat(date, "yyyy-MM-dd");
+    dateStr += " 12:00:00";
+    var startTime = dateFormat(date, "yyyy-MM-dd");
+    var endTime = "";
+    date = new Date(Date.parse(dateStr.replace(/-/g,"/")));
+	if(type == 1){		//年租
+        date = dateAdd(date, "y", 1);
+		console.info(dateFormat(date, "yyyy-MM-dd"));
+	}else if(type == 2){		//月租
+        date = dateAdd(date, "m", 1);
+        console.info(dateFormat(date, "yyyy-MM-dd"));
+	}else if(type == 3){		//周租
+        date = dateAdd(date, "w", 1);
+        console.info(dateFormat(date, "yyyy-MM-dd"));
+    }else if(type == 4){		//三日租
+        date = dateAdd(date, "d", 3);
+        console.info(dateFormat(date, "yyyy-MM-dd"));
+    }
+    endTime = dateFormat(date, "yyyy-MM-dd");
+	$("#start-time").html(startTime);
+	$("#end-time").html(endTime);
+}
+
 (function($, doc) {
     $.init();
     $.ready(function() {
@@ -101,7 +126,10 @@ function getOrderDataSuccess(result){
         var userResult = doc.getElementById('rent-type');
         showUserPickerButton.addEventListener('tap', function(event) {
             userPicker.show(function(items) {
-                userResult.value = JSON.stringify(items[0]);
+				var typeJson = JSON.stringify(items[0]);
+                var type = eval('(' + typeJson + ')');
+                userResult.value = type.text;
+                getTimeLength(type.value);
             });
         }, false);
 
