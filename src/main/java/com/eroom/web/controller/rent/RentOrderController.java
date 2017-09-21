@@ -1,4 +1,4 @@
-package com.eroom.web.controller.pay;
+package com.eroom.web.controller.rent;
 
 import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.controller.BaseController;

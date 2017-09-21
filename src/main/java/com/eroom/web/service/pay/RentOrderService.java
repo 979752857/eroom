@@ -76,7 +76,7 @@ public class RentOrderService extends BaseService {
         Date endTime = null;
         //通过租期类型设置付房租的次数（年租12次，月租1次、周租1次、三日租1次）
         int payNum = 1;
-        String startTimestr = DateUtil.getDateString(DateUtil.getCurrentDate(), DateUtil.YYYY_MM_DD)+"_12_00_00";
+        String startTimestr = DateUtil.getDateString(DateUtil.getCurrentDate(), DateUtil.YYYY_MM_DD)+" 12:00:00";
         startTime = DateUtil.getDate(startTimestr, DateUtil.YYYY_MM_DD_HH_MM_SS);
         //判断租期类型设置到期时间
         if(RoomConstants.RoomRentSet.RentTimeType.RENT_YEAR.equals(rentTimeType)){

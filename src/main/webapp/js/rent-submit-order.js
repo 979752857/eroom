@@ -1,4 +1,5 @@
 var _rentId = 0;
+var _rent_time_type = "01";
 /**
  * 页面初始化
  */
@@ -18,9 +19,7 @@ function saveRentOrder(){
 	var url = myUtil.BASE + "/rentorder/saveRentOrder";
 	var data = {
 		rentId:_rentId,
-		startTime:null,
-		endTime:null,
-		type:null
+        rentTimeType:_rent_time_type
 	}
 	myUtil.ajax.axs(url,data,getPaydetailListSuccess);
 }
@@ -110,16 +109,16 @@ function getTimeLength(type){
     $.ready(function() {
         var userPicker = new $.PopPicker();
         userPicker.setData([{
-            value: '1',
+            value: '01',
             text: '年租'
         }, {
-            value: '2',
+            value: '02',
             text: '月租'
         }, {
-            value: '3',
+            value: '03',
             text: '周租'
         }, {
-            value: '4',
+            value: '04',
             text: '三日租'
         }]);
         var showUserPickerButton = doc.getElementById('showUserPicker');
@@ -129,10 +128,9 @@ function getTimeLength(type){
 				var typeJson = JSON.stringify(items[0]);
                 var type = eval('(' + typeJson + ')');
                 userResult.value = type.text;
+                _rent_time_type = type.value;
                 getTimeLength(type.value);
             });
         }, false);
-
-
     });
 })(mui, document);
