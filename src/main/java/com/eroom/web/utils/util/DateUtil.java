@@ -394,7 +394,7 @@ public class DateUtil {
 	 * 获取中文显示的日期
 	 * 
 	 * @return
-	 * @author yicj
+	 * @author tendy
 	 */
 	public static String getCnDate() {
 		Calendar cal = Calendar.getInstance();

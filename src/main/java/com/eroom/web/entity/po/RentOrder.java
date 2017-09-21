@@ -238,6 +238,18 @@ public class RentOrder {
         this.rentType = rentType;
     }
 
+    private String rentTimeType;
+
+    @Basic
+    @javax.persistence.Column(name = "rent_time_type")
+    public String getRentTimeType() {
+        return rentTimeType;
+    }
+
+    public void setRentTimeType(String rentTimeType) {
+        this.rentTimeType = rentTimeType;
+    }
+
     @Override
     public String toString() {
         return "RentOrder{" +
@@ -260,6 +272,7 @@ public class RentOrder {
                 ", payType='" + payType + '\'' +
                 ", rentSetId=" + rentSetId +
                 ", rentType='" + rentType + '\'' +
+                ", rentTimeType='" + rentTimeType + '\'' +
                 '}';
     }
 }

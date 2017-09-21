@@ -41,6 +41,31 @@ public class RoomConstants {
             public static final String SHORT_RENT = "03";
         }
     }
+
+    public static class RoomRentSet{
+        public static class RentTimeType{
+            /**
+             * 年租
+             */
+            public static final String RENT_YEAR = "01";
+            public static final int RENT_YEAR_PAY_NUM = 12;
+            /**
+             * 月租
+             */
+            public static final String RENT_MOUNTH = "02";
+            public static final int RENT_MOUNTH_PAY_NUM = 1;
+            /**
+             * 周租
+             */
+            public static final String RENT_WEEK = "03";
+            public static final int RENT_WEEK_PAY_NUM = 1;
+            /**
+             * 3日租
+             */
+            public static final String RENT_THREEDAY = "04";
+            public static final int RENT_THREEDAY_PAY_NUM = 1;
+        }
+    }
     
     public static class RoomBook{
         public static class ApplyState{

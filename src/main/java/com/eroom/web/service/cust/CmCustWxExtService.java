@@ -24,7 +24,7 @@ public class CmCustWxExtService {
 	 * 
 	 * @param cmCustWxExt
 	 * @throws Exception
-	 * @author yicj
+	 * @author tendy
 	 */
 	public CmCustWxExt getCmCustWxExtByCustId(Long custId) throws Exception {
 		return cmCustWxExtDao.get(CmCustWxExt.class, custId);
@@ -35,7 +35,7 @@ public class CmCustWxExtService {
 	 * 
 	 * @param cmCustWxExt
 	 * @throws Exception
-	 * @author yicj
+	 * @author tendy
 	 */
 	public void saveCmCustWxExt(CmCustWxExt cmCustWxExt) throws Exception {
 		if (cmCustWxExt == null) {
@@ -49,7 +49,7 @@ public class CmCustWxExtService {
 	 * 
 	 * @param cmCustWxExt
 	 * @throws Exception
-	 * @author yicj
+	 * @author tendy
 	 */
 	public void updateCmCustWxExt(CmCustWxExt cmCustWxExt) throws Exception {
 		if (cmCustWxExt == null) {

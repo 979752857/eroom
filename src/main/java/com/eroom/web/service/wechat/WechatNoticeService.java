@@ -22,7 +22,7 @@ public class WechatNoticeService {
      * 
      * @param notice
      * @throws Exception
-     * @author yicj
+     * @author tendy
      */
     public void saveWechatNotice(WechatNotice notice) throws Exception {
         if (notice == null) {
@@ -37,7 +37,7 @@ public class WechatNoticeService {
      * 
      * @param notice
      * @throws Exception
-     * @author yicj
+     * @author tendy
      */
     public void updateWechatNotice(WechatNotice notice) throws Exception {
         if (notice == null) {
@@ -52,7 +52,7 @@ public class WechatNoticeService {
      * 
      * @return
      * @throws Exception
-     * @author yicj
+     * @author tendy
      */
     public List<WechatNotice> getNotSendNoticeList() throws Exception {
         int state = WechatConstants.WechatNotice.State.NOT_SEND;
