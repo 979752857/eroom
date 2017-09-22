@@ -13,8 +13,30 @@ import java.util.Map;
 public class PayOrderDao extends BaseDao {
 
     /**
-     * 获取支付订单列表
+     * 获取支付订单
      * 
+     * @return PayOrder
+     * @throws Exception
+     * @author tendy
+     */
+    public List<PayOrder> getPayOrderList(Long rentOrderId, String orderState) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        hql.append("from PayOrder where payOrderState = :orderState and rentOrderId = :rentOrderId order by createTime desc");
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderState", orderState);
+        params.put("rentOrderId", rentOrderId);
+
+        List<PayOrder> list = this.getList(hql.toString(), params);
+        if(CollectionUtils.isEmpty(list)){
+            return null;
+        }
+        return list;
+    }
+
+    /**
+     * 获取支付订单列表
+     *
      * @return PayOrder
      * @throws Exception
      * @author tendy

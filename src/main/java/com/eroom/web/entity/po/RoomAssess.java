@@ -1,12 +1,11 @@
 package com.eroom.web.entity.po;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Table(name = "t_room_assess", schema = "eroom", catalog = "")
-public class TRoomAssess {
+public class RoomAssess {
     private long assessId;
 
     private Long targetId;
@@ -110,7 +109,7 @@ public class TRoomAssess {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        TRoomAssess that = (TRoomAssess) o;
+        RoomAssess that = (RoomAssess) o;
 
         if (assessId != that.assessId)
             return false;

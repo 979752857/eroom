@@ -3,9 +3,11 @@ package com.eroom.web.service.pay;
 import com.eroom.web.constants.PayConstants;
 import com.eroom.web.constants.RoomConstants;
 import com.eroom.web.constants.SystemConstants;
+import com.eroom.web.dao.pay.PayOrderDao;
 import com.eroom.web.dao.pay.RentOrderDao;
 import com.eroom.web.dao.rent.RoomRentDao;
 import com.eroom.web.dao.rent.RoomRentSetDao;
+import com.eroom.web.entity.po.PayOrder;
 import com.eroom.web.entity.po.RentOrder;
 import com.eroom.web.entity.po.RoomRent;
 import com.eroom.web.entity.po.RoomRentSet;
@@ -27,6 +29,9 @@ public class RentOrderService extends BaseService {
 
     @Resource
     private RentOrderDao rentOrderDao;
+
+    @Resource
+    private PayOrderDao payOrderDao;
 
     @Resource
     private RoomRentDao roomRentDao;
@@ -116,6 +121,9 @@ public class RentOrderService extends BaseService {
         rentOrder.setRentAmount(roomRentSet.getRentAmount());
         //设置总支付金额
         rentOrder.setAmount(roomRentSet.getRentAmount().multiply(BigDecimal.valueOf(payNum)));
+        rentOrder.setPayPhase(0);
+        rentOrder.setTotlePhase(payNum);
+        rentOrder.setPaidAmount(BigDecimal.ZERO);
         rentOrder.setLength(DateUtil.getDaysBetween(DateUtil.getDateString(startTime, DateUtil.YYYYMMDD), DateUtil.getDateString(endTime, DateUtil.YYYYMMDD)));
 
         rentOrder.setBedroomId(roomRent.getBedroomId());
@@ -129,6 +137,45 @@ public class RentOrderService extends BaseService {
 
         logger.info("RentOrderService.saveRentOrder  rentOrder:"+rentOrder.toString());
         rentOrder = rentOrderDao.save(rentOrder);
+
+        //生成第一期支付订单
+        PayOrder payOrder = new PayOrder();
+        payOrder.setStartTime(rentOrder.getStartTime());
+        payOrder.setEndTime(getNextEndTime(rentOrder.getStartTime(), rentOrder.getRentTimeType()));
+        payOrder.setLength(DateUtil.getDaysBetween(DateUtil.getDateString(payOrder.getStartTime(), DateUtil.YYYYMMDD), DateUtil.getDateString(payOrder.getEndTime(), DateUtil.YYYYMMDD)));
+        payOrder.setLateAmount(rentOrder.getLateAmount());
+        payOrder.setMortgageAmount(rentOrder.getMortgageAmount());
+        payOrder.setRentAmount(rentOrder.getRentAmount());
+        BigDecimal totleAmount = rentOrder.getRentAmount().add(rentOrder.getMortgageAmount()).add(rentOrder.getLateAmount());
+        payOrder.setAmount(totleAmount);
+        payOrder.setBedroomId(rentOrder.getBedroomId());
+        payOrder.setCustRenterId(rentOrder.getCustRenterId());
+        payOrder.setRentId(rentOrder.getRentId());
+        payOrder.setRoomId(rentOrder.getRoomId());
+        payOrder.setCreateTime(DateUtil.getCurrentDate());
+        payOrder.setPayOrderState(PayConstants.PayOrder.OrderState.WAITING);
+        logger.info("RentOrderService.saveRentOrder  payOrder:"+payOrder.toString());
+        payOrderDao.save(payOrder);
+
         return rentOrder;
+    }
+
+    private Date getNextEndTime(Date startTime, String rentTimeType){
+        Date endTime = null;
+
+        //判断租期类型设置到期时间
+        if(RoomConstants.RoomRentSet.RentTimeType.RENT_YEAR.equals(rentTimeType)){
+            endTime = DateUtil.getOffsetMonthsTime(DateUtil.getTimestamp(startTime), 1);
+        }else if(RoomConstants.RoomRentSet.RentTimeType.RENT_MOUNTH.equals(rentTimeType)){
+            endTime = DateUtil.getOffsetMonthsTime(DateUtil.getTimestamp(startTime), 1);
+        }else if(RoomConstants.RoomRentSet.RentTimeType.RENT_WEEK.equals(rentTimeType)){
+            endTime = DateUtil.getOffsetDaysTime(DateUtil.getTimestamp(startTime), 7);
+        }else if(RoomConstants.RoomRentSet.RentTimeType.RENT_THREEDAY.equals(rentTimeType)){
+            endTime = DateUtil.getOffsetDaysTime(DateUtil.getTimestamp(startTime), 3);
+        }else{
+            throw new BusinessException(SystemConstants.ExceptionMsg.SYS_ERROR_EXCEPTION_MSG);
+        }
+
+        return endTime;
     }
 }

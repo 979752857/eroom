@@ -17,7 +17,7 @@ public class RoomAssessDao extends BaseDao {
         Map<String, Object> params = new HashMap<>();
         hql.append(" select new com.eroom.web.entity.vo.rentlife.RoomAssessVo(assess.targetId, assess.level, assess.content, ");
         hql.append(" assess.imgUrls, assess.createTime, assess.custId, cust.nickName) ");
-        hql.append(" from TRoomAssess assess, TCustInfo cust where assess.targetId = cust.custId and assess.targetId = :targetId ");
+        hql.append(" from RoomAssess assess, TCustInfo cust where assess.targetId = cust.custId and assess.targetId = :targetId ");
         params.put("targetId", targetId);
 
         List<RoomAssessVo> list = this.getList(hql.toString(), params);

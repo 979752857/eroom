@@ -250,6 +250,54 @@ public class RentOrder {
         this.rentTimeType = rentTimeType;
     }
 
+    private String type;
+
+    @Basic
+    @javax.persistence.Column(name = "type")
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    private int payPhase;
+
+    @Basic
+    @javax.persistence.Column(name = "pay_phase")
+    public int getPayPhase() {
+        return payPhase;
+    }
+
+    public void setPayPhase(int payPhase) {
+        this.payPhase = payPhase;
+    }
+
+    private int totlePhase;
+
+    @Basic
+    @javax.persistence.Column(name = "totle_phase")
+    public int getTotlePhase() {
+        return totlePhase;
+    }
+
+    public void setTotlePhase(int totlePhase) {
+        this.totlePhase = totlePhase;
+    }
+
+    private BigDecimal paidAmount;
+
+    @Basic
+    @javax.persistence.Column(name = "paid_amount")
+    public BigDecimal getPaidAmount() {
+        return paidAmount;
+    }
+
+    public void setPaidAmount(BigDecimal paidAmount) {
+        this.paidAmount = paidAmount;
+    }
+
     @Override
     public String toString() {
         return "RentOrder{" +
@@ -273,6 +321,10 @@ public class RentOrder {
                 ", rentSetId=" + rentSetId +
                 ", rentType='" + rentType + '\'' +
                 ", rentTimeType='" + rentTimeType + '\'' +
+                ", type='" + type + '\'' +
+                ", payPhase=" + payPhase +
+                ", totlePhase=" + totlePhase +
+                ", paidAmount=" + paidAmount +
                 '}';
     }
 }

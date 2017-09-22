@@ -188,4 +188,15 @@ public class RoomRentService {
         return vo;
     }
 
+    /**
+     * 修改出租房源信息的状态数据
+     * @param rentId
+     * @return
+     */
+    public RoomRent updateRoomRentPaid(Long rentId) throws Exception {
+        RoomRent roomRent = roomRentDao.get(RoomRent.class, rentId);
+        roomRent.setRentState(RoomConstants.RoomRent.RentState.RENTED);
+        roomRent = roomRentDao.save(roomRent);
+        return roomRent;
+    }
 }

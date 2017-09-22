@@ -11,9 +11,26 @@ import java.util.Date;
 @javax.persistence.Table(name = "t_pay_order", schema = "eroom", catalog = "")
 public class PayOrder {
     private long payOrderId;
+    private long rentOrderId;
+    private long custRenterId;
+    private BigDecimal amount;
+    private Date createTime;
+    private Date updateTime;
+    private String payOrderState;
+    private String remark;
+    private int length;
+    private Date startTime;
+    private long roomId;
+    private long bedroomId;
+    private Date endTime;
+    private BigDecimal lateAmount;
+    private BigDecimal mortgageAmount;
+    private BigDecimal rentAmount;
+    private String type;
+    private long rentId;
 
     @Id
-    @javax.persistence.Column(name = "pay_order_id")
+    @Column(name = "pay_order_id")
     public long getPayOrderId() {
         return payOrderId;
     }
@@ -22,10 +39,8 @@ public class PayOrder {
         this.payOrderId = payOrderId;
     }
 
-    private long rentOrderId;
-
     @Basic
-    @javax.persistence.Column(name = "rent_order_id")
+    @Column(name = "rent_order_id")
     public long getRentOrderId() {
         return rentOrderId;
     }
@@ -34,10 +49,8 @@ public class PayOrder {
         this.rentOrderId = rentOrderId;
     }
 
-    private long custRenterId;
-
     @Basic
-    @javax.persistence.Column(name = "cust_renter_id")
+    @Column(name = "cust_renter_id")
     public long getCustRenterId() {
         return custRenterId;
     }
@@ -46,10 +59,8 @@ public class PayOrder {
         this.custRenterId = custRenterId;
     }
 
-    private BigDecimal amount;
-
     @Basic
-    @javax.persistence.Column(name = "amount")
+    @Column(name = "amount")
     public BigDecimal getAmount() {
         return amount;
     }
@@ -58,10 +69,8 @@ public class PayOrder {
         this.amount = amount;
     }
 
-    private Date createTime;
-
     @Basic
-    @javax.persistence.Column(name = "create_time")
+    @Column(name = "create_time")
     public Date getCreateTime() {
         return createTime;
     }
@@ -70,10 +79,8 @@ public class PayOrder {
         this.createTime = createTime;
     }
 
-    private Date updateTime;
-
     @Basic
-    @javax.persistence.Column(name = "update_time")
+    @Column(name = "update_time")
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -82,10 +89,8 @@ public class PayOrder {
         this.updateTime = updateTime;
     }
 
-    private String payOrderState;
-
     @Basic
-    @javax.persistence.Column(name = "pay_order_state")
+    @Column(name = "pay_order_state")
     public String getPayOrderState() {
         return payOrderState;
     }
@@ -94,10 +99,8 @@ public class PayOrder {
         this.payOrderState = payOrderState;
     }
 
-    private String remark;
-
     @Basic
-    @javax.persistence.Column(name = "remark")
+    @Column(name = "remark")
     public String getRemark() {
         return remark;
     }
@@ -106,10 +109,8 @@ public class PayOrder {
         this.remark = remark;
     }
 
-    private int length;
-
     @Basic
-    @javax.persistence.Column(name = "length")
+    @Column(name = "length")
     public int getLength() {
         return length;
     }
@@ -118,10 +119,8 @@ public class PayOrder {
         this.length = length;
     }
 
-    private Date startTime;
-
     @Basic
-    @javax.persistence.Column(name = "start_time")
+    @Column(name = "start_time")
     public Date getStartTime() {
         return startTime;
     }
@@ -130,10 +129,8 @@ public class PayOrder {
         this.startTime = startTime;
     }
 
-    private long roomId;
-
     @Basic
-    @javax.persistence.Column(name = "room_id")
+    @Column(name = "room_id")
     public long getRoomId() {
         return roomId;
     }
@@ -142,10 +139,8 @@ public class PayOrder {
         this.roomId = roomId;
     }
 
-    private long bedroomId;
-
     @Basic
-    @javax.persistence.Column(name = "bedroom_id")
+    @Column(name = "bedroom_id")
     public long getBedroomId() {
         return bedroomId;
     }
@@ -154,10 +149,8 @@ public class PayOrder {
         this.bedroomId = bedroomId;
     }
 
-    private Date endTime;
-
     @Basic
-    @javax.persistence.Column(name = "end_time")
+    @Column(name = "end_time")
     public Date getEndTime() {
         return endTime;
     }
@@ -166,10 +159,8 @@ public class PayOrder {
         this.endTime = endTime;
     }
 
-    private BigDecimal lateAmount;
-
     @Basic
-    @javax.persistence.Column(name = "late_amount")
+    @Column(name = "late_amount")
     public BigDecimal getLateAmount() {
         return lateAmount;
     }
@@ -178,10 +169,8 @@ public class PayOrder {
         this.lateAmount = lateAmount;
     }
 
-    private BigDecimal mortgageAmount;
-
     @Basic
-    @javax.persistence.Column(name = "mortgage_amount")
+    @Column(name = "mortgage_amount")
     public BigDecimal getMortgageAmount() {
         return mortgageAmount;
     }
@@ -190,10 +179,8 @@ public class PayOrder {
         this.mortgageAmount = mortgageAmount;
     }
 
-    private BigDecimal rentAmount;
-
     @Basic
-    @javax.persistence.Column(name = "rent_amount")
+    @Column(name = "rent_amount")
     public BigDecimal getRentAmount() {
         return rentAmount;
     }
@@ -202,10 +189,8 @@ public class PayOrder {
         this.rentAmount = rentAmount;
     }
 
-    private String type;
-
     @Basic
-    @javax.persistence.Column(name = "type")
+    @Column(name = "type")
     public String getType() {
         return type;
     }
@@ -214,83 +199,37 @@ public class PayOrder {
         this.type = type;
     }
 
-    private String orderState;
-
     @Basic
-    @javax.persistence.Column(name = "order_state")
-    public String getOrderState() {
-        return orderState;
-    }
-
-    public void setOrderState(String orderState) {
-        this.orderState = orderState;
-    }
-
-    private Long rentId;
-
-    @Basic
-    @javax.persistence.Column(name = "rent_id")
-    public Long getRentId() {
+    @Column(name = "rent_id")
+    public long getRentId() {
         return rentId;
     }
 
-    public void setRentId(Long rentId) {
+    public void setRentId(long rentId) {
         this.rentId = rentId;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        PayOrder that = (PayOrder) o;
-
-        if (payOrderId != that.payOrderId) return false;
-        if (rentOrderId != that.rentOrderId) return false;
-        if (custRenterId != that.custRenterId) return false;
-        if (length != that.length) return false;
-        if (roomId != that.roomId) return false;
-        if (bedroomId != that.bedroomId) return false;
-        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
-        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
-        if (payOrderState != null ? !payOrderState.equals(that.payOrderState) : that.payOrderState != null)
-            return false;
-        if (remark != null ? !remark.equals(that.remark) : that.remark != null) return false;
-        if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null) return false;
-        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
-        if (lateAmount != null ? !lateAmount.equals(that.lateAmount) : that.lateAmount != null) return false;
-        if (mortgageAmount != null ? !mortgageAmount.equals(that.mortgageAmount) : that.mortgageAmount != null)
-            return false;
-        if (rentAmount != null ? !rentAmount.equals(that.rentAmount) : that.rentAmount != null) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
-        if (orderState != null ? !orderState.equals(that.orderState) : that.orderState != null) return false;
-        if (rentId != null ? !rentId.equals(that.rentId) : that.rentId != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (payOrderId ^ (payOrderId >>> 32));
-        result = 31 * result + (int) (rentOrderId ^ (rentOrderId >>> 32));
-        result = 31 * result + (int) (custRenterId ^ (custRenterId >>> 32));
-        result = 31 * result + (amount != null ? amount.hashCode() : 0);
-        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
-        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
-        result = 31 * result + (payOrderState != null ? payOrderState.hashCode() : 0);
-        result = 31 * result + (remark != null ? remark.hashCode() : 0);
-        result = 31 * result + length;
-        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
-        result = 31 * result + (int) (roomId ^ (roomId >>> 32));
-        result = 31 * result + (int) (bedroomId ^ (bedroomId >>> 32));
-        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
-        result = 31 * result + (lateAmount != null ? lateAmount.hashCode() : 0);
-        result = 31 * result + (mortgageAmount != null ? mortgageAmount.hashCode() : 0);
-        result = 31 * result + (rentAmount != null ? rentAmount.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (orderState != null ? orderState.hashCode() : 0);
-        result = 31 * result + (rentId != null ? rentId.hashCode() : 0);
-        return result;
+    public String toString() {
+        return "PayOrder{" +
+                "payOrderId=" + payOrderId +
+                ", rentOrderId=" + rentOrderId +
+                ", custRenterId=" + custRenterId +
+                ", amount=" + amount +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", payOrderState='" + payOrderState + '\'' +
+                ", remark='" + remark + '\'' +
+                ", length=" + length +
+                ", startTime=" + startTime +
+                ", roomId=" + roomId +
+                ", bedroomId=" + bedroomId +
+                ", endTime=" + endTime +
+                ", lateAmount=" + lateAmount +
+                ", mortgageAmount=" + mortgageAmount +
+                ", rentAmount=" + rentAmount +
+                ", type='" + type + '\'' +
+                ", rentId=" + rentId +
+                '}';
     }
 }

@@ -28,10 +28,10 @@ public class PayOrderController extends BaseController {
      */
     @RequestMapping("/payRentOrder")
     @ResponseBody
-    public ResultVo payRentOrder(Long rentId) throws Exception {
+    public ResultVo payRentOrder(Long payOrderId) throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        
+        payOrderService.payRentOrder(sessionVo.getCustId(), payOrderId);
         return result;
     }
 

@@ -3,9 +3,11 @@ package com.eroom.web.controller.rent;
 import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.controller.BaseController;
 import com.eroom.web.entity.po.RentOrder;
+import com.eroom.web.entity.po.RoomRent;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.base.SessionVo;
 import com.eroom.web.service.pay.RentOrderService;
+import com.eroom.web.service.rent.RoomRentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +21,9 @@ public class RentOrderController extends BaseController {
 
     @Resource
     private RentOrderService rentOrderService;
+
+    @Resource
+    private RoomRentService roomRentService;
 
     /**
      * 获取租房订单

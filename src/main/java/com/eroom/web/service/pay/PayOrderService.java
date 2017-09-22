@@ -4,6 +4,7 @@ import com.eroom.web.constants.PayConstants;
 import com.eroom.web.dao.pay.PayOrderDao;
 import com.eroom.web.entity.po.PayOrder;
 import com.eroom.web.service.BaseService;
+import com.eroom.web.service.rent.RoomRentService;
 import com.eroom.web.utils.exception.BusinessException;
 import com.eroom.web.utils.util.StringUtil;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,23 @@ public class PayOrderService extends BaseService {
 
     @Resource
     private PayOrderDao payOrderDao;
+
+    @Resource
+    private RoomRentService roomRentService;
+
+    /**
+     * 支付租住订单、订单生成定时任务定时执行
+     * @param custRenterId
+     * @param payOrderId
+     * @throws Exception
+     */
+    public void payRentOrder(Long custRenterId, Long payOrderId) throws Exception {
+        PayOrder payOrder = payOrderDao.get(PayOrder.class, payOrderId);
+        //支付修改数据
+
+        //下架房源信息
+        roomRentService.updateRoomRentPaid(payOrder.getRentId());
+    }
 
     /**
      * 获取最新留言信息

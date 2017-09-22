@@ -2,6 +2,7 @@ package com.eroom.web.controller.rentlife;
 
 import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.controller.BaseController;
+import com.eroom.web.entity.po.RoomAssess;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.rentlife.RoomAssessVo;
 import com.eroom.web.service.rentlife.RoomAssessService;
@@ -27,7 +28,7 @@ public class AssessController extends BaseController {
     public ResultVo submitAssess(Long targetId, Long custId, Double level, String content, String type,
             MultipartFile[] files) throws Exception {
 
-        Object object = roomAssessService.addAssess(targetId, custId, level, content, type, files);
+        RoomAssess object = roomAssessService.addAssess(targetId, custId, level, content, type, files);
         ResultVo resultVo = new ResultVo();
         Map<String, Object> data = new HashMap<>();
         resultVo.setSuccess(true);
