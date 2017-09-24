@@ -36,6 +36,20 @@ public class PayOrderController extends BaseController {
     }
 
     /**
+     * 获取用户支付租住订单
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getPayRentOrder")
+    @ResponseBody
+    public ResultVo getPayRentOrder(Long rentOrderId) throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        return result;
+    }
+
+    /**
      * 获取待支付订单
      *
      * @return

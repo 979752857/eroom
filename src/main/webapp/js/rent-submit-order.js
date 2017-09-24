@@ -5,7 +5,7 @@ var _rent_time_type = "01";
  */
 $(function() {
     _rentId = myUtil.getUrlParam("rentId");
-    getOrderDatas();
+    getValidRentOrder();
 });
 $(window).load(function(){
 	$(".loading").addClass("loader-chanage")
@@ -33,6 +33,17 @@ function getOrderDatas(){
 		rentId:_rentId
 	}
 	myUtil.ajax.axs(url,data,getOrderDataSuccess);
+}
+
+/**
+ * 获取用户有效的租房信息
+ */
+function getValidRentOrder(){
+	var url = myUtil.BASE + "/rentorder/getValidRentOrder";
+	var data = {
+		rentId:_rentId
+	}
+	myUtil.ajax.axs(url,data,getValidOrderDataSuccess);
 }
 
 function getPaydetailListSuccess(result){
@@ -77,6 +88,20 @@ function getOrderDataSuccess(result){
 
 	}
 	$("#paydetail").append(html);
+}
+
+function getValidOrderDataSuccess(result){
+	if(!result){
+		myUtil.toast('服务器繁忙请重试');
+	}
+	var datas = result.datas;
+	var html = "";
+	if(datas){
+		//用户存在有效信息，进行跳转   传rentOrderId
+        window.location.href = "rent-confirm-order.html?rentOrderId="+datas.rentOrderId;
+	}else{
+        getOrderDatas();
+	}
 }
 
 function getTimeLength(type){

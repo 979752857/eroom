@@ -1,5 +1,6 @@
 package com.eroom.web.dao.pay;
 
+import com.eroom.web.constants.PayConstants;
 import com.eroom.web.dao.BaseDao;
 import com.eroom.web.entity.po.PayOrder;
 import com.eroom.web.entity.po.RentOrder;
@@ -59,6 +60,36 @@ public class RentOrderDao extends BaseDao {
         List<RentOrder> list = this.getPageList(hql.toString(), params, page, limit);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
+        }
+        return null;
+    }
+
+    /**
+     * 获取用户的有效的租房订单
+     * @param custId
+     * @param rentId
+     * @return
+     * @throws Exception
+     */
+    public RentOrder getValidRentOrder(Long custId, Long rentId) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        String[] orderState = {PayConstants.RentOrder.RentOrderState.WAIT_PAY, PayConstants.RentOrder.RentOrderState.PAID};
+        Map<String, Object> params = new HashMap<String, Object>();
+        hql.append("from RentOrder where rentId = :rentId and custRentId = :custRentId and rentOrderState in (");
+        for(int i = 0; i<orderState.length; i++){
+            hql.append(":orderState"+i);
+            params.put("orderState"+i, orderState[i]);
+            if(i<orderState.length-1){
+                hql.append(",");
+            }
+        }
+        hql.append(") order by createTime desc");
+        params.put("custRenterId", custId);
+        params.put("rentId", rentId);
+
+        List<RentOrder> list = this.getList(hql.toString(), params);
+        if (!CollectionUtils.isEmpty(list)) {
+            return list.get(0);
         }
         return null;
     }

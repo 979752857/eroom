@@ -31,9 +31,6 @@ public class RentOrderService extends BaseService {
     private RentOrderDao rentOrderDao;
 
     @Resource
-    private PayOrderDao payOrderDao;
-
-    @Resource
     private RoomRentDao roomRentDao;
 
     @Resource
@@ -76,6 +73,13 @@ public class RentOrderService extends BaseService {
             throw new BusinessException(SystemConstants.ExceptionMsg.PARAM_NULL_EXCEPTION_MSG);
         }
 
+        //校验该用户是否存在此租房订单
+        RentOrder rentOrder = getValidRentOrder(custId, rentId);
+        if(null != rentOrder){      //该用户已经存在有效的租房订单
+            logger.error("该用户已经存在有效的租房订单"+rentOrder.toString());
+            throw new BusinessException(SystemConstants.ExceptionMsg.PARAM_NULL_EXCEPTION_MSG);
+        }
+
         //生成租房订单的租住时间
         Date startTime = null;
         Date endTime = null;
@@ -109,8 +113,9 @@ public class RentOrderService extends BaseService {
         }
 
         RoomRentSet roomRentSet = roomRentSetDao.getRoomRentSet(rentId, rentTimeType);
-        RentOrder rentOrder = new RentOrder();
+        rentOrder = new RentOrder();
         rentOrder.setCustRenterId(custId);
+        rentOrder.setRoomId(roomRent.getRoomId());
         rentOrder.setRentId(rentId);
         rentOrder.setCreateTime(DateUtil.getCurrentDate());
         rentOrder.setStartTime(startTime);
@@ -137,45 +142,20 @@ public class RentOrderService extends BaseService {
 
         logger.info("RentOrderService.saveRentOrder  rentOrder:"+rentOrder.toString());
         rentOrder = rentOrderDao.save(rentOrder);
-
-        //生成第一期支付订单
-        PayOrder payOrder = new PayOrder();
-        payOrder.setStartTime(rentOrder.getStartTime());
-        payOrder.setEndTime(getNextEndTime(rentOrder.getStartTime(), rentOrder.getRentTimeType()));
-        payOrder.setLength(DateUtil.getDaysBetween(DateUtil.getDateString(payOrder.getStartTime(), DateUtil.YYYYMMDD), DateUtil.getDateString(payOrder.getEndTime(), DateUtil.YYYYMMDD)));
-        payOrder.setLateAmount(rentOrder.getLateAmount());
-        payOrder.setMortgageAmount(rentOrder.getMortgageAmount());
-        payOrder.setRentAmount(rentOrder.getRentAmount());
-        BigDecimal totleAmount = rentOrder.getRentAmount().add(rentOrder.getMortgageAmount()).add(rentOrder.getLateAmount());
-        payOrder.setAmount(totleAmount);
-        payOrder.setBedroomId(rentOrder.getBedroomId());
-        payOrder.setCustRenterId(rentOrder.getCustRenterId());
-        payOrder.setRentId(rentOrder.getRentId());
-        payOrder.setRoomId(rentOrder.getRoomId());
-        payOrder.setCreateTime(DateUtil.getCurrentDate());
-        payOrder.setPayOrderState(PayConstants.PayOrder.OrderState.WAITING);
-        logger.info("RentOrderService.saveRentOrder  payOrder:"+payOrder.toString());
-        payOrderDao.save(payOrder);
-
         return rentOrder;
     }
 
-    private Date getNextEndTime(Date startTime, String rentTimeType){
-        Date endTime = null;
-
-        //判断租期类型设置到期时间
-        if(RoomConstants.RoomRentSet.RentTimeType.RENT_YEAR.equals(rentTimeType)){
-            endTime = DateUtil.getOffsetMonthsTime(DateUtil.getTimestamp(startTime), 1);
-        }else if(RoomConstants.RoomRentSet.RentTimeType.RENT_MOUNTH.equals(rentTimeType)){
-            endTime = DateUtil.getOffsetMonthsTime(DateUtil.getTimestamp(startTime), 1);
-        }else if(RoomConstants.RoomRentSet.RentTimeType.RENT_WEEK.equals(rentTimeType)){
-            endTime = DateUtil.getOffsetDaysTime(DateUtil.getTimestamp(startTime), 7);
-        }else if(RoomConstants.RoomRentSet.RentTimeType.RENT_THREEDAY.equals(rentTimeType)){
-            endTime = DateUtil.getOffsetDaysTime(DateUtil.getTimestamp(startTime), 3);
-        }else{
-            throw new BusinessException(SystemConstants.ExceptionMsg.SYS_ERROR_EXCEPTION_MSG);
-        }
-
-        return endTime;
+    /**
+     * 获取用户有效的租房订单
+     * @param custId
+     * @param rentId
+     * @return
+     * @throws Exception
+     */
+    public RentOrder getValidRentOrder(Long custId, Long rentId) throws Exception {
+        RentOrder rentOrder = null;
+        rentOrder = rentOrderDao.getValidRentOrder(custId, rentId);
+        return rentOrder;
     }
+
 }

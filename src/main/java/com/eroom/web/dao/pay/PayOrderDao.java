@@ -1,5 +1,6 @@
 package com.eroom.web.dao.pay;
 
+import com.eroom.web.constants.PayConstants;
 import com.eroom.web.dao.BaseDao;
 import com.eroom.web.entity.po.PayOrder;
 import org.apache.commons.collections.CollectionUtils;
@@ -32,6 +33,29 @@ public class PayOrderDao extends BaseDao {
             return null;
         }
         return list;
+    }
+
+    /**
+     * 获取用户支付订单
+     *
+     * @return PayOrder
+     * @throws Exception
+     * @author tendy
+     */
+    public PayOrder getWaitPayOrder(Long custId, Long rentOrderId) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        hql.append("from PayOrder where payOrderState = :orderState and custRentId = :custId and rentOrderId = :rentOrderId order by createTime desc");
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderState", PayConstants.PayOrder.OrderState.WAITING);
+        params.put("custId", custId);
+        params.put("rentOrderId", rentOrderId);
+
+        List<PayOrder> list = this.getList(hql.toString(), params);
+        if(CollectionUtils.isEmpty(list)){
+            return null;
+        }
+        return list.get(0);
     }
 
     /**
