@@ -75,7 +75,7 @@ public class RentOrderDao extends BaseDao {
         StringBuilder hql = new StringBuilder();
         String[] orderState = {PayConstants.RentOrder.RentOrderState.WAIT_PAY, PayConstants.RentOrder.RentOrderState.PAID};
         Map<String, Object> params = new HashMap<String, Object>();
-        hql.append("from RentOrder where rentId = :rentId and custRentId = :custRentId and rentOrderState in (");
+        hql.append("from RentOrder where rentId = :rentId and custRenterId = :custRenterId and rentOrderState in (");
         for(int i = 0; i<orderState.length; i++){
             hql.append(":orderState"+i);
             params.put("orderState"+i, orderState[i]);
