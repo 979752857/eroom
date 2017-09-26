@@ -134,6 +134,7 @@ public class RentOrderService extends BaseService {
         rentOrder.setBedroomId(roomRent.getBedroomId());
         rentOrder.setRentType(roomRent.getRentType());
         rentOrder.setPayType(roomRent.getPayType());
+        rentOrder.setPaidEndTime(startTime);
 
         //设置订单状态为待支付状态
         rentOrder.setRentOrderState(PayConstants.RentOrder.RentOrderState.WAIT_PAY);

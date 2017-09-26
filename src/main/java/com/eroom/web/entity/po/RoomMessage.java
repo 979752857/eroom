@@ -54,7 +54,6 @@ public class RoomMessage implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     @Column(name = "message_id", unique = true, nullable = false)
     public Long getMessageId() {
         return this.messageId;

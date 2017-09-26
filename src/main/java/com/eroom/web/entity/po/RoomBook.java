@@ -73,7 +73,6 @@ public class RoomBook implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     @Column(name = "book_id", unique = true, nullable = false)
     public Long getBookId() {
         return this.bookId;

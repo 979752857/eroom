@@ -22,6 +22,7 @@ public class RoomRentSet {
     private BigDecimal lateAmount;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rent_set_id")
     public long getRentSetId() {
         return rentSetId;

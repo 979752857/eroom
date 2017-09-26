@@ -62,7 +62,6 @@ public class BedroomInfo implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     @Column(name = "bedroom_id", unique = true, nullable = false)
     public Long getBedroomId() {
         return this.bedroomId;

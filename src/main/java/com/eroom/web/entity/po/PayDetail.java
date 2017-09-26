@@ -61,7 +61,6 @@ public class PayDetail implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     @Column(name = "pay_detail_id", unique = true, nullable = false)
     public Long getPayDetailId() {
         return this.payDetailId;

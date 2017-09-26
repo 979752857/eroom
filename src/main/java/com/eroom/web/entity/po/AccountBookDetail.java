@@ -78,7 +78,6 @@ public class AccountBookDetail implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     @Column(name = "book_detail_id", unique = true, nullable = false)
     public Long getBookDetailId() {
         return this.bookDetailId;

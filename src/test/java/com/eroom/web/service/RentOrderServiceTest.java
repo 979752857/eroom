@@ -3,7 +3,9 @@ package com.eroom.web.service;
 import com.eroom.web.BaseTest;
 import com.eroom.web.constants.PayConstants;
 import com.eroom.web.entity.po.PayOrder;
+import com.eroom.web.entity.po.RentOrder;
 import com.eroom.web.service.pay.PayOrderService;
+import com.eroom.web.service.pay.RentOrderService;
 import com.eroom.web.utils.util.CollectionUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,23 +20,19 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:applicationContext.xml"})
-public class PayOrderServiceTest extends BaseTest {
+public class RentOrderServiceTest extends BaseTest {
 
     @Resource
     private PayOrderService payOrderService;
 
-    @Test
-    public void getPayOrderTest() throws Exception {
-        List<PayOrder> list = payOrderService.getPayOrderList(1L, PayConstants.PayOrder.OrderState.FINISH);
-        if(!CollectionUtil.isEmpty(list)){
-            logger.info("\n测试数据："+list.size());
-        }else{
-            logger.info("\n获取空数据");
-        }
-    }
+    @Resource
+    private RentOrderService rentOrderService;
 
     @Test
-    public void payOrderTest() throws Exception {
-        payOrderService.payRentOrder(1L, 3L);
+    public void getRentOrderTest() throws Exception {
+        RentOrder rentOrder = rentOrderService.saveRentOrder(1L, 8L, "01");
+        //生成第一期订单       rentOrder没有获取到
+        payOrderService.addPayRentOrder(rentOrder);
+        logger.info("\n测试数据："+rentOrder.toString());
     }
 }

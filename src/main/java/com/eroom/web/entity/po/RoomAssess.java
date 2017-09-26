@@ -23,6 +23,7 @@ public class RoomAssess {
     private String type;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "assess_id")
     public long getAssessId() {
         return assessId;

@@ -14,6 +14,7 @@ public class RoomInfo {
     private long roomId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @javax.persistence.Column(name = "room_id")
     public long getRoomId() {
         return roomId;

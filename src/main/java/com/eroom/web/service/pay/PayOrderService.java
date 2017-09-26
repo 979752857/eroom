@@ -4,6 +4,7 @@ import com.eroom.web.constants.PayConstants;
 import com.eroom.web.constants.RoomConstants;
 import com.eroom.web.constants.SystemConstants;
 import com.eroom.web.dao.pay.PayOrderDao;
+import com.eroom.web.dao.pay.RentOrderDao;
 import com.eroom.web.entity.po.PayOrder;
 import com.eroom.web.entity.po.RentOrder;
 import com.eroom.web.service.BaseService;
@@ -25,6 +26,9 @@ public class PayOrderService extends BaseService {
     private PayOrderDao payOrderDao;
 
     @Resource
+    private RentOrderDao rentOrderDao;
+
+    @Resource
     private RoomRentService roomRentService;
 
     /**
@@ -35,7 +39,30 @@ public class PayOrderService extends BaseService {
      */
     public void payRentOrder(Long custRenterId, Long payOrderId) throws Exception {
         PayOrder payOrder = payOrderDao.get(PayOrder.class, payOrderId);
-        //支付修改数据
+        //判断是否为此用户的支付订单
+        if(custRenterId != payOrder.getCustRenterId()){
+            throw new BusinessException(SystemConstants.ExceptionMsg.PARAM_NULL_EXCEPTION_MSG);
+        }
+        //支付修改数据    type:alipay  wechat     pay_order_state
+        payOrder.setPayOrderState(PayConstants.PayOrder.OrderState.FINISH);
+        payOrder.setType(PayConstants.PayOrder.Type.ALIPAY);
+        payOrderDao.update(payOrder);
+
+        //修改租住订单数据   paidEndTime   payPhase  paidAmount
+        RentOrder rentOrder = rentOrderDao.get(RentOrder.class, payOrder.getRentOrderId());
+        rentOrder.setPaidEndTime(payOrder.getEndTime());
+        //支付期数加一
+        int payPhase = rentOrder.getPayPhase()+1;
+        rentOrder.setPayPhase(payPhase);
+        //添加支付的总金额
+        BigDecimal paidAmount = rentOrder.getPaidAmount();
+        paidAmount.add(payOrder.getAmount());
+        rentOrder.setPaidAmount(paidAmount);
+        //修改订单状态，如果为未支付则修改为履行中
+        if(PayConstants.RentOrder.RentOrderState.WAIT_PAY.equals(rentOrder.getRentOrderState())){
+            rentOrder.setRentOrderState(PayConstants.RentOrder.RentOrderState.PAID);
+        }
+        rentOrderDao.update(rentOrder);
 
         //下架房源信息
         roomRentService.updateRoomRentPaid(payOrder.getRentId());

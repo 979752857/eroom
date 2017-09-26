@@ -54,7 +54,6 @@ public class CustRoomCollect implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     @Column(name = "collect_id", unique = true, nullable = false)
     public Long getCollectId() {
         return this.collectId;

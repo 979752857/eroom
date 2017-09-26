@@ -13,6 +13,7 @@ public class BaseCityDistrict {
     private String districtName;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public long getId() {
         return id;

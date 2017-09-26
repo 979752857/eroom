@@ -83,7 +83,6 @@ public class CmCustWxExt implements java.io.Serializable {
     }
 
     @Id
-
     @Column(name = "cust_id", unique = true, nullable = false)
     public long getCustId() {
         return this.custId;

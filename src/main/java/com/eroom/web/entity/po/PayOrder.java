@@ -30,6 +30,7 @@ public class PayOrder {
     private long rentId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pay_order_id")
     public long getPayOrderId() {
         return payOrderId;

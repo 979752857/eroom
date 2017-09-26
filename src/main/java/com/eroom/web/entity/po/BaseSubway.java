@@ -20,6 +20,7 @@ public class BaseSubway {
     private int sysMuser;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public long getId() {
         return id;

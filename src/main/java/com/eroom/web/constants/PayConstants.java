@@ -26,6 +26,11 @@ public class PayConstants {
              */
             public static final String FAIL = "04";
         }
+
+        public static class Type{
+            public static final String ALIPAY = "alipay";
+            public static final String WECHAT = "wechat";
+        }
     }
 
     public static class RentOrder{

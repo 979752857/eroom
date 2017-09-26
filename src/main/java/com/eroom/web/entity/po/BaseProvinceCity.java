@@ -24,6 +24,7 @@ public class BaseProvinceCity {
     private Byte cityLevel;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public long getId() {
         return id;

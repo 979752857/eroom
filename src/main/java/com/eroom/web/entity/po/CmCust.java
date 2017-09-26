@@ -138,7 +138,6 @@ public class CmCust implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     @Column(name = "cust_id", unique = true, nullable = false)
     public Long getCustId() {
         return this.custId;

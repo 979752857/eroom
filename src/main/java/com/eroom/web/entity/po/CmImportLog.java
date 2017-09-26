@@ -72,7 +72,6 @@ public class CmImportLog implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     @Column(name = "log_id", unique = true, nullable = false)
     public Long getLogId() {
         return this.logId;

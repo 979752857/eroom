@@ -19,6 +19,7 @@ public class BaseCitySubway {
     private Integer sortId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subway_id")
     public long getSubwayId() {
         return subwayId;

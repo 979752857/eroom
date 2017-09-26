@@ -13,6 +13,7 @@ public class RentOrder {
     private long rentOrderId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @javax.persistence.Column(name = "rent_order_id")
     public long getRentOrderId() {
         return rentOrderId;
@@ -298,6 +299,18 @@ public class RentOrder {
         this.paidAmount = paidAmount;
     }
 
+    private Date paidEndTime;
+
+    @Basic
+    @javax.persistence.Column(name = "paid_end_time")
+    public Date getPaidEndTime() {
+        return paidEndTime;
+    }
+
+    public void setPaidEndTime(Date paidEndTime) {
+        this.paidEndTime = paidEndTime;
+    }
+
     @Override
     public String toString() {
         return "RentOrder{" +
@@ -325,6 +338,7 @@ public class RentOrder {
                 ", payPhase=" + payPhase +
                 ", totlePhase=" + totlePhase +
                 ", paidAmount=" + paidAmount +
+                ", paidEndTime=" + paidEndTime +
                 '}';
     }
 }

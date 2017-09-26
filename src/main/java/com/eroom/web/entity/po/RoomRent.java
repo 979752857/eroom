@@ -75,7 +75,6 @@ public class RoomRent implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     @Column(name = "rent_id", unique = true, nullable = false)
     public Long getRentId() {
         return this.rentId;
