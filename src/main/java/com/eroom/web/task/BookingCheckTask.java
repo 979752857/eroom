@@ -37,6 +37,9 @@ public class BookingCheckTask {
 	/**
 	 * 每5分钟定时扫描数据库数据进行预约订单状态修改
 	 */
+	public void checkBookingState(){
+
+	}
 
 	/**
 	 * 每5分钟定时扫描数据库数据进行支付订单状态修改

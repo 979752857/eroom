@@ -72,7 +72,7 @@ public class RentOrderController extends BaseController {
         SessionVo sessionVo = this.getCustSession();
         RentOrder rentOrder = rentOrderService.saveRentOrder(sessionVo.getCustId(), rentId, rentTimeType);
         //生成第一期订单       rentOrder没有获取到
-        payOrderService.addPayRentOrder(rentOrder);
+        payOrderService.addPayRentOrder(rentOrder.getRentOrderId());
         result.setCode(SystemConstants.ExceptionMsg.SUCCESS_CODE);
         result.setDatas(rentOrder);
         return result;

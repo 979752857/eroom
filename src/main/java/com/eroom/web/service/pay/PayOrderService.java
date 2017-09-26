@@ -81,22 +81,41 @@ public class PayOrderService extends BaseService {
         return payOrder;
     }
 
-    public PayOrder addPayRentOrder(RentOrder rentOrder) throws Exception {
+    /**
+     * 生成新一期的支付订单
+     * @param rentOrderId
+     * @return
+     * @throws Exception
+     */
+    public PayOrder addPayRentOrder(Long rentOrderId) throws Exception {
+        RentOrder rentOrder = rentOrderDao.get(RentOrder.class, rentOrderId);
         if(rentOrder == null || rentOrder.getRentOrderId() == 0){
             logger.info("rentOrder为空或者rentOrderId为0:"+rentOrder.toString());
             throw new BusinessException(SystemConstants.ExceptionMsg.PARAM_NULL_EXCEPTION_MSG);
         }
-        //生成第一期支付订单
+        //订单已经支付完成所有款项
+        if(rentOrder.getPayPhase() >= rentOrder.getTotlePhase()){
+            throw new BusinessException(SystemConstants.ExceptionMsg.ORDER_FINISH_EXCEPTION_CODE, SystemConstants.ExceptionMsg.ORDER_FINISH_EXCEPTION_MSG);
+        }
         PayOrder payOrder = new PayOrder();
+        //判断是否是生成第一期支付订单
+        if(rentOrder.getPayPhase() > 0){
+            payOrder.setLateAmount(rentOrder.getLateAmount());
+            payOrder.setMortgageAmount(rentOrder.getMortgageAmount());
+            BigDecimal totleAmount = rentOrder.getRentAmount().add(rentOrder.getMortgageAmount()).add(rentOrder.getLateAmount());
+            payOrder.setAmount(totleAmount);
+        }else{
+            payOrder.setLateAmount(BigDecimal.ZERO);
+            payOrder.setMortgageAmount(BigDecimal.ZERO);
+            BigDecimal totleAmount = rentOrder.getRentAmount().add(payOrder.getLateAmount());
+            payOrder.setAmount(totleAmount);
+        }
         payOrder.setRentOrderId(rentOrder.getRentOrderId());
         payOrder.setStartTime(rentOrder.getStartTime());
-        payOrder.setEndTime(getNextEndTime(rentOrder.getStartTime(), rentOrder.getRentTimeType()));
+        payOrder.setEndTime(getNextEndTime(rentOrder.getPaidEndTime(), rentOrder.getRentTimeType()));
         payOrder.setLength(DateUtil.getDaysBetween(DateUtil.getDateString(payOrder.getStartTime(), DateUtil.YYYYMMDD), DateUtil.getDateString(payOrder.getEndTime(), DateUtil.YYYYMMDD)));
-        payOrder.setLateAmount(rentOrder.getLateAmount());
-        payOrder.setMortgageAmount(rentOrder.getMortgageAmount());
+
         payOrder.setRentAmount(rentOrder.getRentAmount());
-        BigDecimal totleAmount = rentOrder.getRentAmount().add(rentOrder.getMortgageAmount()).add(rentOrder.getLateAmount());
-        payOrder.setAmount(totleAmount);
         payOrder.setBedroomId(rentOrder.getBedroomId());
         payOrder.setCustRenterId(rentOrder.getCustRenterId());
         payOrder.setRentId(rentOrder.getRentId());

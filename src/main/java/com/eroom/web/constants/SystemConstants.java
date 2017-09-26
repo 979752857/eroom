@@ -98,7 +98,7 @@ public class SystemConstants {
          */
         public static String PARAM_NULL_EXCEPTION_MSG = "参数错误";
 
-        public static String PARAM_NULL_EXCEPTION_CODE = "102";
+        public static String PARAM_NULL_EXCEPTION_CODE = "202";
 
         /**
          * 数据库查询异常
@@ -106,6 +106,13 @@ public class SystemConstants {
         public static String SYS_ERROR_EXCEPTION_MSG = "系统异常";
 
         public static String SYS_ERROR_EXCEPTION_CODE = "101";
+
+        /**
+         * 数据库查询异常
+         */
+        public static String ORDER_FINISH_EXCEPTION_MSG = "订单已经支付完成所有款项";
+
+        public static String ORDER_FINISH_EXCEPTION_CODE = "301";
     }
     /**
      * 返回code
