@@ -32,7 +32,7 @@ public class RentOrderServiceTest extends BaseTest {
     public void getRentOrderTest() throws Exception {
         RentOrder rentOrder = rentOrderService.saveRentOrder(1L, 8L, "01");
         //生成第一期订单       rentOrder没有获取到
-        payOrderService.addPayRentOrder(rentOrder);
+        payOrderService.addPayRentOrder(rentOrder.getRentOrderId());
         logger.info("\n测试数据："+rentOrder.toString());
     }
 }

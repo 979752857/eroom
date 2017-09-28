@@ -22,6 +22,9 @@ public class BookingCheckTaskTest extends BaseTest {
     @Resource
     private RoomBookDao roomBookDao;
 
+    @Resource
+    private BookingCheckTask bookingCheckTask;
+
     @Test
     @Transactional
     public void bookingCheckTest() throws Exception {
@@ -36,5 +39,11 @@ public class BookingCheckTaskTest extends BaseTest {
         } catch (Exception e) {
             logger.warn("\n定时检查用户预订失败："+e.toString());
         }
+    }
+
+    @Test
+    @Transactional
+    public void checkTaskRunnningTest() throws Exception {
+        bookingCheckTask.checkTaskRunnning();
     }
 }
