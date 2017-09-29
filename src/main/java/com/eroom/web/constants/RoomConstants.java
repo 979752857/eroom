@@ -68,6 +68,12 @@ public class RoomConstants {
     }
     
     public static class RoomBook{
+
+        /**
+         * 预约1小时后自动授权时间(秒)
+         */
+        public static int AGREE_TIME = 3600;
+
         public static class ApplyState{
             /**
              * 申请中

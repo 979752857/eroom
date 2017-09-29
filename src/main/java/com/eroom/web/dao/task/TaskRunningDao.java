@@ -53,5 +53,25 @@ public class TaskRunningDao extends BaseDao {
         int num = this.executeUpdateSql(sql.toString(), params);
         return num;
     }
+
+    /**
+     * 删除指定任务
+     * @return PayOrder
+     * @throws Exception
+     * @author tendy
+     */
+    public int deleteTaskRunning(TaskRunning taskRunning) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        Map<String, Object> params = new HashMap<String, Object>();
+        sql.append("update task_running set state = :state where main_id = :mainId and origin = :origin and new_value = :newValue and table = :table and column = :column ");
+        params.put("mainId", taskRunning.getMainId());
+        params.put("origin", taskRunning.getOrigin());
+        params.put("newValue", taskRunning.getNewValue());
+        params.put("table", taskRunning.getTable());
+        params.put("column", taskRunning.getColumn());
+        params.put("state", TaskRunningConstants.State.DELETE);
+        int num = this.executeUpdateSql(sql.toString(), params);
+        return num;
+    }
 	
 }

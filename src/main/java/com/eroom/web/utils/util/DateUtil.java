@@ -106,6 +106,16 @@ public class DateUtil {
 	}
 
 	/**
+	 * 获取指定时间点偏移秒数后的日期
+	 */
+	public static Timestamp getOffsetSecondsDate(Date date, int offset) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.SECOND, offset);
+		return new Timestamp(calendar.getTimeInMillis());
+	}
+
+	/**
 	 * 获取指定时间点偏移天数后的日期
 	 */
 	public static Timestamp getOffsetDaysDate(Date date, int offset) {

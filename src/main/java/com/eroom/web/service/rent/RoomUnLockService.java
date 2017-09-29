@@ -1,10 +1,13 @@
 package com.eroom.web.service.rent;
 
 import com.eroom.web.constants.RoomConstants;
+import com.eroom.web.constants.TaskRunningConstants;
 import com.eroom.web.dao.rent.RoomBookDao;
 import com.eroom.web.dao.rent.RoomRentDao;
+import com.eroom.web.dao.task.TaskRunningDao;
 import com.eroom.web.entity.po.RoomBook;
 import com.eroom.web.entity.po.RoomRent;
+import com.eroom.web.entity.po.TaskRunning;
 import com.eroom.web.service.BaseService;
 import com.eroom.web.utils.util.DateUtil;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,9 @@ public class RoomUnLockService extends BaseService {
     @Resource
     private RoomBookDao roomBookDao;
 
+    @Resource
+    private TaskRunningDao taskRunningDao;
+
     /**
      * 获取预约房间的密码
      * 
@@ -34,6 +40,30 @@ public class RoomUnLockService extends BaseService {
             return "error";
         }
         pw = "success";
+
+        //删除之前自动变更为超时的数据
+        TaskRunning taskRunning = new TaskRunning();
+        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
+        taskRunning.setMainId(t.getBookId());
+        taskRunning.setOrigin(RoomConstants.RoomBook.ApplyState.LOOKING);
+        taskRunning.setNewValue(RoomConstants.RoomBook.ApplyState.TIMEOUT);
+        taskRunningDao.deleteTaskRunning(taskRunning);
+
+        //添加定时任务，改为过期状态
+        taskRunning = new TaskRunning();
+        taskRunning.setState(TaskRunningConstants.State.WAITING);
+        taskRunning.setCreateTime(DateUtil.getCurrentDate());
+        taskRunning.setChangeTime(t.getEndTime());
+        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
+        taskRunning.setMainId(t.getBookId());
+        taskRunning.setOrigin(RoomConstants.RoomBook.ApplyState.LOOKING);
+        taskRunning.setNewValue(RoomConstants.RoomBook.ApplyState.FINISH);
+        taskRunningDao.save(taskRunning);
+
         return pw;
     }
 

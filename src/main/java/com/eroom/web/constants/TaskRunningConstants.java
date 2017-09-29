@@ -6,11 +6,17 @@ package com.eroom.web.constants;
 public class TaskRunningConstants {
 
     public static class Table{
-        public final static String ROOM_BOOK = "room_book";
-    }
 
-    public static class Column{
-        public final static String APPLY_STATE = "apply_state";
+        public static class RoomBook{
+
+            public final static String TABLE_NAME = "room_book";
+
+            public final static String MAIN_COLUMN = "book_id";
+            /**
+             * 预约申请状态
+             */
+            public final static String APPLY_STATE = "apply_state";
+        }
     }
 
     public static class State{

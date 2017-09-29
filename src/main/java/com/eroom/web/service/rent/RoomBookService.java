@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.constants.TaskRunningConstants;
+import com.eroom.web.dao.task.TaskRunningDao;
+import com.eroom.web.entity.po.TaskRunning;
 import com.eroom.web.service.BaseService;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,9 @@ public class RoomBookService extends BaseService{
 
     @Resource
     private RoomBookDao roomBookDao;
+
+    @Resource
+    private TaskRunningDao taskRunningDao;
 
     @Resource
     private SystemCfgService systemCfgService;
@@ -177,8 +183,47 @@ public class RoomBookService extends BaseService{
         tRoomBook.setApplyState(RoomConstants.RoomBook.ApplyState.APPLYING);
         tRoomBook.setBedRoomId(roomRent.getBedroomId());
         tRoomBook.setUpdateTime(DateUtil.getCurrentDate());
-        roomBookDao.save(tRoomBook);
-    }
+        tRoomBook = roomBookDao.save(tRoomBook);
 
+        //添加定时任务，预约状态改为授权状态
+        TaskRunning taskRunning = new TaskRunning();
+        taskRunning.setState(TaskRunningConstants.State.WAITING);
+        taskRunning.setCreateTime(DateUtil.getCurrentDate());
+        taskRunning.setChangeTime(DateUtil.getOffsetSecondsDate(DateUtil.getCurrentDate(), RoomConstants.RoomBook.AGREE_TIME));
+        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
+        taskRunning.setMainId(tRoomBook.getBookId());
+        taskRunning.setOrigin(tRoomBook.getApplyState());
+        taskRunning.setNewValue(RoomConstants.RoomBook.ApplyState.AGREE);
+        taskRunningDao.save(taskRunning);
+
+        //添加定时任务，授权状态改为看房中状态
+        taskRunning = new TaskRunning();
+        taskRunning.setState(TaskRunningConstants.State.WAITING);
+        taskRunning.setCreateTime(DateUtil.getCurrentDate());
+        taskRunning.setChangeTime(tRoomBook.getStartTime());
+        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
+        taskRunning.setMainId(tRoomBook.getBookId());
+        taskRunning.setOrigin(RoomConstants.RoomBook.ApplyState.AGREE);
+        taskRunning.setNewValue(RoomConstants.RoomBook.ApplyState.LOOKING);
+        taskRunningDao.save(taskRunning);
+
+        //添加定时任务，改为过期状态
+        taskRunning = new TaskRunning();
+        taskRunning.setState(TaskRunningConstants.State.WAITING);
+        taskRunning.setCreateTime(DateUtil.getCurrentDate());
+        taskRunning.setChangeTime(tRoomBook.getEndTime());
+        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
+        taskRunning.setMainId(tRoomBook.getBookId());
+        taskRunning.setOrigin(RoomConstants.RoomBook.ApplyState.LOOKING);
+        taskRunning.setNewValue(RoomConstants.RoomBook.ApplyState.TIMEOUT);
+        taskRunningDao.save(taskRunning);
+
+    }
 
 }
