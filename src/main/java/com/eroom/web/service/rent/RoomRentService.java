@@ -189,6 +189,16 @@ public class RoomRentService {
     }
 
     /**
+     * 获取位置的房源筛选条件
+     * @return
+     */
+    public Map<String, String> getRoomLocationCondition(){
+        Map<String, String> map = new HashMap<>();
+
+        return map;
+    }
+
+    /**
      * 修改出租房源信息的状态数据
      * @param rentId
      * @return

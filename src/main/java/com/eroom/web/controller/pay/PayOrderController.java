@@ -41,11 +41,29 @@ public class PayOrderController extends BaseController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/getPayRentOrder")
+    @RequestMapping("/getPayRentOrderByRentOrderId")
     @ResponseBody
-    public ResultVo getPayRentOrder(Long rentOrderId) throws Exception {
+    public ResultVo getPayRentOrderByRentOrderId(Long rentOrderId) throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
+        List<PayOrder> list = payOrderService.getPayRentOrder(sessionVo.getCustId(), rentOrderId);
+        result.setDatas(list);
+        return result;
+    }
+
+    /**
+     * 获取用户支付租住订单
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getPayRentOrder")
+    @ResponseBody
+    public ResultVo getPayRentOrder() throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        List<PayOrder> list = payOrderService.getPayRentOrder(sessionVo.getCustId());
+        result.setDatas(list);
         return result;
     }
 

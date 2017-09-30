@@ -74,11 +74,23 @@ public class PayOrderService extends BaseService {
      * @param rentOrderId
      * @throws Exception
      */
-    public PayOrder getPayRentOrder(Long custId, Long rentOrderId) throws Exception {
+    public List<PayOrder> getPayRentOrder(Long custId, Long rentOrderId) throws Exception {
 
-        PayOrder payOrder = payOrderDao.getWaitPayOrder(custId, rentOrderId);
+        List<PayOrder> list = payOrderDao.getWaitPayOrder(custId, rentOrderId);
 
-        return payOrder;
+        return list;
+    }
+
+    /**
+     * 获取用户支付订单
+     * @param custId
+     * @throws Exception
+     */
+    public List<PayOrder> getPayRentOrder(Long custId) throws Exception {
+
+        List<PayOrder> list = payOrderDao.getWaitPayOrder(custId);
+
+        return list;
     }
 
     /**
@@ -128,7 +140,7 @@ public class PayOrderService extends BaseService {
     }
 
     /**
-     * 获取最新留言信息
+     * 获取订单列表
      *
      * @return
      * @throws Exception

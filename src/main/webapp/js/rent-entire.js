@@ -41,7 +41,7 @@ $(function() {
 	myUtil.menu(1);
     // init();
     initAreaOndition();
-	getDatasList();
+	getDatasList(null);
 	$("#oe_overlay").hide();
 });
 $(window).load(function(){
@@ -52,9 +52,9 @@ $(window).load(function(){
 /**
  * 获取房源信息
  */
-function getDatasList(){
+function getDatasList(data){
 	var url = myUtil.BASE + "/room/getRoom";
-	myUtil.ajax.axs(url,null,getListSuccess);
+	myUtil.ajax.axs(url,data,getListSuccess);
 }
 
 function getListSuccess(result){
@@ -183,10 +183,6 @@ function initAreaOndition(){
 
 function changeCondition(target){
     target.click();
-    console.info("reload data......")
-
+    LOCATION_MAP[keyArray[0]][keyArray[1]][keyArray[2]];
+    console.info("reload data......");
 }
-
-
-
-

@@ -42,7 +42,7 @@ public class PayOrderDao extends BaseDao {
      * @throws Exception
      * @author tendy
      */
-    public PayOrder getWaitPayOrder(Long custId, Long rentOrderId) throws Exception {
+    public List<PayOrder> getWaitPayOrder(Long custId, Long rentOrderId) throws Exception {
         StringBuilder hql = new StringBuilder();
         hql.append("from PayOrder where payOrderState = :orderState and custRentId = :custId and rentOrderId = :rentOrderId order by createTime desc");
 
@@ -55,7 +55,29 @@ public class PayOrderDao extends BaseDao {
         if(CollectionUtils.isEmpty(list)){
             return null;
         }
-        return list.get(0);
+        return list;
+    }
+
+    /**
+     * 获取用户支付订单
+     *
+     * @return PayOrder
+     * @throws Exception
+     * @author tendy
+     */
+    public List<PayOrder> getWaitPayOrder(Long custId) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        hql.append("from PayOrder where payOrderState = :orderState and custRentId = :custId order by createTime desc");
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderState", PayConstants.PayOrder.OrderState.WAITING);
+        params.put("custId", custId);
+
+        List<PayOrder> list = this.getList(hql.toString(), params);
+        if(CollectionUtils.isEmpty(list)){
+            return null;
+        }
+        return list;
     }
 
     /**

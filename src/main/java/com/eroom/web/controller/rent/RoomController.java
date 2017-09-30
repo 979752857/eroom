@@ -51,4 +51,19 @@ public class RoomController extends BaseController {
         return result;
     }
 
+    /**
+     * 获取房源筛选条件接口
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getRoomCondition")
+    @ResponseBody
+    public ResultVo getRoomCondition() throws Exception {
+        ResultVo result = new ResultVo();
+        List<RoomRentVo> list = null;
+        result.setDatas(list);
+        return result;
+    }
+
 }
