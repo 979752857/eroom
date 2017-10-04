@@ -1,37 +1,43 @@
 var LOCATION_MAP = {
-	"不限":0,
-	"地铁":{
-        "不限":0,
-		"1号线":{
-            "不限":0,
-			"西单":"1",
-            "天安门":"2",
-            "东单":"3"
-		},
-        "5号线":{
-            "不限":0,
-            "天通苑":"1",
-            "立水桥":"2",
-            "北苑南":"3"
-        }
-	},
-	"区域":{
-        "不限":0,
-        "朝阳区":{
-            "不限":0,
-            "朝阳商圈1":"1",
-            "朝阳商圈2":"2",
-            "朝阳商圈3":"3",
-            "朝阳商圈4":"4"
-        },
-        "海淀区":{
-            "不限":0,
-            "海淀商圈1":"1",
-            "海淀商圈2":"2",
-            "海淀商圈3":"3",
-            "海淀商圈4":"4"
-        }
-	}
+	// "不限":0,
+	// "地铁":{
+     //    "不限":0,
+	// 	"1号线":{
+     //        "不限":0,
+	// 		"西单":"1",
+     //        "天安门":"2",
+     //        "东单":"3"
+	// 	},
+     //    "5号线":{
+     //        "不限":0,
+     //        "天通苑":"1",
+     //        "立水桥":"2",
+     //        "北苑南":"3"
+     //    }
+	// },
+	// "区域":{
+     //    "不限":0,
+     //    "朝阳区":{
+     //        "不限":0,
+     //        "朝阳商圈1":"1",
+     //        "朝阳商圈2":"2",
+     //        "朝阳商圈3":"3",
+     //        "朝阳商圈4":"4"
+     //    },
+     //    "海淀区":{
+     //        "不限":0,
+     //        "海淀商圈1":"1",
+     //        "海淀商圈2":"2",
+     //        "海淀商圈3":"3",
+     //        "海淀商圈4":"4"
+     //    }
+	// }
+}
+var DATA = {
+    type : "",
+    position : "",
+    price : "",
+    sort : ""
 }
 var keyArray = new Array("不限","不限","不限")
 /**
@@ -39,9 +45,9 @@ var keyArray = new Array("不限","不限","不限")
  */
 $(function() {
 	myUtil.menu(1);
+    getCondition();
     // init();
-    initAreaOndition();
-	getDatasList(null);
+	getDatasList();
 	$("#oe_overlay").hide();
 });
 $(window).load(function(){
@@ -52,9 +58,20 @@ $(window).load(function(){
 /**
  * 获取房源信息
  */
-function getDatasList(data){
+function getDatasList(){
 	var url = myUtil.BASE + "/room/getRoom";
-	myUtil.ajax.axs(url,data,getListSuccess);
+	myUtil.ajax.axs(url,DATA,getListSuccess);
+}
+
+/**
+ * 获取房源信息
+ */
+function getCondition(){
+	var url = myUtil.BASE + "/base/getAllCondition";
+	var data = {
+	    cityId : 1
+    }
+	myUtil.ajax.axs(url,data,getDataSuccess);
 }
 
 function getListSuccess(result){
@@ -79,6 +96,19 @@ function getListSuccess(result){
 	$("#room").append(html);
 }
 
+function getDataSuccess(result){
+	if(!result){
+		myUtil.toast('服务器繁忙请重试');
+	}
+	var datas = result.datas;
+	if(datas){
+        LOCATION_MAP = datas;
+        initAreaOndition();
+	}else{
+		myUtil.toast('未获取到位置条件信息');
+	}
+}
+
 function init(){
 
     //添加租住类型事件
@@ -86,6 +116,8 @@ function init(){
         var content = $(this).children().html();
         $("#rent-type-href").html(content+"<i></i>");
         // $("#rent-type-href").click();
+        DATA.type = content;
+        console.info("rent-type:"+content);
         changeCondition($("#rent-type-href"));
     });
 	//添加区域筛选事件
@@ -94,10 +126,14 @@ function init(){
         var content = $(this).children().html();
         $("#condition-area-href").html(content+"<i></i>");
         keyArray[0] = content;
+        keyArray[1] = "不限";
+        keyArray[2] = "不限";
+        console.info("condition-area:"+content);
         if(content == "不限"){
             // $("#condition-area-href").click();
             changeCondition($("#condition-area-href"));
         }else{
+            DATA.position = LOCATION_MAP[keyArray[0]]["不限"];
             initAreaOndition();
             $('#condition-area-second').show();
             $('#condition-area-third').hide();
@@ -107,11 +143,14 @@ function init(){
     $('#condition-area-second').on('click','li',function (e){
         var content = $(this).children().html();
         keyArray[1] = content;
+        keyArray[2] = "不限";
+        console.info("condition-area-second:"+content);
         if(content == "不限"){
             // $("#condition-area-href").click();
             changeCondition($("#condition-area-href"));
         }else{
             $("#condition-area-href").html(content+"<i></i>");
+            DATA.position = LOCATION_MAP[keyArray[0]][keyArray[1]]["不限"];
             initAreaOndition();
             $('#condition-area-third').show();
         }
@@ -120,10 +159,12 @@ function init(){
     $('#condition-area-third').on('click','li',function (e){
         var content = $(this).children().html();
         keyArray[2] = content;
+        console.info("condition-area-third:"+content);
         if(content != "不限"){
             $("#condition-area-href").html(content+"<i></i>");
         }
         // $("#condition-area-href").click();
+        DATA.position = LOCATION_MAP[keyArray[0]][keyArray[1]][keyArray[2]];
         changeCondition($("#condition-area-href"));
         return false;
     });
@@ -133,6 +174,8 @@ function init(){
         var content = $(this).children().html();
         $("#condition-price-href").html(content+"<i></i>");
         // $("#condition-price-href").click();
+        DATA.price = content;
+        console.info("condition-price:"+content);
         changeCondition($("#condition-price-href"));
     });
 	//添加排序筛选事件
@@ -140,6 +183,8 @@ function init(){
         var content = $(this).children().html();
         $("#condition-sort-href").html(content+"<i></i>");
         // $("#condition-sort-href").click();
+        DATA.sort = content;
+        console.info("condition-sort:"+content);
         changeCondition($("#condition-sort-href"));
     });
 }
@@ -148,6 +193,9 @@ function initAreaOndition(){
     $("#condition-area").unbind("click"); //移除click
     $("#condition-area-second").unbind("click"); //移除click
     $("#condition-area-third").unbind("click"); //移除click
+    $("#rent-type").unbind("click"); //移除click
+    $("#condition-price").unbind("click"); //移除click
+    $("#condition-sort").unbind("click"); //移除click
     var html = "";
     for(var key in LOCATION_MAP){
         // console.log("属性：" + key + ",值："+ LOCATION_MAP[key]);
@@ -183,6 +231,10 @@ function initAreaOndition(){
 
 function changeCondition(target){
     target.click();
-    LOCATION_MAP[keyArray[0]][keyArray[1]][keyArray[2]];
-    console.info("reload data......");
+    getDatasList();
+    console.info("reload data......")
 }
+
+
+
+

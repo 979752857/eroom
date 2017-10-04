@@ -24,9 +24,15 @@ public class RoomRentBo {
     private String rentType;
 
     /**
-     * 地铁线
+     * 地铁站
      */
     private Long stationId;
+
+    /**
+     * 地铁线
+     */
+
+    private Long subwayId;
 
     /**
      * 区域id
@@ -97,5 +103,13 @@ public class RoomRentBo {
 
     public void setBussinessId(Long bussinessId) {
         this.bussinessId = bussinessId;
+    }
+
+    public Long getSubwayId() {
+        return subwayId;
+    }
+
+    public void setSubwayId(Long subwayId) {
+        this.subwayId = subwayId;
     }
 }

@@ -5,6 +5,7 @@ import com.eroom.web.controller.BaseController;
 import com.eroom.web.entity.po.PayOrder;
 import com.eroom.web.entity.vo.base.ResultVo;
 import com.eroom.web.entity.vo.base.SessionVo;
+import com.eroom.web.entity.vo.rent.PayOrderVo;
 import com.eroom.web.service.pay.PayOrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +63,7 @@ public class PayOrderController extends BaseController {
     public ResultVo getPayRentOrder() throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
+
         List<PayOrder> list = payOrderService.getPayRentOrder(sessionVo.getCustId());
         result.setDatas(list);
         return result;
@@ -78,7 +80,7 @@ public class PayOrderController extends BaseController {
     public ResultVo getPayOrderWait() throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        List<PayOrder> list = payOrderService.getPayOrderList(sessionVo .getCustId(), PayConstants.PayOrder.OrderState.WAITING);
+        List<PayOrderVo> list = payOrderService.getPayOrderList(sessionVo .getCustId(), PayConstants.PayOrder.OrderState.WAITING);
         result.setDatas(list);
         return result;
     }
@@ -94,7 +96,7 @@ public class PayOrderController extends BaseController {
     public ResultVo getPayOrderFinish() throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        List<PayOrder> list = payOrderService.getPayOrderList(sessionVo .getCustId(), PayConstants.PayOrder.OrderState.FINISH);
+        List<PayOrderVo> list = payOrderService.getPayOrderList(sessionVo .getCustId(), PayConstants.PayOrder.OrderState.FINISH);
         result.setDatas(list);
         return result;
     }
@@ -110,7 +112,7 @@ public class PayOrderController extends BaseController {
     public ResultVo getPayOrderAll() throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        List<PayOrder> list = payOrderService.getPayOrderList(sessionVo .getCustId(), null);
+        List<PayOrderVo> list = payOrderService.getPayOrderList(sessionVo .getCustId(), null);
         result.setDatas(list);
         return result;
     }

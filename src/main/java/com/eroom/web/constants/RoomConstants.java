@@ -105,4 +105,16 @@ public class RoomConstants {
             public static final String TIMEOUT = "08";
         }
     }
+
+    public static class RoomCondition{
+        /**
+         * 地铁为筛选条件
+         */
+        public static final String SUBWAY = "subway";
+        /**
+         * 行政区为筛选条件
+         */
+        public static final String DISTRICT = "district";
+
+    }
 }

@@ -7,6 +7,7 @@ import com.eroom.web.dao.pay.PayOrderDao;
 import com.eroom.web.dao.pay.RentOrderDao;
 import com.eroom.web.entity.po.PayOrder;
 import com.eroom.web.entity.po.RentOrder;
+import com.eroom.web.entity.vo.rent.PayOrderVo;
 import com.eroom.web.service.BaseService;
 import com.eroom.web.service.rent.RoomRentService;
 import com.eroom.web.utils.exception.BusinessException;
@@ -140,22 +141,19 @@ public class PayOrderService extends BaseService {
     }
 
     /**
-     * 获取订单列表
+     * 获取订单信息
      *
      * @return
      * @throws Exception
      */
-    public List<PayOrder> getPayOrderList(Long custRenterId, String orderState) throws Exception {
-        if(StringUtil.isBlank(orderState)){
-            throw new BusinessException("订单状态为空");
-        }
-        List<PayOrder> list = null;
+    public List<PayOrderVo> getPayOrderList(Long custRenterId, String orderState) throws Exception {
+        List<PayOrderVo> list = null;
         if(PayConstants.PayOrder.OrderState.WAITING.equals(orderState)){
-            list = payOrderDao.getTPayOrderList(custRenterId, orderState, null);
+            list = payOrderDao.getPayOrderVoList(custRenterId, orderState, null);
         }else if(PayConstants.PayOrder.OrderState.FINISH.equals(orderState)){
-            list = payOrderDao.getTPayOrderList(custRenterId, orderState, null);
+            list = payOrderDao.getPayOrderVoList(custRenterId, orderState, null);
         }else{
-            list = payOrderDao.getTPayOrderList(custRenterId, orderState, PayConstants.PayOrder.ORDER_ALL_LIMIT);
+            list = payOrderDao.getPayOrderVoList(custRenterId, orderState, PayConstants.PayOrder.ORDER_ALL_LIMIT);
         }
         return list;
     }

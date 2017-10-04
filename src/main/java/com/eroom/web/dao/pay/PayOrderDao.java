@@ -3,7 +3,9 @@ package com.eroom.web.dao.pay;
 import com.eroom.web.constants.PayConstants;
 import com.eroom.web.dao.BaseDao;
 import com.eroom.web.entity.po.PayOrder;
+import com.eroom.web.entity.vo.rent.PayOrderVo;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -87,10 +89,10 @@ public class PayOrderDao extends BaseDao {
      * @throws Exception
      * @author tendy
      */
-    public List<PayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit) throws Exception {
-        return getTPayOrderList(custRenterId, orderState, limit, 0);
+    public List<PayOrder> getPayOrderList(Long custRenterId, String orderState, Integer limit) throws Exception {
+        return getPayOrderList(custRenterId, orderState, limit, 0);
     }
-    public List<PayOrder> getTPayOrderList(Long custRenterId, String orderState, Integer limit, int page) throws Exception {
+    public List<PayOrder> getPayOrderList(Long custRenterId, String orderState, Integer limit, int page) throws Exception {
         StringBuilder hql = new StringBuilder();
         hql.append("from PayOrder where payOrderState = :orderState and custRenterId = :custRenterId order by createTime desc");
 
@@ -99,6 +101,44 @@ public class PayOrderDao extends BaseDao {
         params.put("custRenterId", custRenterId);
 
         List<PayOrder> list = this.getPageList(hql.toString(), params, page, limit);
+        if (!CollectionUtils.isEmpty(list)) {
+            return list;
+        }
+        return null;
+    }
+
+    /**
+     * 获取支付订单列表
+     *
+     * @return PayOrder
+     * @throws Exception
+     * @author tendy
+     */
+    public List<PayOrderVo> getPayOrderVoList(Long custRenterId, String orderState, Integer limit) throws Exception {
+        return getPayOrderVoList(custRenterId, orderState, limit, 0);
+    }
+    public List<PayOrderVo> getPayOrderVoList(Long custRenterId, String orderState, Integer limit, int page) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        hql.append(" select new com.eroom.web.entity.vo.rent.PayOrderVo(po.payOrderId, po.rentOrderId, ");
+        hql.append(" po.custRenterId, po.roomId, po.bedroomId, po.rentId, po.amount, ");
+        hql.append(" po.lateAmount, po.mortgageAmount, po.rentAmount, po.startTime, ");
+        hql.append(" po.endTime, po.length, po.type, po.payOrderState, tbi.imageUrl, tri.imageUrl, ");
+        hql.append(" tri.name, tri.roomType, tbi.space, tbi.decorate) ");
+        hql.append(" from PayOrder po, BedroomInfo tbi, RoomInfo tri ");
+        hql.append(" where po.custRenterId = :custRenterId ");
+        if(StringUtils.isNotBlank(orderState)){
+            hql.append(" and po.payOrderState = :orderState ");
+        }
+        hql.append(" and po.roomId = tri.roomId and po.bedroomId = tbi.bedroomId ");
+        hql.append(" order by po.createTime desc  ");
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        if(StringUtils.isNotBlank(orderState)){
+            params.put("orderState", orderState);
+        }
+        params.put("custRenterId", custRenterId);
+
+        List<PayOrderVo> list = this.getPageList(hql.toString(), params, page, limit);
         if (!CollectionUtils.isEmpty(list)) {
             return list;
         }

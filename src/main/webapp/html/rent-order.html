@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="../style/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="../js/slick/slick.css"/>
 	<script type="text/javascript" src="../js/common/util.js"></script>
+	<script type="text/javascript" src="../js/common/param-util.js"></script>
+	<script type="text/javascript" src="../js/rent-order.js"></script>
 	<script type="text/javascript">
 		$(window).load(function(){
 			$(".loading").addClass("loader-chanage")
@@ -43,138 +45,141 @@
 		</div>
 		
 		<div class="rent clearfloat" id="main">
-			<div class="top clearfloat">
-				<ul>
-					<li class="cur">
-						<a href="rent-order.html">全部订单</a>
-					</li>
-					<li>
-						<a href="rent-order.html">待付款</a>
-					</li>
-					<li>
-						<a href="empty-list.html">待评价</a>
-					</li>
-					<li>
-						<a href="empty-list.html">已完成</a>
-					</li>
-				</ul>
-			</div>
-			
-			<div class="schedule clearfloat collection">
-				<div class="content clearfloat box-s">
-					<div class="topsche-top box-s clearfloat">
-						<p class="fl add">
-							看房时间：2016-04-30
-						</p>
-						<p class="tit fr">
-							待支付
-						</p>
+			<div class="schedule clearfloat">
+				<div class="notice">
+					<div class="tab-hd clearfloat">
+						<ul class="tab-nav clearfloat">
+							<li class="tab-four"><a href="javascript:getDatasList(1);">待付款</a></li>
+							<li class="tab-four"><a href="javascript:getDatasList(2);">待评价</a></li>
+							<li class="tab-four"><a href="javascript:getDatasList(3);">已完成</a></li>
+							<li class="tab-four"><a href="javascript:getDatasList(4);">全部订单</a></li>
+						</ul>
 					</div>
-		    		<div class="list clearfloat fl box-s">
-		    			<a href="house-details.html">
-			    			<div class="tu clearfloat">
-			    				<span></span>
-			    				<img src="../upload/list-tu.jpg"/>
-			    			</div>
-			    			<div class="right clearfloat">
-			    				<div class="tit clearfloat">
-			    					<p class="fl">华府骏苑</p>
-			    				</div>
-			    				<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
-			    				<div class="recom-bottom clearfloat">
-			    					2500<samp>元/月</samp>
-			    				</div>
-			    			</div>
-		    			</a>
-		    		</div>
-		    		<div class="topsche-top entrust box-s clearfloat">
-						<a href="pay-rent.html" class="tit fr entrust-btn">
-							付款
-						</a>
-						<a href="#" class="tit fr entrust-btn rent-btn">
-							取消订单
-						</a>
-					</div>
-		    	</div>
+					<div class="tab-bd clearfloat">
+						<div id="order-wait" class="tab-pal">
+							<div class="content clearfloat box-s">
+								<div class="topsche-top box-s clearfloat">
+									<p class="fl add">
+										看房时间：2016-04-30
+									</p>
+									<p class="tit titwo fr">
+										已完成
+									</p>
+								</div>
+								<div class="list clearfloat fl box-s">
+									<a href="house-details.html">
+										<div class="tu clearfloat">
+											<span></span>
+											<img src="../upload/list-tu.jpg"/>
+										</div>
+										<div class="right clearfloat">
+											<div class="tit clearfloat">
+												<p class="fl">华府骏苑</p>
+											</div>
+											<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
+											<div class="recom-bottom clearfloat">
+												2500<samp>元/月</samp>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="topsche-top entrust box-s clearfloat">
+									<a href="#" class="tit fr entrust-btn rent-btn">
+										取消订单
+									</a>
+								</div>
+							</div>
+							<div class="content clearfloat box-s">
+								<div class="topsche-top box-s clearfloat">
+									<p class="fl add">
+										支付租期：2016-04-30 - 2016-04-30
+									</p>
+									<p class="tit fr">
+										待支付
+									</p>
+								</div>
+								<div class="list clearfloat fl box-s">
+									<a href="house-details.html">
+										<div class="tu clearfloat">
+											<span></span>
+											<img src="../upload/list-tu.jpg"/>
+										</div>
+										<div class="right clearfloat">
+											<div class="tit clearfloat">
+												<p class="fl">华府骏苑</p>
+											</div>
+											<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
+											<div class="recom-bottom clearfloat">
+												<p class="recom-price">2500元/月</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="topsche-top entrust box-s clearfloat">
+									<a href="pay-rent.html" class="tit fr entrust-btn">
+										付款
+									</a>
+									<a href="#" class="tit fr entrust-btn rent-btn">
+										取消订单
+									</a>
+								</div>
+							</div>
+						</div>
+						<div id="order-assess" class="tab-pal">
 
-		    	<div class="content clearfloat box-s">
-					<div class="topsche-top box-s clearfloat">
-						<p class="fl add">
-							看房时间：2016-04-30
-						</p>
-						<p class="tit fr">
-							待评价
-						</p>
+						</div>
+						<div id="order-finish" class="tab-pal">
+
+						</div>
+						<div id="order-all" class="tab-pal">
+							<div class="content clearfloat box-s">
+								<div class="topsche-top box-s clearfloat">
+									<p class="fl add">
+										看房时间：2016-04-30
+									</p>
+									<p class="tit fr">
+										待评价
+									</p>
+								</div>
+								<div class="list clearfloat fl box-s">
+									<a href="house-details.html">
+										<div class="tu clearfloat">
+											<span></span>
+											<img src="../upload/list-tu.jpg"/>
+										</div>
+										<div class="right clearfloat">
+											<div class="tit clearfloat">
+												<p class="fl">华府骏苑</p>
+											</div>
+											<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
+											<div class="recom-bottom clearfloat">
+												<p class="recom-price">2500元/月</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="topsche-top entrust box-s clearfloat">
+									<a href="assess.html" class="tit fr entrust-btn">
+										待评价
+									</a>
+									<a href="#" class="tit fr entrust-btn rent-btn">
+										取消订单
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
-		    		<div class="list clearfloat fl box-s">
-		    			<a href="house-details.html">
-			    			<div class="tu clearfloat">
-			    				<span></span>
-			    				<img src="../upload/list-tu.jpg"/>
-			    			</div>
-			    			<div class="right clearfloat">
-			    				<div class="tit clearfloat">
-			    					<p class="fl">华府骏苑</p>
-			    				</div>
-			    				<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
-			    				<div class="recom-bottom clearfloat">
-			    					2500<samp>元/月</samp>
-			    				</div>
-			    			</div>
-		    			</a>
-		    		</div>
-		    		<div class="topsche-top entrust box-s clearfloat">
-						<a href="assess.html" class="tit fr entrust-btn">
-							待评价
-						</a>
-						<a href="#" class="tit fr entrust-btn rent-btn">
-							取消订单
-						</a>
-					</div>
-		    	</div>
-		    	
-		    	<div class="content clearfloat box-s">
-					<div class="topsche-top box-s clearfloat">
-						<p class="fl add">
-							看房时间：2016-04-30
-						</p>
-						<p class="tit titwo fr">
-							已完成
-						</p>
-					</div>
-		    		<div class="list clearfloat fl box-s">
-		    			<a href="house-details.html">
-			    			<div class="tu clearfloat">
-			    				<span></span>
-			    				<img src="../upload/list-tu.jpg"/>
-			    			</div>
-			    			<div class="right clearfloat">
-			    				<div class="tit clearfloat">
-			    					<p class="fl">华府骏苑</p>
-			    				</div>
-			    				<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
-			    				<div class="recom-bottom clearfloat">
-			    					2500<samp>元/月</samp>
-			    				</div>
-			    			</div>
-		    			</a>
-		    		</div>
-		    		<div class="topsche-top entrust box-s clearfloat">
-						<a href="#" class="tit fr entrust-btn rent-btn">
-							取消订单
-						</a>
-					</div>
-		    	</div>
-		    	
-		    	
+				</div>
 			</div>
-			
 		</div>
 	</body>
-	<script type="text/javascript" src="../js/base/jquery-1.8.3.min.js" ></script>
+	<script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="../js/base/jquery.SuperSlide.2.1.js" ></script>
 	<script type="text/javascript" src="../js/slick/slick.min.js" ></script>
 	<script type="text/javascript" src="../js/base/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" src="../js/base/tchuang.js" ></script>
 	<script type="text/javascript" src="../js/base/hmt.js" ></script>
+	<script type="text/javascript">
+		jQuery(".notice").slide({ titCell:".tab-hd li", mainCell:".tab-bd",trigger: "click",delayTime:0 });
+	</script>
 </html>

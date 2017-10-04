@@ -226,9 +226,10 @@
 .notice .tab-hd { background-color: #fff; border-bottom: 1px solid #dfdfdf; width: 100%; color: #333333; }
 .notice .tab-hd li{ float: left; width: 50%;}
 .notice .tab-hd .tab-three{ float: left; width: 33%;}
-.notice .tab-hd li a{ display:block; text-align: center; font-size: .4rem; color: #333333; width: 100%; padding: 5% 0;}
+.notice .tab-hd .tab-four{ float: left; width: 25%;}
+.notice .tab-hd li a{ display:block; text-align: center; font-size: .36rem; color: #333333; width: 100%; padding: .3rem 0;}
 .notice .tab-hd li.on a{ color:#0089e1;}
-.notice .tab-hd li.on{border-bottom: 4px solid #0089e1; background-color: #fff; font-weight: bold; position: relative; }
+.notice .tab-hd li.on{border-bottom: 1px solid #0089e1; background-color: #fff; font-weight: bold; position: relative; }
 .topsche-top{width: 100%; padding: 3% 0 1% 3%; border-bottom: 1px solid #dfdfdf; background-color: #fff;}
 .topsche-top .add,
 .topsche-top .time{font-size: .4rem; line-height: 1.1rem; color: #888888; margin-right: .3rem;}
@@ -251,6 +252,7 @@
 .schedule .content .list .right .tit span{font-size: .4rem; color: #0089e1; font-weight: bold;}
 .schedule .content .list .right .tit span samp{font-size: .3rem; color: #0089e1; font-weight: normal;}
 .schedule .recom-jianjie{font-size: .36rem; color: #888888; margin-top: .3rem; width: 100%; overflow: hidden; text-overflow: ellipsis; -webkit-text-overflow: ellipsis; white-space: nowrap;}
+.schedule .recom-price{font-size: .36rem; color: #555555; margin-top: .3rem; width: 100%; overflow: hidden; text-overflow: ellipsis; -webkit-text-overflow: ellipsis; white-space: nowrap;}
 .schedule .recom-jianjieone{margin-top: .1rem;}
 .recom-bottom{margin-top: .4rem;}
 .recom-bottomtwo{margin-top: .3rem;}

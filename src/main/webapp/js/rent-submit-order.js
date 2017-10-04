@@ -21,7 +21,7 @@ function saveRentOrder(){
 		rentId:_rentId,
         rentTimeType:_rent_time_type
 	}
-	myUtil.ajax.axs(url,data,getPaydetailListSuccess);
+	myUtil.ajax.axs(url,data,getDataSuccess);
 }
 
 /**
@@ -46,24 +46,17 @@ function getValidRentOrder(){
 	myUtil.ajax.axs(url,data,getValidOrderDataSuccess);
 }
 
-function getPaydetailListSuccess(result){
+function getDataSuccess(result){
 	if(!result){
 		myUtil.toast('服务器繁忙请重试');
 	}
-	var datas = result.datas.list;
-	var html = "";
-	if(datas&&datas.length>0){
-		$.each(datas,function(index,item){
-            html += '<dl class="list clearfloat box-s fl"><dt><p class="fl">'+myUtil.getSystemParamTitle("PAY_DETAIL", "TYPE", item.type)+'[流水号：'+item.payDetailId+']</p>';
-            html += '<span class="fr">-'+item.amount+'</span></dt><dd>'+myUtil.dateFormat(item.createTime, "yyyy-MM-dd hh:mm")+'</dd></dl>';
-        });
-        _data_paydetail.page = _data_paydetail.page+1;
+	var datas = result.datas;
+	if(datas){
+        myUtil.toast('订单提交成功！');
+        window.location.href = "rent-confirm-order.html?rentOrderId="+datas.rentOrderId;
 	}else{
-        html += '<div class="empty-list clearfloat" id="main"><i class="iconfont icon-meineirong"></i><p>还没有缴费信息哦！</p></div>';
-		myUtil.toast('目前还没有缴费信息哦！');
+		myUtil.toast('订单提交失败，请重试！');
 	}
-	$("#paydetail").append(html);
-    checkLoadMore(result.datas, _data_paydetail);
 }
 
 function getOrderDataSuccess(result){

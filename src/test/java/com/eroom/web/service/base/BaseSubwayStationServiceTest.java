@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
@@ -22,5 +23,11 @@ public class BaseSubwayStationServiceTest extends BaseTest {
         LocationRangeBo range = baseSubwayStationService.getLocationRange(423L);
         logger.info("\n测试数据：" + range.toString());
 
+    }
+
+    @Test
+    public void getCondition() throws Exception {
+        Map<String, Object> map = baseSubwayStationService.getSubwayStation(1L);
+        logger.info("\n"+map.toString());
     }
 }
