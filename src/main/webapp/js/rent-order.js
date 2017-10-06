@@ -3,7 +3,12 @@ var _tabIndex = 1;
  * 页面初始化
  */
 $(function() {
-	getDatasList(1);
+    var index = myUtil.getUrlParam('tabIndex');
+    if(index){
+    	_tabIndex = index;
+    	$("#tab-"+_tabIndex).click();
+	}
+	getDatasList(_tabIndex);
 });
 $(window).load(function(){
 	$(".loading").addClass("loader-chanage")

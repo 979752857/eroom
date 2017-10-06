@@ -1,9 +1,11 @@
 var _rentOrderId = 0;
+var _payOrderId = 0;
+var _rentId = 0;
 /**
  * 页面初始化
  */
 $(function() {
-    _rentId = myUtil.getUrlParam("rentOrderId");
+    _rentOrderId = myUtil.getUrlParam("rentOrderId");
     getPayOrder();
 });
 $(window).load(function(){
@@ -15,9 +17,9 @@ $(window).load(function(){
  * 提交租住订单
  */
 function getPayOrder(){
-	var url = myUtil.BASE + "/payorder/getPayRentOrder";
+	var url = myUtil.BASE + "/payorder/getPayRentOrderByRentOrderId";
 	var data = {
-		rentOrderId:_rentOrderId
+        rentOrderId:_rentOrderId
 	}
 	myUtil.ajax.axs(url,data,getPayOrderSuccess);
 }
@@ -26,20 +28,31 @@ function getPayOrderSuccess(result){
 	if(!result){
 		myUtil.toast('服务器繁忙请重试');
 	}
-	var datas = result.datas.list;
-	var html = "";
-	if(datas&&datas.length>0){
-		$.each(datas,function(index,item){
-            html += '<dl class="list clearfloat box-s fl"><dt><p class="fl">'+myUtil.getSystemParamTitle("PAY_DETAIL", "TYPE", item.type)+'[流水号：'+item.payDetailId+']</p>';
-            html += '<span class="fr">-'+item.amount+'</span></dt><dd>'+myUtil.dateFormat(item.createTime, "yyyy-MM-dd hh:mm")+'</dd></dl>';
-        });
-        _data_paydetail.page = _data_paydetail.page+1;
+	var datas = result.datas;
+	var subMoney = parseFloat(0);
+	if(datas){
+        _payOrderId = datas.payOrderId;
+        _rentId = datas.rentId;
+        $("#pay-phase").html((datas.phase+1)+"期房租");
+        $("#rent-info").html(datas.name);
+        $("#rent-address").html(datas.address);
+        $("#rent-money").html("¥"+parseFloat(datas.rentAmount));
+        $("#mortgage-money").html("¥"+parseFloat(datas.mortgageAmount));
+        $("#late-money").html("¥"+parseFloat(datas.lateAmount));
+        $("#total-money").html("¥"+(parseFloat(datas.rentAmount)+parseFloat(datas.mortgageAmount)+parseFloat(datas.lateAmount)));
+        $("#sub-money").html("¥"+subMoney);
+        $("#final-money").html("¥"+(parseFloat(datas.rentAmount)+parseFloat(datas.mortgageAmount)+parseFloat(datas.lateAmount)-subMoney));
 	}else{
-        html += '<div class="empty-list clearfloat" id="main"><i class="iconfont icon-meineirong"></i><p>还没有缴费信息哦！</p></div>';
-		myUtil.toast('目前还没有缴费信息哦！');
+		myUtil.toast('哎呀，没有获取到支付订单请重新下单！');
 	}
-	$("#paydetail").append(html);
-    checkLoadMore(result.datas, _data_paydetail);
+}
+
+function toPayment(){
+    window.location.href = "rent-payment-order.html?payOrderId="+_payOrderId;
+}
+
+function goBack(){
+    window.location.href = "room-detail.html?rentId="+_rentId;
 }
 
 (function($, doc) {

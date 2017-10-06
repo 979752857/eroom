@@ -22,12 +22,6 @@
 
 	<script type="text/javascript" src="../js/common/util.js"></script>
 	<script type="text/javascript" src="../js/common/time-util.js"></script>
-	<script type="text/javascript">
-		$(window).load(function(){
-			$(".loading").addClass("loader-chanage")
-			$(".loading").fadeOut(300)
-		})
-	</script>
 </head>
 <!--loading页开始-->
 <div class="loading">
@@ -44,7 +38,7 @@
 <!--loading页结束-->
 	<body>
 		<div class="headertwo clearfloat" id="header">
-			<a href="javascript:history.go(-1)" class="fl box-s"><i class="iconfont icon-arrow-l fl"></i></a>
+			<a href="javascript:goBack();" class="fl box-s"><i class="iconfont icon-arrow-l fl"></i></a>
 			<p class="fl">订单支付</p>
 		</div>
 		
@@ -78,27 +72,23 @@
 					<img src="upload/4.jpg"/>
 				</div>
 				<div class="right clearfloat fl">
-					<p class="tit">华府骏苑</p>
-					<p class="fu-tit">合肥市蜀山区环宁路12号</p>
+					<p class="tit" id="rent-info">******</p>
+					<p class="fu-tit" id="rent-address">******</p>
 				</div>
 			</div>
 			<div class="land-ctent clearfloat pay-bottom order-bottom">
 				<ul>
 					<li class="box-s clearfloat">
-						<p class="tit fl">1期房租</p>
-						<p class="xinxi fr">¥2500</p>
+						<p class="tit fl" id="pay-phase">-期房租</p>
+						<p class="xinxi fr" id="rent-money">--</p>
 					</li>
 					<li class="box-s clearfloat">
 						<p class="tit fl">租房押金</p>
-						<p class="xinxi fr">¥2500</p>
+						<p class="xinxi fr" id="mortgage-money">--</p>
 					</li>
 					<li class="box-s clearfloat">
 						<p class="tit fl">滞纳金</p>
-						<p class="xinxi fr">¥200</p>
-					</li>
-					<li class="box-s clearfloat">
-						<p class="tit fl">其他费用</p>
-						<p class="xinxi fr">0</p>
+						<p class="xinxi fr" id="late-money">--</p>
 					</li>
 					<li class="box-s clearfloat" id='showUserPicker'>
 						<p class="tit fl">优惠券</p>
@@ -111,23 +101,19 @@
 				<ul>
 					<li class="box-s clearfloat">
 						<p class="tit fl">订单总额：</p>
-						<p class="price fr">¥7800</p>
+						<p class="price fr" id="total-money">--</p>
 					</li>
 					<li class="box-s clearfloat">
 						<p class="tit fl">优惠金额：</p>
-						<p class="price fr">¥100</p>
-					</li>
-					<li class="box-s clearfloat">
-						<p class="tit fl">可获得积分：</p>
-						<p class="price fr">100分</p>
+						<p class="price fr" id="sub-money">--</p>
 					</li>
 				</ul>
 			</div>			
 		</div>
 		
 		<div class="order-footer clearfloat" id="footer">
-			<p class="price fl box-s">应付金额：<span>¥7800</span></p>
-			<a href="payment.html" class="fr">确认并支付</a>
+			<p class="price fl box-s">应付金额：<span id="final-money">--</span></p>
+			<a href="javascript:toPayment();" class="fr">确认并支付</a>
 		</div>
 		
 	</body>

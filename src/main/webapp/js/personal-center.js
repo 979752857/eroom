@@ -4,6 +4,8 @@
 $(function() {
 	myUtil.menu(3);
 	getAccountList();
+    getOrderInfo();
+    getCustInfo();
 	getRoomRentVoList();
 });
 $(window).load(function(){
@@ -17,6 +19,22 @@ $(window).load(function(){
 function getAccountList(){
 	var url = myUtil.BASE + "/cust/getCustAccount";
 	myUtil.ajax.axs(url,null,getAccountSuccess);
+}
+
+/**
+ * 获取用户订单信息
+ */
+function getOrderInfo(){
+	var url = myUtil.BASE + "/cust/getOrderInfo";
+	myUtil.ajax.axs(url,null,getOrderSuccess);
+}
+
+/**
+ * 获取用户基本信息
+ */
+function getCustInfo(){
+	var url = myUtil.BASE + "/cust/getCustInfo";
+	myUtil.ajax.axs(url,null,getInfoSuccess);
 }
 
 /**
@@ -51,6 +69,28 @@ function getAccountSuccess(result){
 		html += '<li><a href="#" class="clearfloat"><p>￥'+datas.freezeAmount+'</p><p>押金</p></a></li>';
 		html += '<li><a href="#" class="clearfloat"><p>￥'+datas.dueAmount+'</p><p>滞纳金</p></a></li></ul>';
 		$("#account").append(html);
+	}
+}
+
+function getOrderSuccess(result){
+	if(!result){
+		return;
+	}
+	var datas = result.datas;
+	if(datas){
+		$("#pay-finish-size").html(datas.payFinishSize);
+		$("#pay-wait-size").html(datas.payWaitSize);
+		$("#rent-order-size").html(datas.rentOrderSize);
+	}
+}
+
+function getInfoSuccess(result){
+	if(!result){
+		return;
+	}
+	var datas = result.datas;
+	if(datas){
+		$("#nick-name").html(datas.nickName);
 	}
 }
 

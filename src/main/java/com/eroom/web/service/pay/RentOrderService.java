@@ -48,6 +48,17 @@ public class RentOrderService extends BaseService {
         return list;
     }
 
+    /**
+     * 获取租房订单列表
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<RentOrder> getPaidRentOrderList(Long custRenterId) throws Exception {
+        List<RentOrder> list = rentOrderDao.getRentOrderList(custRenterId, new String[]{PayConstants.RentOrder.RentOrderState.PAID}, PayConstants.RentOrder.RENT_ORDER_LIMIT);
+        return list;
+    }
+
     public List<RentOrder> getRentOrderList(Long custRenterId, String orderState) throws Exception {
         if (StringUtil.isBlank(orderState)) {
             throw new BusinessException("订单状态为空");

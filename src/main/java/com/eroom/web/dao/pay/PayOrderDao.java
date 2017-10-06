@@ -44,14 +44,51 @@ public class PayOrderDao extends BaseDao {
      * @throws Exception
      * @author tendy
      */
-    public List<PayOrder> getWaitPayOrder(Long custId, Long rentOrderId) throws Exception {
+    public PayOrderVo getWaitPayOrder(Long custId, Long rentOrderId) throws Exception {
         StringBuilder hql = new StringBuilder();
-        hql.append("from PayOrder where payOrderState = :orderState and custRentId = :custId and rentOrderId = :rentOrderId order by createTime desc");
+//        hql.append("from PayOrder where payOrderState = :orderState and custRenterId = :custId and rentOrderId = :rentOrderId order by createTime desc");
+        hql.append(" select new com.eroom.web.entity.vo.rent.PayOrderVo(po.payOrderId, po.rentOrderId, ");
+        hql.append(" po.custRenterId, po.roomId, po.bedroomId, po.rentId, po.amount, ");
+        hql.append(" po.lateAmount, po.mortgageAmount, po.rentAmount, po.startTime, ");
+        hql.append(" po.endTime, po.length, po.type, po.payOrderState, tbi.imageUrl, tri.imageUrl, ");
+        hql.append(" tri.name, tri.roomType, tbi.space, tbi.decorate, ro.payPhase, tri.address) ");
+        hql.append(" from PayOrder po, BedroomInfo tbi, RoomInfo tri, RentOrder ro ");
+        hql.append(" where po.custRenterId = :custRenterId ");
+        hql.append(" and po.payOrderState = :orderState ");
+        hql.append(" and po.rentOrderId = :rentOrderId ");
+        hql.append(" and po.roomId = tri.roomId and po.bedroomId = tbi.bedroomId and po.rentOrderId = ro.rentOrderId ");
+        hql.append(" order by po.createTime desc  ");
+
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("orderState", PayConstants.PayOrder.OrderState.WAITING);
+        params.put("custRenterId", custId);
+        params.put("rentOrderId", rentOrderId);
+
+        List<PayOrderVo> list = this.getList(hql.toString(), params);
+        if(CollectionUtils.isEmpty(list)){
+            return null;
+        }
+        if(list.size() > 1){
+            logger.warn("\n支付订单待支付数据大于2条："+list.toString());
+        }
+        return list.get(0);
+    }
+
+    /**
+     * 获取用户支付订单
+     *
+     * @return PayOrder
+     * @throws Exception
+     * @author tendy
+     */
+    public List<PayOrder> getWaitPayOrder(Long custId) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        hql.append("from PayOrder where payOrderState = :orderState and custRenterId = :custId order by createTime desc");
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderState", PayConstants.PayOrder.OrderState.WAITING);
         params.put("custId", custId);
-        params.put("rentOrderId", rentOrderId);
 
         List<PayOrder> list = this.getList(hql.toString(), params);
         if(CollectionUtils.isEmpty(list)){
@@ -67,13 +104,13 @@ public class PayOrderDao extends BaseDao {
      * @throws Exception
      * @author tendy
      */
-    public List<PayOrder> getWaitPayOrder(Long custId) throws Exception {
+    public List<PayOrder> getWaitPayOrderByRentOrderId(Long rentOrderId) throws Exception {
         StringBuilder hql = new StringBuilder();
-        hql.append("from PayOrder where payOrderState = :orderState and custRentId = :custId order by createTime desc");
+        hql.append("from PayOrder where payOrderState = :orderState and rentOrderId = :rentOrderId order by createTime desc");
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("orderState", PayConstants.PayOrder.OrderState.WAITING);
-        params.put("custId", custId);
+        params.put("rentOrderId", rentOrderId);
 
         List<PayOrder> list = this.getList(hql.toString(), params);
         if(CollectionUtils.isEmpty(list)){

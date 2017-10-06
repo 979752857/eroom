@@ -28,6 +28,8 @@ public class PayOrderVo {
     private String roomType;
     private String space;
     private String decorate;
+    private String address;
+    private int phase;
 
     public PayOrderVo(long payOrderId, long rentOrderId, long custRenterId, long roomId, long bedroomId, long rentId, BigDecimal amount, BigDecimal lateAmount, BigDecimal mortgageAmount, BigDecimal rentAmount, Date startTime, Date endTime, int length, String type, String payOrderState, String bedroomImageUrl, String roomImageUrl, String name, String roomType, String space, String decorate) {
         this.payOrderId = payOrderId;
@@ -51,6 +53,57 @@ public class PayOrderVo {
         this.roomType = roomType;
         this.space = space;
         this.decorate = decorate;
+    }
+
+    public PayOrderVo(long payOrderId, long rentOrderId, long custRenterId, long roomId, long bedroomId, long rentId, BigDecimal amount, BigDecimal lateAmount, BigDecimal mortgageAmount, BigDecimal rentAmount, Date startTime, Date endTime, int length, String type, String payOrderState, String bedroomImageUrl, String roomImageUrl, String name, String roomType, String space, String decorate, int phase) {
+        this.payOrderId = payOrderId;
+        this.rentOrderId = rentOrderId;
+        this.custRenterId = custRenterId;
+        this.roomId = roomId;
+        this.bedroomId = bedroomId;
+        this.rentId = rentId;
+        this.amount = amount;
+        this.lateAmount = lateAmount;
+        this.mortgageAmount = mortgageAmount;
+        this.rentAmount = rentAmount;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.length = length;
+        this.type = type;
+        this.payOrderState = payOrderState;
+        this.bedroomImageUrl = bedroomImageUrl;
+        this.roomImageUrl = roomImageUrl;
+        this.name = name;
+        this.roomType = roomType;
+        this.space = space;
+        this.decorate = decorate;
+        this.phase = phase;
+    }
+
+    public PayOrderVo(long payOrderId, long rentOrderId, long custRenterId, long roomId, long bedroomId, long rentId, BigDecimal amount, BigDecimal lateAmount, BigDecimal mortgageAmount, BigDecimal rentAmount, Date startTime, Date endTime, int length, String type, String payOrderState, String bedroomImageUrl, String roomImageUrl, String name, String roomType, String space, String decorate, int phase, String address) {
+        this.payOrderId = payOrderId;
+        this.rentOrderId = rentOrderId;
+        this.custRenterId = custRenterId;
+        this.roomId = roomId;
+        this.bedroomId = bedroomId;
+        this.rentId = rentId;
+        this.amount = amount;
+        this.lateAmount = lateAmount;
+        this.mortgageAmount = mortgageAmount;
+        this.rentAmount = rentAmount;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.length = length;
+        this.type = type;
+        this.payOrderState = payOrderState;
+        this.bedroomImageUrl = bedroomImageUrl;
+        this.roomImageUrl = roomImageUrl;
+        this.name = name;
+        this.roomType = roomType;
+        this.space = space;
+        this.decorate = decorate;
+        this.phase = phase;
+        this.address = address;
     }
 
     public long getPayOrderId() {
@@ -220,4 +273,21 @@ public class PayOrderVo {
     public void setDecorate(String decorate) {
         this.decorate = decorate;
     }
+
+    public int getPhase() {
+        return phase;
+    }
+
+    public void setPhase(int phase) {
+        this.phase = phase;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }

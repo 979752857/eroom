@@ -18,7 +18,7 @@ var _data_all = {
  * 页面初始化
  */
 $(function() {
-	getTaskDatasList(1);
+    changeTab(1)
 });
 $(window).load(function(){
 	$(".loading").addClass("loader-chanage")

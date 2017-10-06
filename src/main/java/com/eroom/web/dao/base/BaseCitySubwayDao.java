@@ -1,4 +1,4 @@
-package com.eroom.web.dao.system;
+package com.eroom.web.dao.base;
 
 import com.eroom.web.dao.BaseDao;
 import com.eroom.web.entity.po.BaseCityBussiness;
@@ -34,7 +34,7 @@ public class BaseCitySubwayDao extends BaseDao {
      * @throws Exception
      * @author tendy
      */
-    public List<BaseCitySubway> getBaseCitySubway(Long cityId) throws Exception {
+    public List<BaseCitySubway> getBaseCitySubwayByCityId(Long cityId) throws Exception {
         Map<String, Object> params = new HashMap<String, Object>();
         String hql = "from BaseCitySubway where cityId = :cityId ";
         params.put("cityId", cityId);

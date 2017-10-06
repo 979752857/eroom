@@ -32,7 +32,8 @@ public class PayOrderController extends BaseController {
     public ResultVo payRentOrder(Long payOrderId) throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        payOrderService.payRentOrder(sessionVo.getCustId(), payOrderId);
+        PayOrder payOrder = payOrderService.updatePayRentOrder(sessionVo.getCustId(), payOrderId);
+        result.setDatas(payOrder);
         return result;
     }
 
@@ -47,8 +48,10 @@ public class PayOrderController extends BaseController {
     public ResultVo getPayRentOrderByRentOrderId(Long rentOrderId) throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        List<PayOrder> list = payOrderService.getPayRentOrder(sessionVo.getCustId(), rentOrderId);
-        result.setDatas(list);
+        //生成新一期的支付订单
+        payOrderService.addPayRentOrder(rentOrderId);
+        PayOrderVo payOrder = payOrderService.getPayRentOrder(sessionVo.getCustId(), rentOrderId);
+        result.setDatas(payOrder);
         return result;
     }
 
@@ -60,12 +63,11 @@ public class PayOrderController extends BaseController {
      */
     @RequestMapping("/getPayRentOrder")
     @ResponseBody
-    public ResultVo getPayRentOrder() throws Exception {
+    public ResultVo getPayRentOrder(Long payOrderId) throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-
-        List<PayOrder> list = payOrderService.getPayRentOrder(sessionVo.getCustId());
-        result.setDatas(list);
+        PayOrder payOrder = payOrderService.getWaitPayRentOrder(sessionVo.getCustId(), payOrderId);
+        result.setDatas(payOrder);
         return result;
     }
 

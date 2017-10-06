@@ -11,6 +11,8 @@ import com.eroom.web.entity.vo.rent.PayOrderVo;
 import com.eroom.web.service.BaseService;
 import com.eroom.web.service.rent.RoomRentService;
 import com.eroom.web.utils.exception.BusinessException;
+import com.eroom.web.utils.util.BussinessUtil;
+import com.eroom.web.utils.util.CollectionUtil;
 import com.eroom.web.utils.util.DateUtil;
 import com.eroom.web.utils.util.StringUtil;
 import org.springframework.stereotype.Service;
@@ -38,7 +40,7 @@ public class PayOrderService extends BaseService {
      * @param payOrderId
      * @throws Exception
      */
-    public void payRentOrder(Long custRenterId, Long payOrderId) throws Exception {
+    public PayOrder updatePayRentOrder(Long custRenterId, Long payOrderId) throws Exception {
         PayOrder payOrder = payOrderDao.get(PayOrder.class, payOrderId);
         //判断是否为此用户的支付订单
         if(custRenterId != payOrder.getCustRenterId()){
@@ -67,6 +69,7 @@ public class PayOrderService extends BaseService {
 
         //下架房源信息
         roomRentService.updateRoomRentPaid(payOrder.getRentId());
+        return payOrder;
     }
 
     /**
@@ -75,11 +78,9 @@ public class PayOrderService extends BaseService {
      * @param rentOrderId
      * @throws Exception
      */
-    public List<PayOrder> getPayRentOrder(Long custId, Long rentOrderId) throws Exception {
-
-        List<PayOrder> list = payOrderDao.getWaitPayOrder(custId, rentOrderId);
-
-        return list;
+    public PayOrderVo getPayRentOrder(Long custId, Long rentOrderId) throws Exception {
+        PayOrderVo payOrder = payOrderDao.getWaitPayOrder(custId, rentOrderId);
+        return payOrder;
     }
 
     /**
@@ -87,11 +88,21 @@ public class PayOrderService extends BaseService {
      * @param custId
      * @throws Exception
      */
-    public List<PayOrder> getPayRentOrder(Long custId) throws Exception {
-
-        List<PayOrder> list = payOrderDao.getWaitPayOrder(custId);
-
-        return list;
+    public PayOrder getWaitPayRentOrder(Long custId, Long payOrderId) throws Exception {
+        PayOrder payOrder = payOrderDao.get(PayOrder.class, payOrderId);
+        if(payOrder == null){
+            logger.error("PayOrderService.getWaitPayRentOrder:没有获取到此订单  payOrderId:"+payOrderId);
+            throw new BusinessException(SystemConstants.ExceptionMsg.SYS_ERROR_EXCEPTION_MSG);
+        }
+        if(payOrder.getCustRenterId() != custId){
+            logger.error("PayOrderService.getWaitPayRentOrder:此支付订单不是该用户的订单  payOrderId:"+payOrderId+"   custId:"+custId);
+            throw new BusinessException(SystemConstants.ExceptionMsg.SYS_ERROR_EXCEPTION_MSG);
+        }
+        if(!PayConstants.PayOrder.OrderState.WAITING.equals(payOrder.getPayOrderState())){
+            logger.error("PayOrderService.getWaitPayRentOrder:此支付订单不是待支付状态  payOrderId:"+payOrderId+"   custId:"+custId);
+            throw new BusinessException(SystemConstants.ExceptionMsg.SYS_ERROR_EXCEPTION_MSG);
+        }
+        return payOrder;
     }
 
     /**
@@ -108,7 +119,14 @@ public class PayOrderService extends BaseService {
         }
         //订单已经支付完成所有款项
         if(rentOrder.getPayPhase() >= rentOrder.getTotlePhase()){
-            throw new BusinessException(SystemConstants.ExceptionMsg.ORDER_FINISH_EXCEPTION_CODE, SystemConstants.ExceptionMsg.ORDER_FINISH_EXCEPTION_MSG);
+            logger.info("PayOrderService.addPayRentOrder:生成新一期的支付订单 该订单已经支付完成所有款项  不生成订单:"+rentOrder.toString());
+            return null;
+        }
+        List<PayOrder> list = payOrderDao.getWaitPayOrderByRentOrderId(rentOrderId);
+        //查看是否存在已经生成的支付订单
+        if(!CollectionUtil.isEmpty(list)){
+            logger.info("PayOrderService.addPayRentOrder:生成新一期的支付订单 支付订单有用户未支付项  不生成订单:"+rentOrder.toString());
+            return null;
         }
         PayOrder payOrder = new PayOrder();
         //判断是否是生成第一期支付订单

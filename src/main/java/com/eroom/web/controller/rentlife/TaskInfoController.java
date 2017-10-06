@@ -79,6 +79,7 @@ public class TaskInfoController extends BaseController {
 	    ResultVo result = new ResultVo();
 	    SessionVo sessionVo = this.getCustSession();
 		Map<String, Object> map = taskInfoService.getTaskInfoByState(sessionVo.getCustId(), null, page);
+		result.setDatas(map);
 	    return result;
 	}
 
