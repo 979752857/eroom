@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../style/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="../js/slick/slick.css"/>
 	<script type="text/javascript" src="../js/common/util.js"></script>
+	<script type="text/javascript" src="../js/common/param-util.js"></script>
 	<script type="text/javascript" src="../js/rent-date.js" ></script>
 	<script type="text/javascript">
 		$(window).load(function(){
@@ -31,33 +32,51 @@
 		</div>
 		
 		<div class="clearfloat" id="main">
-			<div id="room-date" class="schedule clearfloat">
-				<div class="content clearfloat box-s">					
-		    		<div class="list clearfloat fl box-s">
-		    			<a href="house-details.html">
-			    			<div class="tu clearfloat">
-			    				<span></span>
-			    				<img src="../upload/list-tu.jpg"/>
-			    			</div>
-			    			<div class="right clearfloat">
-			    				<div class="tit clearfloat">
-			    					<p class="fl">华府骏苑</p>
-			    					<span class="fr">2500<samp>元/月</samp></span>
-			    				</div>
-			    				<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
-			    				<div class="recom-bottom clearfloat">
-			    					<span><i class="iconfont icon-duihao"></i>随时住</span>
-			    					<span><i class="iconfont icon-duihao"></i>家电齐全</span>
-			    				</div>
-			    			</div>
-		    			</a>
-		    		</div>	
-		    		<div class="topsche-top entrust box-s clearfloat">
-						<p class="date fl ">到期时间：2017-09-15</p>
-						<p class="tit fr entrust-btn">续租</p>
+			<div class="schedule clearfloat">
+				<div class="notice">
+					<div class="tab-hd clearfloat">
+						<ul class="tab-nav clearfloat">
+							<li class="tab-three"><a href="javascript:getDatasList(1);">履行中</a></li>
+							<li class="tab-three"><a href="javascript:getDatasList(2);">已完成</a></li>
+							<li class="tab-three"><a href="javascript:getDatasList(3);">所有订单</a></li>
+						</ul>
 					</div>
-		    	</div>
-		    	
+					<div class="tab-bd clearfloat">
+						<div id="rent-paid" class="tab-pal">
+						</div>
+						<div id="rent-finish" class="tab-pal">
+						</div>
+						<div id="rent-all" class="tab-pal">
+						</div>
+						<!--<div id="room-date" class="tab-pal">
+							<div class="content clearfloat box-s">
+								<div class="list clearfloat fl box-s">
+									<a href="house-details.html">
+										<div class="tu clearfloat">
+											<span></span>
+											<img src="../upload/list-tu.jpg"/>
+										</div>
+										<div class="right clearfloat">
+											<div class="tit clearfloat">
+												<p class="fl">华府骏苑</p>
+												<span class="fr">2500<samp>元/月</samp></span>
+											</div>
+											<p class="recom-jianjie">三室一厅一卫   |  125m²  |  普装</p>
+											<div class="recom-bottom clearfloat">
+												<span><i class="iconfont icon-duihao"></i>随时住</span>
+												<span><i class="iconfont icon-duihao"></i>家电齐全</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="topsche-top entrust box-s clearfloat">
+									<p class="date fl ">到期时间：2017-09-15</p>
+									<p class="tit fr entrust-btn">续租</p>
+								</div>
+							</div>
+						</div>-->
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
@@ -67,4 +86,7 @@
 	<script type="text/javascript" src="../js/base/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" src="../js/base/tchuang.js" ></script>
 	<script type="text/javascript" src="../js/base/hmt.js" ></script>
+	<script type="text/javascript">
+		jQuery(".notice").slide({ titCell:".tab-hd li", mainCell:".tab-bd",trigger: "click",delayTime:0 });
+	</script>
 </html>

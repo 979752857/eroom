@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import com.eroom.web.dao.cust.TCustInfoDao;
 import com.eroom.web.entity.po.CustInfo;
+import com.eroom.web.service.BaseService;
 import com.eroom.web.utils.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import com.eroom.web.utils.util.DateUtil;
 import com.eroom.web.utils.util.StringUtil;
 
 @Service
-public class CmCustService {
+public class CmCustService extends BaseService{
 
     @Resource
     private CmCustDao cmCustDao;
@@ -54,6 +55,28 @@ public class CmCustService {
             throw new BusinessException("用户id不能为空");
         }
         return custInfoDao.getTCustInfoByCustId(custId);
+    }
+
+    /**
+     * 用户注册
+     */
+    public CustInfo addCustInfo(CustInfo custInfo) throws Exception {
+        if(custInfo == null){
+            logger.error("CmCustService.addCustInfo注册用户传入null");
+            return null;
+        }
+        logger.error("CmCustService.addCustInfo  custInfo:"+custInfo.toString());
+        if(!StringUtil.isBlank(custInfo.getOpenid())){
+            CustInfo info = custInfoDao.getTCustInfoByOpenid(custInfo.getOpenid());
+            if(info == null){
+                if(custInfo.getCustId() == null || custInfo.getCustId() == 0){
+                    custInfo = custInfoDao.save(custInfo);
+                }
+            }else{
+                logger.info("CmCustService.addCustInfo  已经注册  custInfo:"+custInfo.toString());
+            }
+        }
+        return custInfo;
     }
 
     /**

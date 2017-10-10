@@ -29,6 +29,19 @@ var PAY_ORDER = (function() {
 		}
 	}
 })();
+var RENT_ORDER = (function() {
+	var RENT_ORDER_STATE = {//定义了两个常量
+        WAIT	: "02",
+        PAID	: "03",
+        FINISH	: "04",
+        CANCEL	: "05"
+	}
+	return {
+		getRentOrderState:function(name){
+			return RENT_ORDER_STATE[name];
+		}
+	}
+})();
 var ROOM_TASK = (function() {
 	var TYPE = {//定义了两个常量
         TASK	: "01",

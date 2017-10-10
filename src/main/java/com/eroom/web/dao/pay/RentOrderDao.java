@@ -4,6 +4,7 @@ import com.eroom.web.constants.PayConstants;
 import com.eroom.web.dao.BaseDao;
 import com.eroom.web.entity.po.PayOrder;
 import com.eroom.web.entity.po.RentOrder;
+import com.eroom.web.utils.util.StringUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
@@ -30,10 +31,14 @@ public class RentOrderDao extends BaseDao {
 
     public List<RentOrder> getRentOrderList(Long custRenterId, String orderState, Integer limit, int page) throws Exception {
         StringBuilder hql = new StringBuilder();
-        hql.append("from RentOrder where rentOrderState = :orderState and custRenterId = :custRenterId order by createTime desc");
-
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("orderState", orderState);
+        hql.append("from RentOrder where custRenterId = :custRenterId ");
+        if(!StringUtil.isBlank(orderState)){
+            hql.append(" and rentOrderState = :orderState ");
+            params.put("orderState", orderState);
+        }
+        hql.append(" order by createTime desc");
+
         params.put("custRenterId", custRenterId);
 
         List<RentOrder> list = this.getPageList(hql.toString(), params, page, limit);
@@ -86,6 +91,29 @@ public class RentOrderDao extends BaseDao {
         hql.append(") order by createTime desc");
         params.put("custRenterId", custId);
         params.put("rentId", rentId);
+
+        List<RentOrder> list = this.getList(hql.toString(), params);
+        if (!CollectionUtils.isEmpty(list)) {
+            return list.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 获取最近到期的租房订单
+     * @param custRenterId
+     * @return
+     * @throws Exception
+     */
+    public RentOrder getLastRentOrderList(Long custRenterId) throws Exception {
+        StringBuilder hql = new StringBuilder();
+        Map<String, Object> params = new HashMap<String, Object>();
+        hql.append("from RentOrder where custRenterId = :custRenterId ");
+        hql.append(" and rentOrderState = :orderState ");
+        hql.append(" order by paidEndTime asc");
+
+        params.put("orderState", PayConstants.RentOrder.RentOrderState.PAID);
+        params.put("custRenterId", custRenterId);
 
         List<RentOrder> list = this.getList(hql.toString(), params);
         if (!CollectionUtils.isEmpty(list)) {

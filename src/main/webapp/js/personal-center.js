@@ -50,7 +50,7 @@ function getRoomRentVoList(){
 		var html = "";
 		if(datas){
 			$("#room-date").html("");
-			html += myUtil.dateFormat(datas.endTime, "yyyy-MM-dd")+'<i class="iconfont icon-arrowright fr you"></i>';
+			html += myUtil.dateFormat(datas.paidEndTime, "yyyy-MM-dd")+'<i class="iconfont icon-arrowright fr you"></i>';
 			$("#room-date").append(html);
 		}
 	});

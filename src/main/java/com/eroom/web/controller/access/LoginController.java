@@ -21,9 +21,6 @@ public class LoginController extends BaseController {
 	@Resource
 	private CustInfoWxService cmCustWxService;
 
-	@Resource
-	private SystemCfgService systemCfgService;
-
 	@RequestMapping("/wechat")
 	public void wechat(HttpServletResponse response) throws Exception {
 		String tenantNo = request.getParameter("tenantNo");

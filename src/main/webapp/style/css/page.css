@@ -183,7 +183,7 @@
 .land-ctent{width: 100%; margin-top: 3%; background-color: #fff;}
 .land-ctent ul li{width: 100%; float: left; padding:2% 2% 2% 0; border-bottom: 1px solid #dddddd;}
 .land-ctent ul li .tit{font-size: .4rem; color: #666666; line-height: 1.4rem; width: 20%; text-align: right;}
-.land-ctent ul li input{width: 78%; line-height: 1.4rem; height: 1.4rem; margin-bottom: 0; text-align: right; border: none; font-size: .4rem; color: #cbcbcb; padding: 0;}
+.land-ctent ul li input{width: 78%; line-height: 1.4rem; height: 1.4rem; margin-bottom: 0; text-align: right; border: none; font-size: .4rem; color: #333; padding: 0;}
 .land-ctent .day{width: 74%; border: none; font-size: .45rem; color: #a9a9a9;}
 .land-ctent ul li i{font-size: .57rem; color: #b7b7b7; line-height: 1.4rem;}
 .land-ctent .btn{width: 90%; margin: 5%; background-color: #0089e1; color: #fff; font-size: .45rem; padding: 4% 0; border: none; border-radius: 5px; -webkit-border-radius: 5px; -webkit-appearance: none; text-align: center;}
@@ -239,6 +239,8 @@
 .topsche-top .tit{color: #fff; font-size: .4rem; background: url(../../images/huangbg.png) center no-repeat; background-size: 100%; padding: .3rem .3rem .3rem .7rem;} 
 .topsche-top .titwo{background: url(../../images/lvbg.png) center no-repeat; background-size: 100%;}
 .topsche-top .tithree{background: url(../../images/graybg.png) center no-repeat; background-size: 100%; color:#7a8388}
+.topsche-top .tifour{background: url(../../images/bluebg.png) center no-repeat; background-size: 100%; color:#7a8388}
+.topsche-top .tifive{background: url(../../images/purplebg.png) center no-repeat; background-size: 100%; color:#7a8388}
 .schedule .content{margin-top: 3%; background-color: #fff;}
 .schedule .content:first-child{margin-top: 0;}
 .schedule .content .list{padding: 3% 3%; border-bottom: 1px solid #dfdfdf; width: 100%;}

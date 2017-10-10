@@ -4,6 +4,13 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.constants.CustConstants;
+import com.eroom.web.constants.SystemConstants;
+import com.eroom.web.dao.cust.TCustInfoDao;
+import com.eroom.web.entity.po.CustInfo;
+import com.eroom.web.service.BaseService;
+import com.eroom.web.service.cust.CmCustService;
+import com.eroom.web.service.system.SystemCfgService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
@@ -19,24 +26,32 @@ import com.eroom.web.utils.weixin.message.resp.Media;
 import com.eroom.web.utils.weixin.message.resp.TextMessage;
 
 @Service
-public class WechatPlatformService {
-    private static final Log log = LogFactory.getLog(WechatPlatformService.class);
+public class WechatPlatformService extends BaseService {
 
     @Resource
-    private SystemBaseService systemBaseService;
+    private CmCustService cmCustService;
+
+    @Resource
+    private SystemCfgService systemCfgService;
 
     // 关注页
-    public String echoHelloPage(String fromUserName, String toUserName) throws Exception {
+    public String addCustAndEchoHello(String fromUserName, String toUserName) throws Exception {
+        logger.info("!!===用户关注事件,参数为：fromUserName:" + fromUserName + " | toUserName：" + toUserName);
         String respMessage = null;
         // 默认返回的文本消息内容
         StringBuffer respContent = new StringBuffer();
         TextMessage textMessage = new TextMessage(fromUserName, toUserName);
         textMessage.setToUserName(fromUserName);
         textMessage.setFromUserName(toUserName);
-//        SysTenantAttr tenantAttr = tenantAttrService
-//                .getSysTenantAttrByTenantNo(systemBase.getTenantNo());
-//        String hint = tenantAttr.getWelcomeWord();
-//        respContent.append(hint);
+        CustInfo custInfo = new CustInfo();
+        custInfo.setIsOwner(CustConstants.CustInfo.IsOwner.RENTER);
+        custInfo.setState(CustConstants.CustInfo.State.VALID);
+        custInfo.setCreateTime(DateUtil.getCurrentDate());
+        custInfo.setOpenid(fromUserName);
+        custInfo = cmCustService.addCustInfo(custInfo);
+        logger.info("!!===用户关注事件, custInfo:" + custInfo.toString());
+        String hint = systemCfgService.getCfgValue(SystemConstants.SystemCfg.CfgType.SYSTEM, SystemConstants.SystemCfg.CfgCode.WELCOM_SUBSCRIBE);
+        respContent.append(hint);
         textMessage.setContent(respContent.toString());
         respMessage = MessageUtil.textMessageToXml(textMessage);
         return respMessage;
@@ -65,14 +80,14 @@ public class WechatPlatformService {
         String fromUserName = request.getFromUserName();
         String toUserName = request.getToUserName();
         String eventKey = request.getEventKey();
-        log.info("!!===点击类事件请求,参数为：fromUserName:" + fromUserName + " | toUserName：" + toUserName
+        logger.info("!!===点击类事件请求,参数为：fromUserName:" + fromUserName + " | toUserName：" + toUserName
                 + " | eventkey:" + eventKey);
 
         // 联系我们点击按钮(发送客服的图片)
         if (eventKey.startsWith(MessageUtil.BUTTON_CLICK_CONTACT_US)) {
             respMessage = this.echoContactUs(toUserName, fromUserName);
         }
-        log.debug("查询结束，返回的结果是：" + respMessage);
+        logger.debug("查询结束，返回的结果是：" + respMessage);
         return respMessage;
     }
 

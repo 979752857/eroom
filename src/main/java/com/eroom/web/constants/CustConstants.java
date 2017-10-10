@@ -14,13 +14,41 @@ public class CustConstants {
 
         }
     }
+
+    public static class CustInfo{
+        /**
+         * 是否是房东
+         */
+        public static class IsOwner{
+            /**
+             * 租客
+             */
+            public static String RENTER = "0";
+            /**
+             * 房东
+             */
+            public static String OWNER = "1";
+        }
+
+        /**
+         * 用户数据状态
+         */
+        public static class State{
+            /**
+             * 生效
+             */
+            public static String VALID = "1";
+            /**
+             * 删除
+             */
+            public static String DELETE = "9";
+        }
+    }
     
     /**
      * 微信地址跳转的常量定义
      */
     public static class Login {
-        // 股票首页
-        public static final String STOCK_INDEX = "1";
 
         // 服务首页
         public static final String SERVICE_INDEX = "2";
@@ -39,9 +67,6 @@ public class CustConstants {
 
         // 名师诊股
         public static final String DIAGNOSE_STK = "7";
-
-        // 名师早参
-        public static final String MASTERS_EARLY = "8";
 
         // 投资日历
         public static final String INVEST_CALENDAR = "9";

@@ -63,6 +63,9 @@ public class SystemConstants {
             
             // 预约看房
             public static final String ROOM_BOOK = "ROOM_BOOK";
+
+            // 系统配置
+            public static final String SYSTEM = "SYSTEM";
             
         }
 
@@ -70,6 +73,9 @@ public class SystemConstants {
 
             // 时间限制配置
             public static final String BOOK_LIMIT = "BOOK_LIMIT";
+
+            // 微信欢迎内容
+            public static final String WELCOM_SUBSCRIBE = "WELCOM_SUBSCRIBE";
 
         }
     }

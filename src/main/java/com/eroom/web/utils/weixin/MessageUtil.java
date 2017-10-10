@@ -238,7 +238,7 @@ public class MessageUtil {
     /**
      * 通用消息对象转换成xml
      * 
-     * @param textMessage
+     * @param baseMessage
      *            文本消息对象
      * @return xml
      */

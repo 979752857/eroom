@@ -210,7 +210,7 @@ public class CustInfo implements java.io.Serializable {
         this.updateTime = updateTime;
     }
 
-    @Column(name = "auth_phone", nullable = false, length = 4)
+    @Column(name = "auth_phone", length = 4)
     public String getAuthPhone() {
         return this.authPhone;
     }
@@ -255,4 +255,27 @@ public class CustInfo implements java.io.Serializable {
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return "CustInfo{" +
+                "custId=" + custId +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", qq='" + qq + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", openid='" + openid + '\'' +
+                ", email='" + email + '\'' +
+                ", sex='" + sex + '\'' +
+                ", remark='" + remark + '\'' +
+                ", state='" + state + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", authPhone='" + authPhone + '\'' +
+                ", isOwner='" + isOwner + '\'' +
+                ", account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", image='" + image + '\'' +
+                '}';
+    }
 }

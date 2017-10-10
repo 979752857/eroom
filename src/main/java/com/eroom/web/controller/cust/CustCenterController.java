@@ -4,6 +4,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.constants.PayConstants;
+import com.eroom.web.constants.RoomConstants;
+import com.eroom.web.entity.po.RentOrder;
+import com.eroom.web.entity.vo.rent.RentOrderVo;
+import com.eroom.web.service.pay.RentOrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,9 +31,44 @@ public class CustCenterController extends BaseController {
     @Resource
     private CustCenterService custCenterService;
 
+    @Resource
+    private RentOrderService rentOrderService;
+
     /**
      * 获取用户租期信息
      * 
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getPaidCustRent")
+    @ResponseBody
+    public ResultVo getPaidCustRent() throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        List<RentOrderVo> list = rentOrderService.getRentOrderVoList(sessionVo.getCustId(), PayConstants.RentOrder.RentOrderState.PAID);
+        result.setDatas(list);
+        return result;
+    }
+
+    /**
+     * 获取用户租期信息
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getFinishCustRent")
+    @ResponseBody
+    public ResultVo getFinishCustRent() throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+        List<RentOrderVo> list = rentOrderService.getRentOrderVoList(sessionVo.getCustId(), PayConstants.RentOrder.RentOrderState.FINISH);
+        result.setDatas(list);
+        return result;
+    }
+
+    /**
+     * 获取用户租期信息
+     *
      * @return
      * @throws Exception
      */
@@ -37,7 +77,7 @@ public class CustCenterController extends BaseController {
     public ResultVo getCustRent() throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        List<RoomRentVo> list = roomRentService.getRoomRentVoByCustId(sessionVo.getCustId());
+        List<RentOrderVo> list = rentOrderService.getRentOrderVoList(sessionVo.getCustId(), null);
         result.setDatas(list);
         return result;
     }
@@ -53,8 +93,9 @@ public class CustCenterController extends BaseController {
     public ResultVo getLastCustRent() throws Exception {
         ResultVo result = new ResultVo();
         SessionVo sessionVo = this.getCustSession();
-        RoomRentVo roomRentVo = roomRentService.getLastRoomRentVoByCustId(sessionVo.getCustId());
-        result.setDatas(roomRentVo);
+        RentOrder rentOrder = rentOrderService.getLastRentOrderList(sessionVo.getCustId());
+//        RoomRentVo roomRentVo = roomRentService.getLastRoomRentVoByCustId(sessionVo.getCustId());
+        result.setDatas(rentOrder);
         return result;
     }
 

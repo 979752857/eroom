@@ -97,17 +97,16 @@ public class WechatController extends BaseController {
             // 订阅事件
             if (MessageUtil.EventType.EVENT_TYPE_SUBSCRIBE.equals(requestObject.getEvent())) {
                 // TODO 订阅之后推送欢迎页.
-                respMessage = wechatPlatformService.echoHelloPage(requestObject.getFromUserName(),
+                respMessage = wechatPlatformService.addCustAndEchoHello(requestObject.getFromUserName(),
                         requestObject.getToUserName());
-                // 通过经纪人注册成为系统会员
+                // 通过邀请人注册成为系统会员
                 if (!StringUtil.isBlank(requestObject.getEventKey())
                         && !StringUtil.isBlank(requestObject.getTicket())) {
                     String tenantNo = StringUtil.getCenterStr(requestObject.getEventKey(), "_",
                             ",");
                     String openid = requestObject.getFromUserName();
                     String qrCode = requestObject.getTicket();
-                    // 通过经纪人创建默认用户
-                    cmCustService.addCustByAgent(openid, tenantNo, qrCode);
+                    // 通过邀请人创建默认用户
                 }
             }
             // 退订事件

@@ -15,7 +15,7 @@ $(window).load(function(){
  * 任务评价
  */
 function assessTask(){
-	var url = myUtil.BASE + "/room/assessTask";
+	var url = myUtil.BASE + "/assess/submitAssess";
 	if(!_taskId){
 		myUtil.toast("参数错误");
 		return;
@@ -26,7 +26,7 @@ function assessTask(){
 		imageUrl : "",
 		level : _level
 	};
-	myUtil.ajax.axs(url,null,getResult);
+	myUtil.ajax.axs(url,data,getResult);
 }
 
 function getResult(result){

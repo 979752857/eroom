@@ -7,22 +7,20 @@ import com.eroom.web.dao.pay.PayOrderDao;
 import com.eroom.web.dao.pay.RentOrderDao;
 import com.eroom.web.dao.rent.RoomRentDao;
 import com.eroom.web.dao.rent.RoomRentSetDao;
-import com.eroom.web.entity.po.PayOrder;
-import com.eroom.web.entity.po.RentOrder;
-import com.eroom.web.entity.po.RoomRent;
-import com.eroom.web.entity.po.RoomRentSet;
+import com.eroom.web.dao.room.BedroomInfoDao;
+import com.eroom.web.dao.room.RoomInfoDao;
+import com.eroom.web.entity.po.*;
+import com.eroom.web.entity.vo.rent.RentOrderVo;
 import com.eroom.web.service.BaseService;
 import com.eroom.web.utils.exception.BusinessException;
+import com.eroom.web.utils.util.CollectionUtil;
 import com.eroom.web.utils.util.DateUtil;
 import com.eroom.web.utils.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class RentOrderService extends BaseService {
@@ -32,6 +30,12 @@ public class RentOrderService extends BaseService {
 
     @Resource
     private RoomRentDao roomRentDao;
+
+    @Resource
+    private RoomInfoDao roomInfoDao;
+
+    @Resource
+    private BedroomInfoDao bedroomInfoDao;
 
     @Resource
     private RoomRentSetDao roomRentSetDao;
@@ -44,7 +48,6 @@ public class RentOrderService extends BaseService {
      */
     public List<RentOrder> getRentOrderList(Long custRenterId) throws Exception {
         List<RentOrder> list = rentOrderDao.getRentOrderList(custRenterId, new String[]{PayConstants.RentOrder.RentOrderState.WAIT_PAY, PayConstants.RentOrder.RentOrderState.PAID}, PayConstants.RentOrder.RENT_ORDER_LIMIT);
-
         return list;
     }
 
@@ -55,17 +58,76 @@ public class RentOrderService extends BaseService {
      * @throws Exception
      */
     public List<RentOrder> getPaidRentOrderList(Long custRenterId) throws Exception {
-        List<RentOrder> list = rentOrderDao.getRentOrderList(custRenterId, new String[]{PayConstants.RentOrder.RentOrderState.PAID}, PayConstants.RentOrder.RENT_ORDER_LIMIT);
+        List<RentOrder> list = rentOrderDao.getRentOrderList(custRenterId, PayConstants.RentOrder.RentOrderState.PAID, PayConstants.RentOrder.RENT_ORDER_LIMIT);
         return list;
     }
 
-    public List<RentOrder> getRentOrderList(Long custRenterId, String orderState) throws Exception {
-        if (StringUtil.isBlank(orderState)) {
-            throw new BusinessException("订单状态为空");
-        }
-        List<RentOrder> list = rentOrderDao.getRentOrderList(custRenterId, orderState, PayConstants.RentOrder.RENT_ORDER_LIMIT);
+    /**
+     * 获取最近到期租房订单
+     *
+     * @return
+     * @throws Exception
+     */
+    public RentOrder getLastRentOrderList(Long custRenterId) throws Exception {
+        RentOrder rentOrder = rentOrderDao.getLastRentOrderList(custRenterId);
+        return rentOrder;
+    }
 
-        return list;
+    /**
+     * 获取用户的租房合同订单信息
+     * @param custRenterId
+     * @param orderState
+     * @return
+     * @throws Exception
+     */
+    public List<RentOrderVo> getRentOrderVoList(Long custRenterId, String orderState) throws Exception {
+        List<RentOrderVo> voList = new ArrayList<>();
+        List<RentOrder> list = rentOrderDao.getRentOrderList(custRenterId, orderState, PayConstants.RentOrder.RENT_ORDER_LIMIT);
+        if(!CollectionUtil.isEmpty(list)){
+            for(RentOrder rentOrder : list){
+                RentOrderVo vo = new RentOrderVo();
+                vo.setRentOrderId(rentOrder.getRentOrderId());
+                vo.setRentId(rentOrder.getRentId());
+                vo.setRoomId(rentOrder.getRoomId());
+                vo.setBedroomId(rentOrder.getBedroomId());
+                vo.setCustRenterId(rentOrder.getCustRenterId());
+                vo.setAmount(rentOrder.getAmount());
+                vo.setCreateTime(rentOrder.getCreateTime());
+                vo.setUpdateTime(rentOrder.getUpdateTime());
+                vo.setRentOrderState(rentOrder.getRentOrderState());
+                vo.setRemark(rentOrder.getRemark());
+                vo.setStartTime(rentOrder.getStartTime());
+                vo.setEndTime(rentOrder.getEndTime());
+                vo.setLength(rentOrder.getLength());
+                vo.setLateAmount(rentOrder.getLateAmount());
+                vo.setRentAmount(rentOrder.getRentAmount());
+                vo.setMortgageAmount(rentOrder.getMortgageAmount());
+                vo.setPayType(rentOrder.getPayType());
+                vo.setRentSetId(rentOrder.getRentSetId());
+                vo.setRentType(rentOrder.getRentType());
+                vo.setRentTimeType(rentOrder.getRentTimeType());
+                vo.setType(rentOrder.getType());
+                vo.setPayPhase(rentOrder.getPayPhase());
+                vo.setTotlePhase(rentOrder.getTotlePhase());
+                vo.setPaidAmount(rentOrder.getPaidAmount());
+                vo.setPaidEndTime(rentOrder.getPaidEndTime());
+                RoomInfo roomInfo = roomInfoDao.get(RoomInfo.class, vo.getRoomId());
+                BedroomInfo bedroomInfo = bedroomInfoDao.get(BedroomInfo.class, vo.getBedroomId());
+                if(roomInfo == null || bedroomInfo == null){
+                    logger.error("RentOrderService.getRentOrderVoList没有获取到房屋基本信息  rentOrder:"+rentOrder.toString());
+                    throw new BusinessException(SystemConstants.ExceptionMsg.SYS_ERROR_EXCEPTION_MSG);
+                }
+                vo.setBedroomImageUrl(bedroomInfo.getImageUrl());
+                vo.setRoomImageUrl(roomInfo.getImageUrl());
+                vo.setName(roomInfo.getName());
+                vo.setRoomType(roomInfo.getRoomType());
+                vo.setSpace(bedroomInfo.getSpace());
+                vo.setDecorate(bedroomInfo.getDecorate());
+                vo.setAddress(roomInfo.getAddress());
+                voList.add(vo);
+            }
+        }
+        return voList;
     }
 
     /**

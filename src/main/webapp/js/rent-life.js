@@ -74,7 +74,7 @@ function getTaskListSuccess(result){
             if(item.type == TASK_INFO_TASK){
                 html += '<a href="rent-life-taskdetail.html">';
             }else if(item.type == TASK_INFO_ASSESS){
-                html += '<a href="rent-life-taskassess.html">';
+                html += '<a href="rent-life-taskassess.html?taskId='+item.id+'">';
             }
 			html += '<div class="content clearfloat box-s"><div class="topsche-top box-s clearfloat"><p class="fl time">';
 			html += '<i class="iconfont icon-time"></i>'+myUtil.dateFormat(item.updateTime, "yyyy-MM-dd hh:mm")+'</p>';

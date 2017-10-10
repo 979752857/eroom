@@ -1,38 +1,4 @@
-var LOCATION_MAP = {
-	// "不限":0,
-	// "地铁":{
-     //    "不限":0,
-	// 	"1号线":{
-     //        "不限":0,
-	// 		"西单":"1",
-     //        "天安门":"2",
-     //        "东单":"3"
-	// 	},
-     //    "5号线":{
-     //        "不限":0,
-     //        "天通苑":"1",
-     //        "立水桥":"2",
-     //        "北苑南":"3"
-     //    }
-	// },
-	// "区域":{
-     //    "不限":0,
-     //    "朝阳区":{
-     //        "不限":0,
-     //        "朝阳商圈1":"1",
-     //        "朝阳商圈2":"2",
-     //        "朝阳商圈3":"3",
-     //        "朝阳商圈4":"4"
-     //    },
-     //    "海淀区":{
-     //        "不限":0,
-     //        "海淀商圈1":"1",
-     //        "海淀商圈2":"2",
-     //        "海淀商圈3":"3",
-     //        "海淀商圈4":"4"
-     //    }
-	// }
-}
+var LOCATION_MAP = {}
 var DATA = {
     type : "",
     position : "",
@@ -110,13 +76,16 @@ function getDataSuccess(result){
 }
 
 function init(){
-
     //添加租住类型事件
     $('#rent-type').on('click','li',function (e){
         var content = $(this).children().html();
         $("#rent-type-href").html(content+"<i></i>");
         // $("#rent-type-href").click();
-        DATA.type = content;
+        if(content != "不限"){
+            DATA.type = content;
+        }else{
+            DATA.type = null;
+        }
         console.info("rent-type:"+content);
         changeCondition($("#rent-type-href"));
     });
@@ -174,7 +143,11 @@ function init(){
         var content = $(this).children().html();
         $("#condition-price-href").html(content+"<i></i>");
         // $("#condition-price-href").click();
-        DATA.price = content;
+        if(content != "不限"){
+            DATA.price = content;
+        }else{
+            DATA.price = null;
+        }
         console.info("condition-price:"+content);
         changeCondition($("#condition-price-href"));
     });
@@ -183,7 +156,11 @@ function init(){
         var content = $(this).children().html();
         $("#condition-sort-href").html(content+"<i></i>");
         // $("#condition-sort-href").click();
-        DATA.sort = content;
+        if(content != "默认"){
+            DATA.sort = content;
+        }else{
+            DATA.sort = null;
+        }
         console.info("condition-sort:"+content);
         changeCondition($("#condition-sort-href"));
     });
@@ -232,7 +209,7 @@ function initAreaOndition(){
 function changeCondition(target){
     target.click();
     getDatasList();
-    console.info("reload data......")
+    console.info("reload data......");
 }
 
 
