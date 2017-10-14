@@ -33,6 +33,8 @@ public class LoginController extends BaseController {
 			throw new SystemException("======[state不能为空]");
 		}
 
+		logger.info("LoginController.wechat  state:"+state+"   code:"+code);
+
 		// 获取openid
 		CustInfo custInfo = cmCustWxService.addByWechat(code);
 
@@ -52,6 +54,8 @@ public class LoginController extends BaseController {
 		} else {// 默认跳转至服务首页
 			url = "/eroom/html/index.html?openid=" + custInfo.getOpenid();
 		}
+
+		logger.info("LoginController.wechat  custInfo:"+custInfo.toString()+"   url:"+url);
 
 		response.sendRedirect(url);
 	}
