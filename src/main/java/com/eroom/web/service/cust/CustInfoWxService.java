@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.eroom.web.constants.SystemConstants;
+import com.eroom.web.service.BaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -23,7 +24,7 @@ import com.eroom.web.utils.util.EmojiUtil;
 import com.eroom.web.utils.util.StringUtil;
 
 @Service
-public class CustInfoWxService {
+public class CustInfoWxService extends BaseService{
 
     @Resource
     private CmCustWxDao cmCustWxDao;
@@ -74,6 +75,7 @@ public class CustInfoWxService {
             throw new BusinessException("未获取到机构信息");
         }
         Map<String, String> map = wechatService.getParamForWechat(systemBase, code);
+        loginfo("CustInfoWxService.addByWechat   通过code获取的内容：   map:{} ", map.toString());
         String openid = map.get("openid");
         if (StringUtil.isBlank(openid)) {
             throw new BusinessException("登录的openid标识为空...");
