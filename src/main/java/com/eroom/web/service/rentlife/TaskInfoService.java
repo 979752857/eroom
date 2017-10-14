@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import com.eroom.web.entity.po.RoomTask;
 import com.eroom.web.entity.vo.base.ResultVo;
+import com.eroom.web.service.BaseService;
 import org.springframework.stereotype.Service;
 
 import com.eroom.web.constants.RentLifeConstants;
@@ -16,7 +17,7 @@ import com.eroom.web.entity.vo.rentlife.TaskInfoVo;
 import com.eroom.web.utils.util.DateUtil;
 
 @Service
-public class TaskInfoService {
+public class TaskInfoService extends BaseService{
 
 	@Resource
 	private RoomTaskDao taskInfoDao;

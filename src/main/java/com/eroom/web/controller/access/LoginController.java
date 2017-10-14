@@ -33,7 +33,7 @@ public class LoginController extends BaseController {
 			throw new SystemException("======[state不能为空]");
 		}
 
-		logger.info("LoginController.wechat  state:"+state+"   code:"+code);
+		loginfo("LoginController.wechat  state:{}   code:{}  ", state, code);
 
 		// 获取openid
 		CustInfo custInfo = cmCustWxService.addByWechat(code);
@@ -55,7 +55,7 @@ public class LoginController extends BaseController {
 			url = "/eroom/html/index.html?openid=" + custInfo.getOpenid();
 		}
 
-		logger.info("LoginController.wechat  custInfo:"+custInfo.toString()+"   url:"+url);
+		loginfo("LoginController.wechat  custInfo:"+custInfo.toString()+"   url:"+url);
 
 		response.sendRedirect(url);
 	}
