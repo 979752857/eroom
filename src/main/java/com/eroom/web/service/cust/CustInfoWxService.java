@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.constants.SystemConstants;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -63,12 +64,11 @@ public class CustInfoWxService {
     /**
      * 微信登录
      * 
-     * @param tenantNo
      * @param code
      * @return
      * @throws Exception
      */
-    public CmCustWx addByWechat(String tenantNo, String code) throws Exception {
+    public CustInfo addByWechat(String code) throws Exception {
         SystemBase systemBase = systemBaseService.getSystemBase();
         if (ObjectUtils.isEmpty(systemBase)) {
             throw new BusinessException("未获取到机构信息");
@@ -80,12 +80,11 @@ public class CustInfoWxService {
         }
 
         String accessToken = map.get("access_token");
-        CmCustWx cmCust = this.getCmCustByOpenId(openid);
-        if (!ObjectUtils.isEmpty(cmCust) && !StringUtil.isBlank(cmCust.getNickname())) {
-            return cmCust;
-        } else if (ObjectUtils.isEmpty(cmCust)) {
-            cmCust = new CmCustWx();
-            cmCust.setAuthFlag(CustConstants.CmCust.AuthFlag.NOT_AUTH);
+        CustInfo custInfo = tCustInfoDao.getTCustInfoByOpenid(openid);
+        if (!ObjectUtils.isEmpty(custInfo) && !StringUtil.isBlank(custInfo.getNickName())) {
+            return custInfo;
+        } else if (ObjectUtils.isEmpty(custInfo)) {
+            custInfo = new CustInfo();
             JSONObject js = wechatService.getWeixinInfo(accessToken, openid);
             String nickname = js.getString("nickname");
             if (StringUtil.isBlank(nickname)) {
@@ -93,21 +92,16 @@ public class CustInfoWxService {
             } else {
                 nickname = EmojiUtil.filterEmoji(nickname);
             }
-            cmCust.setOpenid(openid);
-            cmCust.setTenantNo(tenantNo);
-            cmCust.setNickname(nickname);
-            cmCust.setHeadImgUrl(js.getString("headimgurl"));
+            custInfo.setOpenid(openid);
+            custInfo.setNickName(nickname);
+            custInfo.setImage(js.getString("headimgurl"));
             Date nowTime = new Date();
-            cmCust.setUpdateTime(nowTime);
+            custInfo.setUpdateTime(nowTime);
             // 如果新用户 设置创建时间及关注时间
-            cmCust.setState(CustConstants.CmCust.State.NOLMAL);
-            cmCust.setAgentCustId(0L);
-            cmCust.setAgentFlag(CustConstants.CmCust.AgentFlag.NO);
-            cmCust.setCreateTime(nowTime);
-            cmCust.setFollowTime(nowTime);
-            this.becomeAgent(cmCust);
-            this.saveCmCust(cmCust);
-        } else if (StringUtil.isBlank(cmCust.getNickname())) {
+            custInfo.setState(SystemConstants.State.ACTIVE);
+            custInfo.setCreateTime(nowTime);
+            tCustInfoDao.save(custInfo);
+        } else if (StringUtil.isBlank(custInfo.getNickName())) {
             JSONObject js = wechatService.getWeixinInfo(accessToken, openid);
             String nickname = js.getString("nickname");
             if (StringUtil.isBlank(nickname)) {
@@ -115,20 +109,17 @@ public class CustInfoWxService {
             } else {
                 nickname = EmojiUtil.filterEmoji(nickname);
             }
-            cmCust.setOpenid(openid);
-            cmCust.setTenantNo(tenantNo);
-            cmCust.setNickname(nickname);
-            cmCust.setHeadImgUrl(js.getString("headimgurl"));
+            custInfo.setOpenid(openid);
+            custInfo.setNickName(nickname);
+            custInfo.setImage(js.getString("headimgurl"));
             Date nowTime = new Date();
-            cmCust.setUpdateTime(nowTime);
+            custInfo.setUpdateTime(nowTime);
             // 如果新用户 设置创建时间及关注时间
-            cmCust.setState(CustConstants.CmCust.State.NOLMAL);
-            cmCust.setAgentFlag(CustConstants.CmCust.AgentFlag.NO);
-            this.becomeAgent(cmCust);
-            this.updateCmCust(cmCust);
+            custInfo.setState(SystemConstants.State.ACTIVE);
+            tCustInfoDao.update(custInfo);
         }
-        cmCust = this.getCmCustByOpenId(openid);
-        return cmCust;
+        custInfo = tCustInfoDao.getTCustInfoByOpenid(openid);
+        return custInfo;
     }
 
     /**

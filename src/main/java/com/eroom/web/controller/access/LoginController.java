@@ -3,6 +3,7 @@ package com.eroom.web.controller.access;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import com.eroom.web.entity.po.CustInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,10 +24,6 @@ public class LoginController extends BaseController {
 
 	@RequestMapping("/wechat")
 	public void wechat(HttpServletResponse response) throws Exception {
-		String tenantNo = request.getParameter("tenantNo");
-		if (StringUtil.isBlank(tenantNo)) {
-			throw new SystemException("======[请传入机构编码]");
-		}
 		String code = request.getParameter("code");
 		if (StringUtil.isBlank(code)) {
 			throw new SystemException("======[code不能为空]");
@@ -37,25 +34,23 @@ public class LoginController extends BaseController {
 		}
 
 		// 获取openid
-		CmCustWx cmCust = cmCustWxService.addByWechat(tenantNo, code);
+		CustInfo custInfo = cmCustWxService.addByWechat(code);
 
 		String url = null;
 		if (state.equals(CustConstants.Login.SERVICE_INDEX)) {// 跳转至服务首页
-			url = "/security/html/serve.html?openid=" + cmCust.getOpenid() + "&tenantNo=" + tenantNo;
-		} else if (state.equals(CustConstants.Login.PERSONAL_CENTER)) {// 跳转至个人中心
-			url = "/security/html/personalcenter.html?openid=" + cmCust.getOpenid() + "&tenantNo=" + tenantNo;
-		} else if (state.equals(CustConstants.Login.LIVE_ZONE)) {// 跳转至直播空间
-			url = "/security/html/livespace.html?openid=" + cmCust.getOpenid() + "&tenantNo=" + tenantNo;
-		} else if (state.equals(CustConstants.Login.DAY_SIGN_IN)) {// 跳转至每日签到
-			url = "/security/html/everydaysign.html?openid=" + cmCust.getOpenid() + "&tenantNo=" + tenantNo;
-		} else if (state.equals(CustConstants.Login.STOCK_INFO)) {// 跳转至名家看点
-			url = "/security/html/famouswatch.html?openid=" + cmCust.getOpenid() + "&tenantNo=" + tenantNo;
-		} else if (state.equals(CustConstants.Login.DIAGNOSE_STK)) {// 跳转至名师诊股
-			url = "/security/html/diagnose.html?openid=" + cmCust.getOpenid() + "&tenantNo=" + tenantNo;
-		} else if (state.equals(CustConstants.Login.INVEST_CALENDAR)) {// 跳转至投资日历
-			url = "/security/html/investcalendar.html?openid=" + cmCust.getOpenid() + "&tenantNo=" + tenantNo;
-		} else {// 默认跳转至行情首页
-			url = "/security/html/stockhome.html?openid=" + cmCust.getOpenid() + "&tenantNo=" + tenantNo;
+			url = "/eroom/html/index.html?openid=" + custInfo.getOpenid();
+		} else if (state.equals(CustConstants.Login.TASK_CENTER)) {// 跳转至任务中心
+			url = "/eroom/html/rent-life-task.html?openid=" + custInfo.getOpenid();
+		} else if (state.equals(CustConstants.Login.MESSAGE_CENTER)) {// 跳转至留言中心
+			url = "/eroom/html/rent-life-message.html?openid=" + custInfo.getOpenid();
+		} else if (state.equals(CustConstants.Login.CONTACT_US)) {// 跳转至联系客服
+			url = "/eroom/html/index.html?openid=" + custInfo.getOpenid();
+		} else if (state.equals(CustConstants.Login.SPREAD_ONLINE)) {// 跳转至在线推广
+			url = "/eroom/html/index.html?openid=" + custInfo.getOpenid();
+		} else if (state.equals(CustConstants.Login.ABOUT_US)) {// 跳转至关于我们
+			url = "/eroom/html/about.html?openid=" + custInfo.getOpenid();
+		} else {// 默认跳转至服务首页
+			url = "/eroom/html/index.html?openid=" + custInfo.getOpenid();
 		}
 
 		response.sendRedirect(url);

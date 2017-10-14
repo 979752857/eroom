@@ -50,26 +50,23 @@ public class CustConstants {
      */
     public static class Login {
 
-        // 服务首页
-        public static final String SERVICE_INDEX = "2";
+        // 租房首页
+        public static final String SERVICE_INDEX = "1";
 
-        // 个人中心
-        public static final String PERSONAL_CENTER = "3";
+        // 任务中心
+        public static final String TASK_CENTER = "2";
 
-        // 直播空间
-        public static final String LIVE_ZONE = "4";
+        // 室友留言
+        public static final String MESSAGE_CENTER = "3";
 
-        // 每日签到
-        public static final String DAY_SIGN_IN = "5";
+        // 联系客服
+        public static final String CONTACT_US = "4";
 
-        // 名家看点
-        public static final String STOCK_INFO = "6";
+        // 在线推广
+        public static final String SPREAD_ONLINE = "5";
 
-        // 名师诊股
-        public static final String DIAGNOSE_STK = "7";
-
-        // 投资日历
-        public static final String INVEST_CALENDAR = "9";
+        // 关于我们
+        public static final String ABOUT_US = "6";
     }
 
     public static class CmCust {
