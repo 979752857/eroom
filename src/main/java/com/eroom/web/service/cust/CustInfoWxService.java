@@ -88,6 +88,7 @@ public class CustInfoWxService extends BaseService{
         } else if (ObjectUtils.isEmpty(custInfo)) {
             custInfo = new CustInfo();
             JSONObject js = wechatService.getWeixinInfo(accessToken, openid);
+            loginfo("微信鉴权  新用户  通过accessToken获取用户信息   js:{} ", js.toJSONString());
             String nickname = js.getString("nickname");
             if (StringUtil.isBlank(nickname)) {
                 nickname = "*";
@@ -99,12 +100,14 @@ public class CustInfoWxService extends BaseService{
             custInfo.setImage(js.getString("headimgurl"));
             Date nowTime = new Date();
             custInfo.setUpdateTime(nowTime);
+            custInfo.setIsOwner(CustConstants.CustInfo.IsOwner.RENTER);
             // 如果新用户 设置创建时间及关注时间
             custInfo.setState(SystemConstants.State.ACTIVE);
             custInfo.setCreateTime(nowTime);
             tCustInfoDao.save(custInfo);
         } else if (StringUtil.isBlank(custInfo.getNickName())) {
             JSONObject js = wechatService.getWeixinInfo(accessToken, openid);
+            loginfo("微信鉴权  老用户  通过accessToken获取用户信息   js:{} ", js.toJSONString());
             String nickname = js.getString("nickname");
             if (StringUtil.isBlank(nickname)) {
                 nickname = "*";
