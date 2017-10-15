@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.eroom.web.service.BaseService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,8 @@ import com.eroom.web.utils.util.StringUtil;
 import com.eroom.web.utils.weixin.EmojiUtil;
 
 @Service
-public class WechatService {
+public class WechatService extends BaseService{
 	
-    private static final Log log = LogFactory.getLog(WechatService.class);
-    
     @Resource
     private SystemBaseService systemBaseService;
 
@@ -58,6 +57,7 @@ public class WechatService {
      */
     public Map<String, String> getParamForWechat(SystemBase systemBase, String code)
             throws IOException {
+        loginfo("通过code获取用户openid   systemBase:{}   code:{}  ", systemBase.toString(), code);
         String appid = systemBase.getAppid();// 获取本地appid
         String appsecret = systemBase.getAppscret();// 获取本地appsecret
         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret="
@@ -74,7 +74,6 @@ public class WechatService {
     /**
      * 通过openid获取用户信息
      * 
-     * @param user
      * @param token
      * @param openid
      * @return
@@ -181,9 +180,9 @@ public class WechatService {
             byte[] in2b = swapStream.toByteArray();
             photo.setFile(in2b);
             photo.setFileName(mediaId + fileExt);
-            log.info("照片下载成功，文件名为：" + mediaId + fileExt);
+            logger.info("照片下载成功，文件名为：" + mediaId + fileExt);
         } catch (Exception e) {
-            log.error("文件下载失败:");
+            logger.error("文件下载失败:");
         }
         return photo;
     }
