@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import com.eroom.web.entity.po.CustInfo;
+import com.eroom.web.utils.wechat.WechatLogin;
+import com.eroom.web.utils.wechat.WetchatSign;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,7 +38,18 @@ public class LoginController extends BaseController {
 		loginfo("LoginController.wechat  state:{}   code:{}  ", state, code);
 
 		// 获取openid
-		CustInfo custInfo = cmCustWxService.addByWechat(code);
+		CustInfo custInfo = null;
+		try{
+			if(WechatLogin.checkLogin(code)){
+				custInfo = cmCustWxService.addByWechat(code);
+			}else{
+				return ;
+			}
+		}catch (Exception e){
+			throw e;
+		}finally {
+			WechatLogin.delete(code);
+		}
 
 		String url = null;
 		if (state.equals(CustConstants.Login.SERVICE_INDEX)) {// 跳转至服务首页
