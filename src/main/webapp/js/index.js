@@ -33,7 +33,7 @@ function getListSuccess(result){
 			html += '<p class="recom-jianjie">'+item.roomType+'   |  '+item.space+'  |  '+item.decorate+'</p><div class="recom-bottom clearfloat">';
 			html += '<span><i class="iconfont icon-duihao"></i>随时住</span><span><i class="iconfont icon-duihao"></i>家电齐全</span>';
 			html += '</div></div></a></div>';
-		});
+		}); 
 	}else{
 		myUtil.toast('空数据');
 	}
