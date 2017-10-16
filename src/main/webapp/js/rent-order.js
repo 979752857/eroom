@@ -55,7 +55,7 @@ function getListSuccess(result){
             html += '<div class="content clearfloat box-s"><div class="topsche-top box-s clearfloat">';
             html += '<p class="fl add">支付租期：'+myUtil.dateFormat(item.startTime, "yyyy-MM-dd")+' - '+myUtil.dateFormat(item.endTime, "yyyy-MM-dd")+'</p><p class="tit fr">'+myUtil.getSystemParamTitle("PAY_ORDER", "ORDER_STATE", item.payOrderState)+'</p> </div>';
             html += '<div class="list clearfloat fl box-s"><a href="house-details.html"><div class="tu clearfloat">';
-            html += '<span></span><img src="../upload/list-tu.jpg"/></div><div class="right clearfloat"><div class="tit clearfloat">';
+            html += '<span></span><img src="'+myUtil.getSystemCfgTitle("EROOM", "IMAGES")+myUtil.getSystemCfgTitle("EROOM", "IMAGES_ROOM")+item.bedroomImageUrl+'"/></div><div class="right clearfloat"><div class="tit clearfloat">';
             html += '<p class="fl">'+item.name+'</p> </div><p class="recom-jianjie">'+item.roomType+'   |  '+item.space+'  |  '+item.decorate+'</p>';
             html += '<div class="recom-bottom clearfloat"><p class="recom-price">'+item.rentAmount+'元/月</p></div> </div> </a> </div> <div class="topsche-top entrust box-s clearfloat">';
             if(item.payOrderState == PAY_ORDER.getPayOrderState("WAIT")){

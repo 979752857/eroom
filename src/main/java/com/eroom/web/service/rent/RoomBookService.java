@@ -188,8 +188,8 @@ public class RoomBookService extends BaseService{
         taskRunning.setState(TaskRunningConstants.State.WAITING);
         taskRunning.setCreateTime(DateUtil.getCurrentDate());
         taskRunning.setChangeTime(DateUtil.getOffsetSecondsDate(DateUtil.getCurrentDate(), RoomConstants.RoomBook.AGREE_TIME));
-        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
-        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setColumnName(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTableName(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
         taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
         taskRunning.setMainId(tRoomBook.getBookId());
         taskRunning.setOrigin(tRoomBook.getApplyState());
@@ -201,8 +201,8 @@ public class RoomBookService extends BaseService{
         taskRunning.setState(TaskRunningConstants.State.WAITING);
         taskRunning.setCreateTime(DateUtil.getCurrentDate());
         taskRunning.setChangeTime(tRoomBook.getStartTime());
-        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
-        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setColumnName(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTableName(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
         taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
         taskRunning.setMainId(tRoomBook.getBookId());
         taskRunning.setOrigin(RoomConstants.RoomBook.ApplyState.AGREE);
@@ -214,8 +214,8 @@ public class RoomBookService extends BaseService{
         taskRunning.setState(TaskRunningConstants.State.WAITING);
         taskRunning.setCreateTime(DateUtil.getCurrentDate());
         taskRunning.setChangeTime(tRoomBook.getEndTime());
-        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
-        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setColumnName(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTableName(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
         taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
         taskRunning.setMainId(tRoomBook.getBookId());
         taskRunning.setOrigin(RoomConstants.RoomBook.ApplyState.LOOKING);

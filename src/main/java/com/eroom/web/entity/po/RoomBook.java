@@ -18,29 +18,18 @@ import javax.persistence.TemporalType;
 @Table(name = "t_room_book", catalog = "eroom")
 public class RoomBook implements java.io.Serializable {
 
-    private Long bookId;
-
-    private long rentId;
-
-    private long custRenterId;
-
-    private long custOwnerId;
-
-    private long roomId;
-
-    private Long bedRoomId;
-
-    private Date startTime;
-
-    private Date endTime;
-
+    private long bookId;
     private String applyState;
-
+    private Long bedRoomId;
     private Date createTime;
-
-    private Date updateTime;
-
+    private long custOwnerId;
+    private long custRenterId;
+    private Date endTime;
     private String remark;
+    private long rentId;
+    private long roomId;
+    private Date startTime;
+    private Date updateTime;
 
     public RoomBook() {
     }

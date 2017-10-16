@@ -43,8 +43,8 @@ public class RoomUnLockService extends BaseService {
 
         //删除之前自动变更为超时的数据
         TaskRunning taskRunning = new TaskRunning();
-        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
-        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setColumnName(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTableName(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
         taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
         taskRunning.setMainId(t.getBookId());
         taskRunning.setOrigin(RoomConstants.RoomBook.ApplyState.LOOKING);
@@ -56,8 +56,8 @@ public class RoomUnLockService extends BaseService {
         taskRunning.setState(TaskRunningConstants.State.WAITING);
         taskRunning.setCreateTime(DateUtil.getCurrentDate());
         taskRunning.setChangeTime(t.getEndTime());
-        taskRunning.setColumn(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
-        taskRunning.setTable(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
+        taskRunning.setColumnName(TaskRunningConstants.Table.RoomBook.APPLY_STATE);
+        taskRunning.setTableName(TaskRunningConstants.Table.RoomBook.TABLE_NAME);
         taskRunning.setMainColumn(TaskRunningConstants.Table.RoomBook.MAIN_COLUMN);
         taskRunning.setMainId(t.getBookId());
         taskRunning.setOrigin(RoomConstants.RoomBook.ApplyState.LOOKING);

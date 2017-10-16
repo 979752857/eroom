@@ -45,7 +45,7 @@ public class TaskRunningDao extends BaseDao {
     public int updateDataBySql(TaskRunning taskRunning) throws Exception {
         StringBuilder sql = new StringBuilder();
         Map<String, Object> params = new HashMap<String, Object>();
-        sql.append("update "+taskRunning.getTable()+" set "+taskRunning.getColumn()+" = (case when "+taskRunning.getColumn()+"=:origin then :value else :origin1 end) where "+taskRunning.getMainColumn()+" = :id");
+        sql.append("update "+taskRunning.getTableName()+" set "+taskRunning.getColumnName()+" = (case when "+taskRunning.getColumnName()+"=:origin then :value else :origin1 end) where "+taskRunning.getMainColumn()+" = :id");
         params.put("origin", taskRunning.getOrigin());
         params.put("value", taskRunning.getNewValue());
         params.put("origin1", taskRunning.getOrigin());
@@ -67,8 +67,8 @@ public class TaskRunningDao extends BaseDao {
         params.put("mainId", taskRunning.getMainId());
         params.put("origin", taskRunning.getOrigin());
         params.put("newValue", taskRunning.getNewValue());
-        params.put("table", taskRunning.getTable());
-        params.put("column", taskRunning.getColumn());
+        params.put("table", taskRunning.getTableName());
+        params.put("column", taskRunning.getColumnName());
         params.put("state", TaskRunningConstants.State.DELETE);
         int num = this.executeUpdateSql(sql.toString(), params);
         return num;
