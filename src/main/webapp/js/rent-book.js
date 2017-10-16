@@ -75,7 +75,7 @@ function getListSuccess(result){
 				html += myUtil.getSystemParamTitle("ROOM_BOOK", "APPLY_STATE", item.applyState)+'</p>';
 			}
 			html += '</div><div class="list clearfloat fl box-s">';
-			html += '<a href="room-detail.html?rentId='+item.rentId+'"><div class="tu clearfloat"><span></span><img src="'+item.bedroomImageUrl+'"/>';
+			html += '<a href="room-detail.html?rentId='+item.rentId+'"><div class="tu clearfloat"><span></span><img src="'+myUtil.getSystemCfgTitle("EROOM", "IMAGES")+myUtil.getSystemCfgTitle("EROOM", "IMAGES_ROOM")+item.bedroomImageUrl+'"/>';
 			html += '</div><div class="right clearfloat"><div class="tit clearfloat"><p class="fl">'+item.name+'</p>';
 			html += '<span class="fr">'+item.price+'<samp>元/月</samp></span></div><p class="recom-jianjie">'+item.roomType+'   |  '+item.space+'  |  '+item.decorate+'</p>';
 			html += '<div class="recom-bottom clearfloat"><span><i class="iconfont icon-duihao"></i>随时住</span>';

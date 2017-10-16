@@ -524,11 +524,36 @@
 	}else{
 		_paramobj = JSON.parse(_kvobjstr);
 	}
+	//存储配置信息
+	var _cfgobj;
+	var _cfgobjstr = sessionStorage.getItem('_cfgobj');
+	if(!_cfgobjstr){
+		$.ajax({
+			async : false,
+			url : Kodo.BASE + '/systemParam/getAllSystemCfg',
+			type : 'post',
+			success : function(obj) {
+				if(obj.success && obj.datas){
+					_cfgobj = obj.datas;
+					sessionStorage.setItem('_cfgobj',JSON.stringify(_cfgobj));
+				}
+			}
+		});
+	}else{
+		_cfgobj = JSON.parse(_cfgobjstr);
+	}
 	
 	//获取系统参数翻译
 	Kodo.getSystemParamTitle = function(paramType,paramSubType,paramCode) {
 		var key = paramType+'.'+paramSubType+'.'+paramCode;
 		var rtndesc = _paramobj[key];
+		return rtndesc;
+	};
+
+	//获取系统配置信息
+	Kodo.getSystemCfgTitle = function(paramType,paramCode) {
+		var key = paramType+'.'+paramCode;
+		var rtndesc = _cfgobj[key];
 		return rtndesc;
 	};
 	

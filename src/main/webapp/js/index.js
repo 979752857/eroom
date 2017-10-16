@@ -28,7 +28,7 @@ function getListSuccess(result){
 	if(datas&&datas.length>0){
 		$.each(datas,function(index,item){
 			html += '<div class="list clearfloat fl box-s"><a href="room-detail.html?rentId='+item.id+'"><div class="tu clearfloat">';
-			html += '<span></span><img src="'+item.bedroomImageUrl+'"/></div><div class="right clearfloat">';
+			html += '<span></span><img src="'+myUtil.getSystemCfgTitle("EROOM", "IMAGES")+myUtil.getSystemCfgTitle("EROOM", "IMAGES_ROOM")+item.bedroomImageUrl+'"/></div><div class="right clearfloat">';
 			html += '<div class="tit clearfloat"><p class="fl">'+item.name+'</p><span class="fr">'+item.price+'<samp>元/月</samp></span></div>';
 			html += '<p class="recom-jianjie">'+item.roomType+'   |  '+item.space+'  |  '+item.decorate+'</p><div class="recom-bottom clearfloat">';
 			html += '<span><i class="iconfont icon-duihao"></i>随时住</span><span><i class="iconfont icon-duihao"></i>家电齐全</span>';

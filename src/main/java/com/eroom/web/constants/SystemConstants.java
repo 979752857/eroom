@@ -59,6 +59,18 @@ public class SystemConstants {
      * 系统参数表
      */
     public static class SystemCfg {
+
+        public static class state{
+            /**
+             * 可缓存到系统外
+             */
+            public static final String CAN_BUFFER = "01";
+            /**
+             * 可缓存到系统外
+             */
+            public static final String OTHER = "02";
+        }
+
         public static class CfgType {
             
             // 预约看房
