@@ -83,4 +83,20 @@ public class RoomRentController extends BaseController {
         return result;
     }
 
+    /**
+     * 房东下架房源
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/cancelRent")
+    @ResponseBody
+    public ResultVo cancelRent(Long rentId) throws Exception {
+        ResultVo result = new ResultVo();
+        SessionVo sessionVo = this.getCustSession();
+
+        result.setDatas(null);
+        return result;
+    }
+
 }
