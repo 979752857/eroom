@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by tendy on 2017/8/7.
  */
 @Entity
-@javax.persistence.Table(name = "t_pay_order", schema = "eroom", catalog = "")
+@javax.persistence.Table(name = "pay_order", schema = "eroom", catalog = "")
 public class PayOrder {
     private long payOrderId;
     private long rentOrderId;

@@ -169,7 +169,7 @@ public class RoomBookDao extends BaseDao {
 
         List<RoomBookVo> list = this.getList(hql.toString(), params);
         if (!CollectionUtils.isEmpty(list)) {
-            list = stateUtil.checkRoomBookVoState(list);
+//            list = stateUtil.checkRoomBookVoState(list);
             return list;
         }
         return null;

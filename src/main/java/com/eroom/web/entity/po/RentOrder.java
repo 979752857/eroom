@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by tendy on 2017/9/12.
  */
 @Entity
-@Table(name = "t_rent_order", schema = "eroom", catalog = "")
+@Table(name = "rent_order", schema = "eroom", catalog = "")
 public class RentOrder {
     private long rentOrderId;
 

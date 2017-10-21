@@ -4,12 +4,15 @@ import com.eroom.web.constants.TaskRunningConstants;
 import com.eroom.web.dao.rent.RoomBookDao;
 import com.eroom.web.dao.task.TaskRunningDao;
 import com.eroom.web.entity.po.TaskRunning;
+import com.eroom.web.service.task.TaskRunningService;
 import com.eroom.web.utils.util.CollectionUtil;
 import com.eroom.web.utils.util.DateUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -24,13 +27,14 @@ public class BookingCheckTask {
 	private RoomBookDao roomBookDao;
 
 	@Resource
-	private TaskRunningDao taskRunningDao;
+	private TaskRunningService taskRunningService;
 
 
 	/**
 	 * 每天晚上12点检查用户预约是否到期
 	 */
 	@Scheduled(cron = "59 59 23 ? * *")
+	@Transactional
 	public void checkBooking() {
 
 		Date nowTime = DateUtil.getCurrentDate();
@@ -45,11 +49,12 @@ public class BookingCheckTask {
 	/**
 	 * 每5分钟定时扫描任务表查找需要更新的数据
 	 */
-	@Scheduled(cron = "59 59 23 ? * *")
-	public void checkTaskRunnning(){
+	@Scheduled(cron = "0 0/3 * * * ?")
+	public void batchTaskRunnning(){
+		logger.info("BookingCheckTask.checkBookingState  定时任务开始执行");
 		List<TaskRunning> list = null;
 		try {
-			list = taskRunningDao.getTaskRunningList();
+			list = taskRunningService.getTaskRunningList();
 		} catch (Exception e) {
 			logger.error("BookingCheckTask.checkBookingState  定时任务执行异常 error:"+e.toString());
 		}
@@ -58,18 +63,18 @@ public class BookingCheckTask {
 		}
 		for(TaskRunning item : list){
 			try {
-				int num = taskRunningDao.updateDataBySql(item);
+				int num = taskRunningService.updateDataBySql(item);
 				if(num > 0){
 					item.setState(TaskRunningConstants.State.FINISH);
 				}else{
 					item.setState(TaskRunningConstants.State.THROW);
 				}
-				taskRunningDao.update(item);
+				taskRunningService.updateTaskRunning(item);
 				logger.info("BookingCheckTask.checkBookingState  单个任务执行成功  taskRunning:"+item.toString());
 			} catch (Exception e) {
 				item.setState(TaskRunningConstants.State.FAIL);
 				try {
-					taskRunningDao.update(item);
+					taskRunningService.updateTaskRunning(item);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 					logger.error("BookingCheckTask.checkBookingState  更新定时任务异常  taskRunning:"+item.toString()+"   error:"+e.toString());
