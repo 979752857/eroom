@@ -22,7 +22,7 @@ public class TaskRunningDao extends BaseDao {
      */
     public List<TaskRunning> getTaskRunningList() throws Exception {
         StringBuilder hql = new StringBuilder();
-        hql.append("from TaskRunning where state = :state and changeTime <= :changeTime order by createTime desc");
+        hql.append("from TaskRunning where state = :state and changeTime <= :changeTime order by changeTime desc");
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("state", TaskRunningConstants.State.WAITING);
@@ -50,6 +50,7 @@ public class TaskRunningDao extends BaseDao {
         params.put("value", taskRunning.getNewValue());
         params.put("origin1", taskRunning.getOrigin());
         params.put("id", taskRunning.getMainId());
+        logger.info("定时执行sql   sql:"+sql.toString()+"    params:"+params.toString());
         int num = this.executeUpdateSql(sql.toString(), params);
         return num;
     }
