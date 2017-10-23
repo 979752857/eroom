@@ -44,6 +44,6 @@ public class BookingCheckTaskTest extends BaseTest {
     @Test
     @Transactional
     public void checkTaskRunnningTest() throws Exception {
-        bookingCheckTask.checkTaskRunnning();
+        bookingCheckTask.batchTaskRunnning();
     }
 }

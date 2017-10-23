@@ -87,7 +87,6 @@ public class CmCustService extends BaseService{
             throw new BusinessException("没有获取到修改信息");
         }
         CustInfo t = custInfoDao.get(CustInfo.class, custInfo.getCustId());
-        StringUtil.isNullStringParam(custInfo.getName(), custInfo.getEmail(), custInfo.getNickName(), custInfo.getPhone(), custInfo.getQq());
         if(!StringUtil.isBlank(custInfo.getEmail())){
             t.setEmail(custInfo.getEmail());
         }
@@ -99,6 +98,9 @@ public class CmCustService extends BaseService{
         }
         if(!StringUtil.isBlank(custInfo.getQq())){
             t.setQq(custInfo.getQq());
+        }
+        if(!StringUtil.isBlank(custInfo.getSex())){
+            t.setSex(custInfo.getSex());
         }
         custInfoDao.save(t);
         return t;
